@@ -1,17 +1,18 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWeboackPlugin = require('html-webpack-plugin');
-const TerserWebpackPlugin = require('terset-webpack-plugin');
+const ManifestWeboackPlugin = require('webpack-manifest-plugin');
+const TerserWebpackPlugin = require('terser-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
-const isDevelopment = process.env.NODE_ENV.toLowerCase() === 'development';
+const isDevelopment = process.env.NODE_ENV === 'development';
 
 const PATHS = {
     DIST: path.resolve(__dirname, 'dist/client'),
     CLIENT: path.resolve(__dirname, 'src/client'),
-    COMPONENTS: path.resolve(__dirname, `${PATHS.CLIENT}/components`),
-    CONTAINERS: path.resolve(__dirname, `${PATHS.CLIENT}/containers`),
-    HOOKS: path.resolve(__dirname, `${PATHS.CLIENT}/hooks`),
+    COMPONENTS: path.resolve(__dirname, 'src/client/components'),
+    CONTAINERS: path.resolve(__dirname, 'src/client/containers'),
+    HOOKS: path.resolve(__dirname, 'src/client//hooks'),
     TEST: path.resolve(__dirname, 'test'),
     JEST: path.resolve(__dirname, 'jest')
 };
@@ -19,10 +20,13 @@ const PATHS = {
 const commonPlugins = [
     new CleanWebpackPlugin(),
     new HtmlWeboackPlugin({
-        template: `${PATHS.CLIENT}/index.template.html`,
+        template: 'src/client/index.template.html',
         filename: 'index.html',
         cache: true,
         inject: true
+    }),
+    new ManifestWeboackPlugin({
+        filter: (fileDescriptor) => !/(license|map)/ig.test(fileDescriptor)
     })
 ];
 
@@ -58,14 +62,14 @@ const devOptions = {
 const webPackConfig = {
     mode: isDevelopment ? 'development' : 'production',
     entry: {
-        simplySavvy: `${PATHS.SRC}/simplySavvy.js`
+        simplySavvy: `${PATHS.CLIENT}/index.js`
     },
     output: {
         path: PATHS.DIST,
         filename: '[name].[hash].js',
         publicPath: '/'
     },
-    modules: {
+    module: {
         rules: [
             {
                 test: /\.js$/,
@@ -97,7 +101,7 @@ const webPackConfig = {
         }
     },
     optimization: {
-        moduleIds: 'deterministic',
+        moduleIds: 'hashed',
         runtimeChunk: 'single',
         minimize: true,
         minimizer: [
@@ -111,4 +115,4 @@ const webPackConfig = {
     }
 };
 
-return isDevelopment ? { ...webPackConfig, ...devOptions } : webPackConfig;
+module.exports = isDevelopment ? { ...webPackConfig, ...devOptions } : webPackConfig;

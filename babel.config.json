@@ -4,7 +4,7 @@
             "@babel/preset-env",
             {
                 "targets": {
-                    "id": "11",
+                    "ie": "11",
                     "node": "10.15.1"
                 }
             }
@@ -16,10 +16,10 @@
         "@babel/plugin-syntax-dynamic-import",
         "transform-imports",
         ["@babel/plugin-proposal-decorators", { "legacy": true }],
-        ["@babel/plugin-proporal-class-properties", { "legacy": true }],
+        ["@babel/plugin-proposal-class-properties", { "legacy": true }],
         ["@babel/plugin-proposal-private-methods", { "legacy": true }],
         "@babel/plugin-proposal-export-namespace-from",
-        "@babel/plugin-porposal-export-default-from",
+        "@babel/plugin-proposal-export-default-from",
         "@babel/plugin-transform-arrow-functions",
         "@babel/plugin-transform-reserved-words"
     ]
