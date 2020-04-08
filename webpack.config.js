@@ -14,7 +14,8 @@ const PATHS = {
     CONTAINERS: path.resolve(__dirname, 'src/client/containers'),
     HOOKS: path.resolve(__dirname, 'src/client//hooks'),
     TEST: path.resolve(__dirname, 'test'),
-    JEST: path.resolve(__dirname, 'jest')
+    JEST: path.resolve(__dirname, 'jest'),
+    STYLED_COMPONENTS: path.resolve(__dirname, 'node_modules', 'styled-components')
 };
 
 const commonPlugins = [
@@ -62,7 +63,7 @@ const devOptions = {
 const webPackConfig = {
     mode: isDevelopment ? 'development' : 'production',
     entry: {
-        simplySavvy: `${PATHS.CLIENT}/index.js`
+        simplySavvy: `${PATHS.CLIENT}/index.js`        
     },
     output: {
         path: PATHS.DIST,
@@ -97,7 +98,8 @@ const webPackConfig = {
         alias: {
             components: PATHS.COMPONENTS,
             containers: PATHS.CONTAINERS,
-            hooks: PATHS.HOOKS
+            hooks: PATHS.HOOKS,
+            'styled-components': PATHS.STYLED_COMPONENTS
         }
     },
     optimization: {
@@ -111,7 +113,16 @@ const webPackConfig = {
                 sourceMap: true,
                 extractComments: true
             })
-        ]
+        ],
+        splitChunks: {
+            cacheGroups: {
+                vendor: {
+                    test: /[\\/]node_modules[\\/]/,
+                    name: 'vendor',
+                    chunks: 'all'
+                }
+            }
+        }
     }
 };
 
