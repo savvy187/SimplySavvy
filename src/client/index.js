@@ -4,12 +4,14 @@ import { ThemeProvider } from 'styled-components';
 import { createBrowserHistory } from 'history';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import defaultTheme from 'themes/default/default.theme';
+import GlobalStyles from 'components/global-styles.component';
 import Header from 'components/header.component';
 
 const history = createBrowserHistory();
 
 const App = (
     <ThemeProvider theme={defaultTheme}>
+        <GlobalStyles />
         <BrowserRouter history={history}>
             <Header />
             <Switch>
