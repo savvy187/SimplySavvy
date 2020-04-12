@@ -1,13 +1,15 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWeboackPlugin = require('html-webpack-plugin');
-const ManifestWeboackPlugin = require('webpack-manifest-plugin');
+const ManifestWebpackPlugin = require('webpack-manifest-plugin');
 const TerserWebpackPlugin = require('terser-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 const isDevelopment = process.env.NODE_ENV === 'development';
 
 const PATHS = {
+    ASSETS: path.resolve(__dirname, 'assets'),
     DIST: path.resolve(__dirname, 'dist/client'),
     CLIENT: path.resolve(__dirname, 'src/client'),
     COMPONENTS: path.resolve(__dirname, 'src/client/components'),
@@ -27,7 +29,13 @@ const commonPlugins = [
         cache: true,
         inject: true
     }),
-    new ManifestWeboackPlugin({
+    new CopyWebpackPlugin([{
+        from: PATHS.ASSETS,
+        to: `${PATHS.DIST}/assets`,
+        toType: 'dir',
+        flatten: true
+    }]),
+    new ManifestWebpackPlugin({
         filter: (fileDescriptor) => !/(license|map)/ig.test(fileDescriptor)
     })
 ];
@@ -45,6 +53,8 @@ const devOptions = {
         port: 9999,
         hot: true,
         open: true,
+        contentBase: PATHS.ASSETS,
+        contentBasePublicPath: '/assets',
         historyApiFallback: {
             index: '/'
         },

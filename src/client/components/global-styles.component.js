@@ -14,7 +14,7 @@ const GlobalStyles = createGlobalStyle`
         width: 980px;
         margin: 0 auto;
         padding: 0 15px;
-        background-image:url('bg-wrapper.gif');
+        background-image:url('assets/bg-wrapper.gif');
         background-repeat: repeat-y;
     }
 `;
