@@ -6,8 +6,13 @@ import useDocumentScroll from 'hooks/document-scroll.hook';
 
 const Header = ({ className }) => {
     const navRef = useRef(null);
-    useDocumentScroll(() => {
-        console.log('scrolling');
+    useDocumentScroll((evt) => {
+        evt.preventDefault();
+        const navOffset = navRef.current.offsetTop;
+        const scrollTop = window.pageYOffset;
+        scrollTop >= navOffset
+            ? navRef.current.classList.add('scrolling')
+            : navRef.current.classList.remove('scrolling');
     });
 
     return (

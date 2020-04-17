@@ -1,6 +1,9 @@
 import { createGlobalStyle } from 'styled-components';
+import reset from 'styled-reset';
 
 const GlobalStyles = createGlobalStyle`
+    ${reset};
+    
     html,
     body {
         margin: 0;
@@ -8,6 +11,7 @@ const GlobalStyles = createGlobalStyle`
         font-size: 1rem;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
+        background-color: #414142;
     }
 
     #savvy {
