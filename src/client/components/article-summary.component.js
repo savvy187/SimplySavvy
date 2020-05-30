@@ -6,14 +6,15 @@ import ApproximateTime from 'components/approximate-time.component';
 import { Link } from 'react-router-dom';
 
 const ArticleSummary = ({
-    img: { src, alt }, 
+    id,
+    summaryImage: { src, alt }, 
     title, 
     summary,
     timestamp,
     similarArticlesCount, 
     commentsCount }) => {
     return (
-        <div>
+        <div data-testid="article-summary-component">
             <SummaryImage src={src} alt={alt} />
             <article>
                 <div>
@@ -23,17 +24,21 @@ const ArticleSummary = ({
                 <p className="summary">{summary}</p>
                 <nav>
                     <Link 
-                        to="?similar="
+                        to={{
+                            search: `?similarArticles=${id}`
+                        }}
                         className="summary-link"
                     >
                         Similar Articles ({similarArticlesCount})
                     </Link>
-                    <link 
-                        to="?comments="
+                    <Link 
+                        to={{
+                            search: `?articleComments=${id}`
+                        }}
                         className="summary-link"
                     >
                         Comments ({commentsCount})
-                    </link>
+                    </Link>
                 </nav>
             </article>
         </div>
@@ -41,7 +46,8 @@ const ArticleSummary = ({
 };
 
 ArticleSummary.propTypes = {
-    img: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    summaryImage: PropTypes.shape({
         src: PropTypes.string,
         alt: PropTypes.string
     }),
@@ -112,7 +118,7 @@ export default styled(ArticleSummary)`
         }
 
         &:focus {
-            border: ${({ theme }) => theme.border.summary_link.focus};
+            border: ${({ theme }) => theme.borders.summary_link.focus};
         }
     }
 `;

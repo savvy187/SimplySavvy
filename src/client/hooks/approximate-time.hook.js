@@ -1,6 +1,8 @@
 import moment from 'moment';
 
 export default function useApproximateTime(timestamp)  {
+    timestamp = moment(timestamp);
+
     const RANGES = {
         ONE_DAY: moment().subtract(1, 'day'),
         ONE_WEEK: moment().subtract(1, 'week'),

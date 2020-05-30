@@ -7,16 +7,19 @@ import useDocumentScroll from 'hooks/document-scroll.hook';
 const Header = ({ className }) => {
     const navRef = useRef(null);
     useDocumentScroll((evt) => {
-        evt.preventDefault();
         const navOffset = navRef.current.offsetTop;
         const scrollTop = window.pageYOffset;
+        
         scrollTop >= navOffset
             ? navRef.current.classList.add('scrolling')
             : navRef.current.classList.remove('scrolling');
     });
 
     return (
-        <header className={className}>
+        <header
+            data-testid="header-component"
+            className={className}
+        >
             <div className="logo-container"></div>
             <div ref={navRef} className="primary-nav">
                 <div className="nav-container">
