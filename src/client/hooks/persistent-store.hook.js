@@ -1,4 +1,4 @@
-import { useReducer, useEffect, useCallback, useDebugValue } from 'react';
+import { useReducer, useEffect, useCallback } from 'react';
 
 export default function usePersistentStore(localStorageKey, reducer={}, initialState) {
     const [state, dispatchAction] = useReducer(reducer, () => {
@@ -36,10 +36,7 @@ export default function usePersistentStore(localStorageKey, reducer={}, initialS
              * Probably not serious enough to do anything other than,
              * log and forget...
             */
-            useDebugValue('Failed to serialize local storage', {
-                localStorageKey,
-                timestamp: Date.now()
-            });
+            console.log('Failed to serialize local storage', localStorageKey);
         }
     }, [state]);
 

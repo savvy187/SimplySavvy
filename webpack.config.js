@@ -17,6 +17,7 @@ const PATHS = {
     HOOKS: path.resolve(__dirname, 'src/client/hooks'),
     CONTEXTS: path.resolve(__dirname, 'src/client/contexts'),
     THEMES: path.resolve(__dirname, 'src/client/themes'),
+    UTIL: path.resolve(__dirname, 'src/client/util'),
     STYLED_COMPONENTS: path.resolve(__dirname, 'node_modules', 'styled-components'),
     TEST: path.resolve(__dirname, 'test'),
     JEST: path.resolve(__dirname, 'jest')
@@ -113,6 +114,7 @@ const webPackConfig = {
             hooks: PATHS.HOOKS,
             themes: PATHS.THEMES,
             contexts: PATHS.CONTEXTS,
+            util: PATHS.UTIL,
             'styled-components': PATHS.STYLED_COMPONENTS
         }
     },
