@@ -5,18 +5,15 @@ import { waitFor } from '@testing-library/dom';
 import { ThemeProvider } from 'styled-components';
 import { Router } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
-import StateProvider from 'contexts/app.context';
 import defaultTheme from 'themes/default/default.theme';
 
 const history = createBrowserHistory();
 
 const Providers = ({ children }) => (
-    <ThemeProvider theme={defaultTheme}>
-        <StateProvider>
-            <Router history={history}>
-                {children}            
-            </Router>
-        </StateProvider>
+    <ThemeProvider theme={defaultTheme}>        
+        <Router history={history}>
+            {children}            
+        </Router>        
     </ThemeProvider>
 );
 

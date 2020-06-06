@@ -1,32 +1,38 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useContext } from 'react';
+import { AppContext } from 'contexts/app/app.context';
+import { NETWORK_ACTION_TYPES } from 'contexts/app/app.reducer';
 
 export default function useNetworkStatus() {
     /* 
-     * TODO: Replace this with a context...
+     * An Action Type to dispatch when updating network status... 
     */
-    const [isOnline, setNetworkStatus] = useState(navigator.onLine);
+    const { UPDATE_NETWORK_STATUS } = NETWORK_ACTION_TYPES;    
+    const [selector, dispatchAction] = useContext(AppContext);    
 
     /*  
      * A callback to use, which updates network status, for any 
      * of the network events...
     */
-    const updateNetworkStatus = () => setNetworkStatus(navigator.onLine);
+    const updateNetworkStatus = dispatchAction({
+        type: UPDATE_NETWORK_STATUS,
+        online: navigator.onLine
+    });
 
     useEffect(() => {
         /*  
          * We listen for offline and online network events...
         */
-        window.addEventListener('offline', updateNetworkStatus());
-        window.addEventListener('online', updateNetworkStatus());
+        window.addEventListener('offline', updateNetworkStatus);
+        window.addEventListener('online', updateNetworkStatus);
 
         /* 
          * And clean up any previously registered events...
         */
         return () => {
-            window.removeEventListener('offline', updateNetworkStatus());
-            window.removeEventListener('online', updateNetworkStatus());            
+            window.removeEventListener('offline', updateNetworkStatus);
+            window.removeEventListener('online', updateNetworkStatus);            
         };
     }, []);
 
-    return isOnline;
+    return selector('network.online');
 }

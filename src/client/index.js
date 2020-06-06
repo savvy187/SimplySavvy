@@ -6,13 +6,13 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import defaultTheme from 'themes/default/default.theme';
 import GlobalStyles from 'components/global-styles.component';
 import Header from 'components/header.component';
-import StateProvider from 'contexts/app.context';
+import NetworkProvider from 'contexts/network/network.context';
 
 const history = createBrowserHistory();
 
 const App = (
     <ThemeProvider theme={defaultTheme}>
-        <StateProvider>
+        <NetworkProvider>
             <GlobalStyles />
             <BrowserRouter history={history}>
                 <Header />
@@ -31,7 +31,7 @@ const App = (
                     </Route>
                 </Switch>
             </BrowserRouter>
-        </StateProvider>
+        </NetworkProvider>
     </ThemeProvider>
 );
 

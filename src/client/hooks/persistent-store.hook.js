@@ -1,19 +1,20 @@
 import { useReducer, useEffect, useCallback } from 'react';
+import _ from 'lodash';
 
-export default function usePersistentStore(localStorageKey, reducer={}, initialState) {
-    const [state, dispatchAction] = useReducer(reducer, () => {
+export default function usePersistentStore(localStorageKey, reducer={}, initialState) {    
+    const [state, dispatchAction] = useReducer(reducer, null, () => {
         try {
             /* 
              * Here we attempt to prime the store with whatever
              * state tree was last saved...
-            */
+            */            
             return JSON.parse(localStorage.getItem(localStorageKey));
         } catch (err) {
             /* 
              * Local storage is potentially corrupted, return 
              * initial state...
             */
-            localStorage.deleteItem(localStorageKey);
+            localStorage.removeItem(localStorageKey);
             return initialState;
         }
     });
@@ -24,13 +25,19 @@ export default function usePersistentStore(localStorageKey, reducer={}, initialS
     */
     const dispatch = useCallback((action) => dispatchAction(action), []);
 
+    /* 
+     * We provide a selector to return a portion of the state tree, instead
+     * of returning the whole tree, each time...
+    */
+    const selector = useCallback((stateKey) => _.get(state, stateKey, state), [state]);
+    
     useEffect(() => {
         /* 
          * We attempt to serialize the state to local storage, each
          * time it is mutated...
         */
         try {
-            localStorage.setItem(localStorageKey, JSON.stringify(state));
+            localStorage.setItem(localStorageKey, JSON.stringify(selector()));
         } catch(err) {
             /* 
              * Probably not serious enough to do anything other than,
@@ -40,5 +47,5 @@ export default function usePersistentStore(localStorageKey, reducer={}, initialS
         }
     }, [state]);
 
-    return [state, dispatch];
+    return [selector, dispatch];
 }
