@@ -3,17 +3,22 @@ import { render, act } from '@testing-library/react';
 import { renderHook } from '@testing-library/react-hooks';
 import { waitFor } from '@testing-library/dom';
 import { ThemeProvider } from 'styled-components';
-import { Router } from 'react-router-dom';
+import { Router, Route } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
 import defaultTheme from 'themes/default/default.theme';
+import NetworkProvider from 'contexts/network/network.context';
 
 const history = createBrowserHistory();
 
 const Providers = ({ children }) => (
-    <ThemeProvider theme={defaultTheme}>        
-        <Router history={history}>
-            {children}            
-        </Router>        
+    <ThemeProvider theme={defaultTheme}>
+        <NetworkProvider>
+            <Router history={history}>
+                <Route path="/">
+                    {children}
+                </Route>
+            </Router>
+        </NetworkProvider>
     </ThemeProvider>
 );
 

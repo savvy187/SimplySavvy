@@ -40,4 +40,4 @@ export const REDUCER = (state, action) => {
         default:
             return state;
     }
-}
+};

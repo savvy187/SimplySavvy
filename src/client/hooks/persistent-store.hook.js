@@ -6,9 +6,12 @@ export default function usePersistentStore(localStorageKey, reducer={}, initialS
         try {
             /* 
              * Here we attempt to prime the store with whatever
-             * state tree was last saved...
-            */            
-            return JSON.parse(localStorage.getItem(localStorageKey));
+             * state tree was last saved, but first we must determine 
+             * if localStorage actually has an item with that key...
+            */
+            const item = localStorage.getItem(localStorageKey);
+
+            return !_.isEmpty(item) ? JSON.parse(item) : initialState;
         } catch (err) {
             /* 
              * Local storage is potentially corrupted, return 
@@ -28,6 +31,8 @@ export default function usePersistentStore(localStorageKey, reducer={}, initialS
     /* 
      * We provide a selector to return a portion of the state tree, instead
      * of returning the whole tree, each time...
+     * 
+     * TODO: memoize? Use state[stateKey] on watcher?
     */
     const selector = useCallback((stateKey) => _.get(state, stateKey, state), [state]);
     

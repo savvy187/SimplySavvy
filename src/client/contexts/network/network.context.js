@@ -1,14 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import usePersistentStore from 'hooks/persistent-store.hook';
-import NetworkReducer from './network.reducer';
+import NetworkReducer, { NETWORK_INITIAL_STATE } from './network.reducer';
 
 export const NetworkContext = React.createContext();
 
 export default function NetworkProvider({ children }) {
-    const [state, setState] = usePersistentStore('simplySavvy.network', NetworkReducer);
+    const [selector, dispatchAction] = usePersistentStore(
+        'simplySavvy.network', 
+        NetworkReducer, 
+        NETWORK_INITIAL_STATE
+    );
     return (
-        <NetworkContext.Provider value={{ state, setState }}>
+        <NetworkContext.Provider value={{ selector, dispatchAction }}>
             {children}
         </NetworkContext.Provider>
     );

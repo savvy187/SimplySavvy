@@ -1,1 +1,3 @@
-import 'jest-localstorage-mock';
+global.navigator = {
+    onLine: true
+};

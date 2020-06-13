@@ -2,12 +2,13 @@ module.exports = {
     moduleNameMapper: {
         '\\.css': '<rootDir>/jest/style.mock.js',
         'test-utils': '<rootDir>/test/test-utils.js',
-        'styled-components': '<rootDir>/node_modules/styled-components',        
+        'styled-components': '<rootDir>/node_modules/styled-components',
         "^components(.*)$": "<rootDir>/src/client/components/$1",
         "^containers(.*)$": "<rootDir>/src/client/containers/$1",
         "^hooks(.*)$": "<rootDir>/src/client/hooks/$1",
         "^themes(.*)$": "<rootDir>/src/client/themes/$1",
         "^contexts(.*)$": "<rootDir>/src/client/contexts/$1",
+        "^utils(.*)$": "<rootDir>/src/client/utils/$1"        
     },
     moduleDirectories: [
         'node_modules'

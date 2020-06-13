@@ -8,7 +8,7 @@ export const NETWORK_ACTION_TYPES = {
 };
 
 export const NETWORK_INITIAL_STATE = {
-    online: Navigator.onLine,
+    online: navigator.onLine,
     loading: false,
     error: false,
     cancel: false,
@@ -23,23 +23,21 @@ export default function NetworkReducer(state, action) {
                 ...state,
                 online: action.online
             };
-        case NETWORK_ACTION_TYPES.START_NETWORK_REQUEST:
+        case NETWORK_ACTION_TYPES.START_NETWORK_REQUEST:            
             return {
-                ...state,                
-                loading: true,
-                success: null,
-                error: false,
-                cancel: false
+                ...state,
+                loading: true                
             };
-        case NETWORK_ACTION_TYPES.CANCEL_NETWORK_REQUEST:
+        case NETWORK_ACTION_TYPES.CANCEL_NETWORK_REQUEST: 
             return {
                 ...state,                
                 loading: false,
                 cancel: true,
                 requests: {
                     ...state.requests,
-                    [action.headers['x-request-id']]: {
-                        status: action.statusCode
+                    [action.route]: {                    
+                        statusCode: action.statusCode,
+                        data: null
                     }
                 }                
             };
@@ -50,8 +48,8 @@ export default function NetworkReducer(state, action) {
                 success: true,
                 requests: {
                     ...state.requests,
-                    [action.headers['x-request-id']]: {
-                        status: action.statusCode,
+                    [action.route]: {
+                        statusCode: action.statusCode,
                         data: action.data
                     }
                 }
@@ -64,9 +62,10 @@ export default function NetworkReducer(state, action) {
                 error: true,
                 reuests: {
                     ...state.requests,
-                    [action.headers['x-request-id']]: {
-                        status: action.statusCode,
-                        error: action.error
+                    [action.route]: {
+                        statusCode: action.statusCode,
+                        error: action.error,
+                        data: null
                     }
                 }
             };

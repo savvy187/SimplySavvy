@@ -21,6 +21,7 @@ describe('Persistent Store Hook', () => {
 
     afterEach(() => {
         jest.clearAllMocks();
+        localStorage.clear();
     });
 
     describe('Initializing', () => {
