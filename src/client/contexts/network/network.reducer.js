@@ -4,15 +4,16 @@ export const NETWORK_ACTION_TYPES = {
     START_NETWORK_REQUEST: '/simplySavvy/NETWORK/START_NETWORK_REQUEST',
     CANCEL_NETWORK_REQUEST: '/simplySavvy/NETWORK/CANCEL_NETWORK_REQUEST',
     NETWORK_REQUEST_SUCCESS: '/simplySavvy/NETWORK/NETWORK_REQUEST_SUCCESS',
-    NETWORK_REQUEST_FAIL: '/simplySavvy/NETWORK/NETWORK_REQUEST_FAIL'
+    NETWORK_REQUEST_FAIL: '/simplySavvy/NETWORK/NETWORK_REQUEST_FAIL',
+    RESET: '/simplySavvy/NETWORK/RESET'
 };
 
 export const NETWORK_INITIAL_STATE = {
     online: navigator.onLine,
     loading: false,
-    error: false,
-    cancel: false,
     success: null,
+    error: false,
+    cancelled: false,    
     requests: {}
 };
 
@@ -26,13 +27,20 @@ export default function NetworkReducer(state, action) {
         case NETWORK_ACTION_TYPES.START_NETWORK_REQUEST:            
             return {
                 ...state,
-                loading: true                
+                loading: true,
+                requests: {
+                    ...state.requests,
+                    [action.route]: {
+                        statusCode: null,
+                        data: null
+                    }
+                }
             };
         case NETWORK_ACTION_TYPES.CANCEL_NETWORK_REQUEST: 
             return {
                 ...state,                
                 loading: false,
-                cancel: true,
+                cancelled: true,
                 requests: {
                     ...state.requests,
                     [action.route]: {                    
@@ -45,7 +53,7 @@ export default function NetworkReducer(state, action) {
             return {
                 ...state,                
                 loading: false,
-                success: true,
+                success: true,      
                 requests: {
                     ...state.requests,
                     [action.route]: {
@@ -58,9 +66,9 @@ export default function NetworkReducer(state, action) {
             return {
                 ...state,
                 loading: false,
-                success: false,
+                success: false,            
                 error: true,
-                reuests: {
+                requests: {
                     ...state.requests,
                     [action.route]: {
                         statusCode: action.statusCode,
@@ -69,6 +77,8 @@ export default function NetworkReducer(state, action) {
                     }
                 }
             };
+        case NETWORK_ACTION_TYPES.RESET:
+            return NETWORK_INITIAL_STATE;
         default:
             return state;
     }

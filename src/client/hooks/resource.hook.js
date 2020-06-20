@@ -7,6 +7,7 @@ import { NETWORK_ACTION_TYPES } from 'contexts/network/network.reducer';
 
 export default function useResource(options) {    
     const { id } = useParams();
+    console.log(id);
     const query = useQuery();
     const [resourceOptions, setResourceOptions] = useState(options);    
     const cancelRef = useRef(null);
@@ -67,8 +68,8 @@ export default function useResource(options) {
                     statusCode: res.status
                 });
 
-            }  catch(err) {                
-                if (isCancel(err)) {
+            }  catch(error) {                
+                if (isCancel(error)) {
                     
                     /* 
                      * Dispatching an action to mark the cancellation of the request...
@@ -84,8 +85,8 @@ export default function useResource(options) {
                     dispatchAction({
                         type: NETWORK_REQUEST_FAIL,
                         route: resourceRoute,
-                        statusCode: res.status,
-                        error: res.error
+                        statusCode: error.status,
+                        error: error.message
                     });
                 }
     
@@ -101,10 +102,14 @@ export default function useResource(options) {
         };
         fetchResource();
     }, [resourceOptions, id, query.toString()]);
-
-    return {
-        selector,
-        resource: selector(`requests[${resourceOptions.resourceConfig}]`), 
+    
+    return {        
+        loading: selector('loading'),
+        cancelled: selector('cancelled'),
+        success: selector('success'),
+        error: selector('error'),
+        statusCode: selector(`requests[${resourceOptions.resourceRoute}].statusCode`),
+        resource: selector(`requests[${resourceOptions.resourceRoute}].data`), 
         resourceOptions,
         cancelToken: cancelRef.current,
         updateResourceOptions

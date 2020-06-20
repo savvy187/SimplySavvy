@@ -16,7 +16,7 @@ const Providers = ({ children }) => (
             <Router history={history}>
                 <Route path="/">
                     {children}
-                </Route>
+                </Route>                
             </Router>
         </NetworkProvider>
     </ThemeProvider>
