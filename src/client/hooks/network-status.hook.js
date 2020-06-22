@@ -7,23 +7,24 @@ export default function useNetworkStatus() {
      * An Action Type to dispatch when updating network status... 
     */
     const { UPDATE_NETWORK_STATUS } = NETWORK_ACTION_TYPES;    
-    const [selector, dispatchAction] = useContext(NetworkContext);    
-
+    const { selector, dispatchAction } = useContext(NetworkContext);    
+    
     /*  
      * A callback to use, which updates network status, for any 
      * of the network events...
     */
-    const updateNetworkStatus = dispatchAction({
+    const updateNetworkStatus = () => dispatchAction({
         type: UPDATE_NETWORK_STATUS,
         online: navigator.onLine
-    });
+    });    
 
-    useEffect(() => {
+    useEffect(() => {        
         /*  
          * We listen for offline and online network events...
-        */
+        */       
         window.addEventListener('offline', updateNetworkStatus);
-        window.addEventListener('online', updateNetworkStatus);
+        window.addEventListener('online', updateNetworkStatus);       
+        
 
         /* 
          * And clean up any previously registered events...
@@ -34,5 +35,5 @@ export default function useNetworkStatus() {
         };
     }, []);
 
-    return selector('network.online');
+    return selector('online');
 }

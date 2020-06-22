@@ -6,8 +6,8 @@
   "scripts": {
     "build:client": "webpack -p --progress --config webpack.config.js",
     "start:client:watch": "NODE_ENV=development webpack-dev-server --color",
-    "test": "NODE_ENV=test jest",
-    "test:watch": "NOTE_ENV=test jest --watch"
+    "test": "NODE_ENV=test --config jest.config.js jest",
+    "test:watch": "NOTE_ENV=test jest --config jest.config.js --watch"
   },
   "repository": {
     "type": "git",

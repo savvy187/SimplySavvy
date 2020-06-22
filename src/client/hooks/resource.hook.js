@@ -7,7 +7,6 @@ import { NETWORK_ACTION_TYPES } from 'contexts/network/network.reducer';
 
 export default function useResource(options) {    
     const { id } = useParams();
-    console.log(id);
     const query = useQuery();
     const [resourceOptions, setResourceOptions] = useState(options);    
     const cancelRef = useRef(null);

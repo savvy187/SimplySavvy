@@ -10,12 +10,12 @@ export default function useIntersectionObserver({ root=null, rootMargin, threshh
     const observer = useRef(null);
 
     useEffect(() => {
-
-        if (observer.current) {
+        
+        if (observer.current) {            
             /* 
              * If we have a handle to any previous observers, stop observing
              * on thier nodes and disconnect...
-            */
+            */            
             observer.current.disconnect();
         }
 
@@ -34,15 +34,17 @@ export default function useIntersectionObserver({ root=null, rootMargin, threshh
          * use when cleaning up...
         */
         const { current: currentObserver } = observer;
-
+        
         if (node) {
             /* 
              * If we have access to a node, start observing it...
             */
-            observer.current.observe(node);
+           
+            currentObserver.observe(node);
         }
 
         return () => currentObserver.disconnect();
+        
 
     }, [node, root, rootMargin, threshhold]);
 

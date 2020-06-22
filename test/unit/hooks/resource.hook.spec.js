@@ -138,7 +138,7 @@ describe('Use Resource Hook', () => {
         }));
 
         await waitForNextUpdate();
-
+        
         expect(result.current).toHaveProperty('loading');
         expect(result.current).toHaveProperty('cancelled');
         expect(result.current).toHaveProperty('success');

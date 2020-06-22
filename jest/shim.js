@@ -1,3 +1,1 @@
-global.navigator = {
-    onLine: true
-};
+

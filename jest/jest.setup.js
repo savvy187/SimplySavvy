@@ -7,3 +7,4 @@ global.navigator = {
     onLine: true
 };
 
+global.IntersectionObserver = jest.fn();
