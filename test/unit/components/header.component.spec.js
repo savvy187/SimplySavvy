@@ -85,5 +85,5 @@ describe('Header', () => {
         await waitFor(() => {        
             expect(primaryNav.classList.contains('scrolling')).toBe(true);
         });
-    });
+    });    
 });

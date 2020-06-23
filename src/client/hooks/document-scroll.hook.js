@@ -13,12 +13,12 @@ export default function useDocumentScroll(scrollHandler=() => {}) {
         };
 
         document.addEventListener('scroll', onScrollHanlder);
-        return () => {
+        return () => {            
             /* 
              * And on cleanup, we cancel any pending animations...
             */
             document.removeEventListener('scroll', onScrollHanlder);
             cancelAnimationFrame(animationRef.current);
         };
-    }, []);    
+    }, []);
 }
