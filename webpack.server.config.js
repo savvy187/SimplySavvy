@@ -11,7 +11,7 @@ const PATHS = {
     DIST: path.resolve(__dirname, 'dist/server'),
     CLIENT_DIST: path.resolve(__dirname, 'dist/client'),
     ASSETS: path.resolve(__dirname, 'assets'),
-    SERVER: path.resolbe(__dirname, 'src/server'),
+    SERVER: path.resolve(__dirname, 'src/server'),
     JEST: path.resolve(__dirname, 'jest'),
     NODE_MODULES: path.resolve(__dirname, 'node_modules')
 };
@@ -20,8 +20,8 @@ const commonPlugins = [
     new CleanWebpackPlugin(),
     new CopyPlugin([
         { from: `${PATHS.SERVER}/favicon.ico`, context: 'src' },
-        { from: `${PATHS.ASSETS}`, to: 'assets', toType: 'dir', ignore: '.gitkeep' },
-        { from: `${PATHS.CLIENT_DIST}`, to: 'assets', toType: 'dir', ignore: '.gitkeep' }
+        { from: `${PATHS.ASSETS}`, to: 'assets', toType: 'dir', ignore: ['.gitkeep'] },
+        { from: `${PATHS.CLIENT_DIST}`, to: 'assets', toType: 'dir', ignore: ['.gitkeep'] }
     ], { debug: 'warning' })
 ];
 
@@ -66,7 +66,7 @@ const config = {
         filename: 'simplySavvy-server.js',
         library: 'simplySavvy-server',
         libraryTarget: 'umd',
-        pathInfo: true,
+        pathinfo: true,
         globalObject: 'this'
     },
     externals: [nodeExternals()],
