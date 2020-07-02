@@ -41,7 +41,7 @@ describe('Use Intersection Observer Hook', () => {
         expect(result.current[1]).toEqual(expect.any(Function));
     });
 
-    it.only('Should disconnect any previously observing observers', () => {
+    it('Should disconnect any previously observing observers', () => {
         const { result } = renderHook(() => useIntersectionObserver({
             rootMargin: '0px'
         }));
