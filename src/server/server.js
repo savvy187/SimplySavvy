@@ -5,8 +5,17 @@ import fs from 'fs';
 import _ from 'lodash';
 import figlet from 'figlet';
 import { serverLogger as logger } from 'server/utils/logger.util';
+import { BANNER_DIVIDER } from 'server/constants';
+import { version } from '../../package.json';
 
-export const createServerConfig = (appConfig) => {
+/**
+ * Creates a server configuration obhect from
+ * a slice of the application config
+ * 
+ * @param {object} appConfig - application config
+ * @returns {object} - server configuration
+*/
+const createServerConfig = (appConfig) => {
     return {
         ...appConfig.get('server'),
         port: config.util.getEnv('PORT'),
@@ -14,7 +23,37 @@ export const createServerConfig = (appConfig) => {
     };
 };
 
-export const createHTTPServer = (app, serverConfig) => {
+/** 
+ * @param {server} server - HTTP(S) server
+ * @param {object} env - Environment
+ * @param {string} hostname 
+ * @param {boolean} useSSL - whether to server connects via HTTPS
+ * @returns {string} - formatted string contents of banner
+ */
+const createBanner = (server, env, hostname, useSSL) => {
+    const { address, port } = server.address();
+    const protocol = useSSL ? 'https' : 'http';
+    const host = address === '::' ? hostname : address;
+    const url = `${protocol}://${host}:${port}`;
+
+    return `
+    ${BANNER_DIVIDER}
+        version: ${version}
+        address: ${url}
+        node env: ${env.NODE_ENV}
+    ${BANNER_DIVIDER}
+    `;
+};
+
+/** 
+ * Creates either an HTTP or HTTPS server to host
+ * the Express application
+ * 
+ * @param {Express} app - Express application
+ * @param {object} serverConfig - server configuration
+ * @returns {Server} - HTTP(S) server 
+*/
+const createHTTPServer = (app, serverConfig) => {
     const { useSSL, keyFile = '', certFile = '' } = serverConfig;
     let httpServer;
 
@@ -84,6 +123,12 @@ export default class SimplySavvyServer {
                 }
 
                 logger.info(data);
+                logger.info(createBanner(
+                    this.server, 
+                    this.env,
+                    hostname,
+                    useSSL
+                ));
             });
         });
     }
