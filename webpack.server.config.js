@@ -78,7 +78,8 @@ const config = {
                     loader: 'babel-loader',
                     options: {
                         cacheDirectory: true,
-                        presets: ['@babel/preset-env']
+                        presets: ['@babel/preset-env'],
+                        configFile: path.resolve(PATHS.ROOT, 'babel.server.config.json')
                     }
                 },
                 include: [PATHS.SERVER]

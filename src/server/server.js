@@ -4,7 +4,7 @@ import https from 'https';
 import fs from 'fs';
 import _ from 'lodash';
 import figlet from 'figlet';
-import { serverLogger as logger } from 'server/utils/logger.util';
+import { serverLogger as logger } from 'server/util/logger.util';
 import { BANNER_DIVIDER } from 'server/constants';
 import { version } from '../../package.json';
 

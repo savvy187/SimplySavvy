@@ -1,6 +1,6 @@
 import readline from 'readline';
 import SimplySavvyServer from 'server/server';
-import { serverLogger as logger } from 'server/utils/logger.util';
+import { serverLogger as logger } from 'server/util/logger.util';
 import { SERVER_STOP_TIMEOUT } from 'server/constants';
 
 /**
