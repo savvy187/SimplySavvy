@@ -18,15 +18,16 @@ app.disable('etag');
 /** 
  * Collection of security middlewares. Most of the default config looks good,
  * but the CSP is needed...
- * contentSecurityPolicy: {
+*/ 
+app.use(helmet(JSON.stringify({
+    contentSecurityPolicy: {
         directives: {
-            defaultSrc: ["self"],
-            scriptSrc: ["self"],
-            styleSrc: ["self"]
+            defaultSrc: ['self'],
+            scriptSrc: ['self'],
+            styleSrc: ['self']
         }
     }
-*/ 
-app.use(helmet());
+})));
 
 app.use(cors());
 app.use(expressRequiestId({ headerName: 'X-request-id' }));
