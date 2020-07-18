@@ -75,6 +75,7 @@
   },
   "dependencies": {
     "axios": "^0.19.2",
+    "compression": "^1.7.4",
     "config": "^3.3.0",
     "config-webpack": "^1.0.4",
     "cookie-parser": "^1.4.5",

@@ -1,0 +1,10 @@
+{
+    "log": {
+        "useLabels": true,
+        "json": false,
+        "colorize": true
+    },
+    "server": {
+        
+    }
+}

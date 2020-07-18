@@ -1,5 +1,5 @@
 import config from 'config';
-import { transports, Logger } from 'winston';
+import { transports, createLogger } from 'winston';
 
 const createTransportOptions = (label, options = {}) => ({
     ...config.log.useLabels && { label },
@@ -22,7 +22,7 @@ const createLoggerOptions = (transport, options = {}) => ({
 */
 export const serverTransport = new transports.Console(createTransportOptions('server'));
 
-export const serverLogger = new Logger(createLoggerOptions(serverTransport));
+export const serverLogger = createLogger(createLoggerOptions(serverTransport));
 
 /* 
  * This is exported becuase it is also used in the Express logging 
@@ -34,4 +34,4 @@ export const consoleTransport = new transports.Console(createTransportOptions())
  * This is the default logger to be used for the express app, outside of
  * request logging...
 */
-export default new Logger(createLoggerOptions(consoleTransport));
+export default createLogger(createLoggerOptions(consoleTransport));

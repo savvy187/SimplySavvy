@@ -30,7 +30,7 @@ const createServerConfig = (appConfig) => {
  * @param {boolean} useSSL - whether to server connects via HTTPS
  * @returns {string} - formatted string contents of banner
  */
-const createBanner = (server, env, hostname, useSSL) => {
+const createBanner = (server, env, hostname, useSSL) => {    
     const { address, port } = server.address();
     const protocol = useSSL ? 'https' : 'http';
     const host = address === '::' ? hostname : address;
@@ -115,16 +115,17 @@ export default class SimplySavvyServer {
             figlet.text('SimplySavvy', {
                 font: 'Standard',
                 horizontalLayout: 'fitted',
-                verticalLayout: 'fitted'
+                verticalLayout: 'fitted',                
             }, (error, data) => {
                 if (error) {
                     logger.error('Failed to create ascii banner', error);
                     return;
                 }
-
-                logger.info(data);
-                logger.info(createBanner(
-                    this.server, 
+                
+                console.log(data);
+                
+                console.info(createBanner(
+                    this.httpServer, 
                     this.env,
                     hostname,
                     useSSL

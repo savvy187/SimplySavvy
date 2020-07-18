@@ -2,6 +2,7 @@ import readline from 'readline';
 import SimplySavvyServer from 'server/server';
 import { serverLogger as logger } from 'server/util/logger.util';
 import { SERVER_STOP_TIMEOUT } from 'server/constants';
+import app from 'server/app';
 
 /**
  * Function that bootstraps the server and starts the application
@@ -10,7 +11,7 @@ async function launchServer () {
     /**
      * New Instance of our HTTP Server
     */
-    const server = new SimplySavvyServer();
+    const server = new SimplySavvyServer(app);
     server.start();
 
     if (process.platform === 'win32') {
