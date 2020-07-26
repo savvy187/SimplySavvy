@@ -1,9 +1,9 @@
 import config from 'config';
 import expressWinston from 'express-winston';
-import { consoleTransport } from 'server/util/logger.util';
+import { requestTransports } from 'server/util/logger.util';
 
 export default expressWinston.logger({
-    transports: [consoleTransport],
+    transports: requestTransports,
     expressFormat: true,
     meta: false,
     colorize: config.log.colorize || false,
@@ -11,7 +11,7 @@ export default expressWinston.logger({
 });
 
 export const errorLogging = expressWinston.errorLogger({
-    transports: [consoleTransport],
+    transports: requestTransports,
     expressFormat: true,
     meta: false,
     dumpExceptions: true,

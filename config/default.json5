@@ -7,9 +7,8 @@
             "warn": "yellow",
             "error": "red"
         },
-        "writeToFile": {
-            
-        }
+        "writeToFile": true,
+        "logPath": "logs"
     },
     "server": {
         "mock": true,
