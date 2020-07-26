@@ -18,8 +18,8 @@ import { version } from '../../package.json';
 const createServerConfig = (appConfig) => {
     return {
         ...appConfig.get('server'),
-        port: config.util.getEnv('PORT'),
-        hostname: config.util.getEnv('HOSTNAME') || 'localhost'
+        port: process.env.PORT,
+        hostname: process.env.HOSTNAME || 'localhost'
     };
 };
 
@@ -35,7 +35,7 @@ const createBanner = (server, env, hostname, useSSL) => {
     const protocol = useSSL ? 'https' : 'http';    
     const host = address === '::' ? hostname : address;
     const url = `${protocol}://${host}:${port}`;
-
+    
     return `
     ${BANNER_DIVIDER}
         version: ${version}
@@ -104,8 +104,8 @@ export default class SimplySavvyServer {
             hostname,
             port
         } = this.serverConfig;
-
-        this.httpServer.listen(port, (error) => {
+        
+        this.httpServer.listen({ port }, (error) => {
             
             if (error) {
                 logger.error('Failed to start server', error);

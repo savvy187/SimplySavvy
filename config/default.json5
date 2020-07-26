@@ -12,8 +12,7 @@
     },
     "server": {
         "mock": true,
-        "useSSL": false,
-        "hostname": "localhost",
+        "useSSL": false,        
         "port": 7777
     }
 }

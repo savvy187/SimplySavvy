@@ -3,6 +3,11 @@
   "version": "1.0.0",
   "description": "For the shrewd Web Developer",
   "main": "src/savvy.js",
+  "nodemonConfig": {
+    "env": {
+      "PORT": 7777
+    }
+  },
   "scripts": {
     "build:client": "webpack -p --progress --config webpack.config.js",
     "build:server": "webpack -p --progress --config webpack.server.config.js",
