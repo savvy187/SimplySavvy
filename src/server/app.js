@@ -6,6 +6,8 @@ import cookieParser from 'cookie-parser';
 import compression from 'compression';
 import expressRequiestId from 'express-request-id';
 //import favicon from 'serve-favicon';
+import bootstrapRoutes from 'server/bootstrap/bootstrap-routes';
+import logging, { errorLogging } from 'server/middleware/logging.middleware';
 import logger from 'server/util/logger.util';
 
 logger.debug('Initializing Express app...');
@@ -13,7 +15,9 @@ const app = express();
 
 app.disable('etag');
 
-/* MIDDLEWARE */
+/* 
+    *** MIDDLEWARE ***
+*/
 
 /** 
  * Collection of security middlewares. Most of the default config looks good,
@@ -30,7 +34,6 @@ app.use(helmet(JSON.stringify({
 })));
 
 app.use(cors());
-app.use(expressRequiestId({ headerName: 'X-request-id' }));
 app.use(compression());
 
 /**
@@ -48,5 +51,13 @@ app.use(bodyParser.urlencoded({ extended: true, limit: '20MB' }));
  * Populates req.cookie with an object of cookie keys/values
 */
 app.use(cookieParser());
+
+app.use(expressRequiestId({ headerName: 'X-request-id' }));
+app.use(logging);
+
+/* 
+    *** ROUTERS ***
+*/
+bootstrapRoutes(app);
 
 export default app;

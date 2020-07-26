@@ -5,6 +5,9 @@
         "colorize": true
     },
     "server": {
-        
+        "mock": true,
+        "useSSL": false,
+        "hostname": "localhost",
+        "port": 7777
     }
 }

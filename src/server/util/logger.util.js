@@ -1,5 +1,7 @@
 import config from 'config';
-import { transports, createLogger } from 'winston';
+import { createLogger, transports, format } from 'winston';
+
+const { combine, printf, timestamp, colorize, label } = format;
 
 const createTransportOptions = (label, options = {}) => ({
     ...config.log.useLabels && { label },
@@ -20,9 +22,26 @@ const createLoggerOptions = (transport, options = {}) => ({
  * Creates a new transport to be used exclusively for logging 
  * server-related items, outside of the express app...
 */
-export const serverTransport = new transports.Console(createTransportOptions('server'));
+export const serverTransport = new transports.Console();
 
-export const serverLogger = createLogger(createLoggerOptions(serverTransport));
+const createFormat = (formatLabel) => {
+    const formatter = printf(({ level, message, label, timestamp }) => {
+        return `${timestamp} [${label}] - ${level}: ${message}`;
+    });
+
+    return combine(
+        colorize(),
+        label({ label: formatLabel }),
+        timestamp(),
+        formatter
+    );
+};
+
+
+export const serverLogger = createLogger({
+    format: createFormat('server'),
+    transports: [new transports.Console()]
+});
 
 /* 
  * This is exported becuase it is also used in the Express logging 

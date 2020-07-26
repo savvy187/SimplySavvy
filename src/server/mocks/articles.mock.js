@@ -13,8 +13,8 @@ const generateArticle = (index) => {
             alt: faker.lorem.words()
         },
         content: faker.lorem.paragraphs(),
-        categories: _.times(_.random(1, 10), faker.lorem.word()),
-        similarArticles: _.times(_.random(1, 10), faker.lorem.sentence())
+        categories: _.times(_.random(1, 10), faker.lorem.word),
+        similarArticles: _.times(_.random(1, 10), faker.lorem.sentence)
     };
 };
 

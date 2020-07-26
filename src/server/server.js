@@ -32,7 +32,7 @@ const createServerConfig = (appConfig) => {
  */
 const createBanner = (server, env, hostname, useSSL) => {    
     const { address, port } = server.address();
-    const protocol = useSSL ? 'https' : 'http';
+    const protocol = useSSL ? 'https' : 'http';    
     const host = address === '::' ? hostname : address;
     const url = `${protocol}://${host}:${port}`;
 
