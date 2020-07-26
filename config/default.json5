@@ -1,8 +1,6 @@
 {
     "log": {
-        "useLabels": true,
-        "json": false,
-        "colorize": true
+        "level": "info"
     },
     "server": {
         "mock": true,
