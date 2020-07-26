@@ -2,25 +2,27 @@ import config from 'config';
 import { createLogger, transports, format } from 'winston';
 
 const { combine, printf, timestamp, colorize, label } = format;
+const colorizeFormat = colorize({ all: true, colors: config.log.colors });
 
-
-const createFormat = (formatLabel, formatter) =>  combine(    
-    colorize(),        
+/* 
+* Creates a shared format with dynmaic label to be used by
+* all console transports...
+*/
+const createConsoleFormat = (formatLabel) => combine(
+    colorizeFormat,        
     label({ label: formatLabel }),
     timestamp(),
-    formatter
+    printf(({ level, message, label, timestamp }) => {
+        return `${timestamp} [${label}] - ${level}: ${message}`;
+    })    
 );
-
-const ConsoleFormatter = printf(({ level, message, label, timestamp }) => {
-    return `${timestamp} [${label}] - ${level}: ${message}`;
-});
 
 /* 
  * This is exported becuase it is also used in the Express logging 
  * middleware 
 */
 export const consoleTransport = new transports.Console({
-    format: createFormat('Express', ConsoleFormatter),
+    format: createConsoleFormat('Request'),
     level: config.log.level || 'info'
 });
 
@@ -32,7 +34,9 @@ export const serverLogger = createLogger({
     transports: [
         new transports.Console({
             level: config.log.level || 'info',
-            format: createFormat('Server', ConsoleFormatter)
+            format: createConsoleFormat('Server'),
+            handleExceptions: true,
+            handleRejections: true
         })
     ]
 });
@@ -46,7 +50,9 @@ export default createLogger({
     transports: [
         new transports.Console({
             level: config.log.level || 'info',
-            format: createFormat('Express', ConsoleFormatter),    
+            format: createConsoleFormat('Express'),
+            handleExceptions: true,
+            handleRejections: true
         })
     ]
 });

@@ -1,6 +1,15 @@
 {
     "log": {
-        "level": "info"
+        "level": "info",
+        "colors": {
+            "info": "green",
+            "debug": "blue",
+            "warn": "yellow",
+            "error": "red"
+        },
+        "writeToFile": {
+            
+        }
     },
     "server": {
         "mock": true,
