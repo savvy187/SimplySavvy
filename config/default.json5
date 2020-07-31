@@ -17,7 +17,7 @@
         "error": {
             "messages": {
                 "xhr": "Server Error encountered. Please try again.",
-                "default": Server Error encountered. Please refresh and try again."
+                "default": "Server Error encountered. Please refresh and try again.",
             }
         }
     }
