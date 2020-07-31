@@ -6,6 +6,7 @@ import cookieParser from 'cookie-parser';
 import compression from 'compression';
 import expressRequiestId from 'express-request-id';
 //import favicon from 'serve-favicon';
+import CatchallErrorHandler, { clientErrorHandler } from 'server/middleware/error-handling.middleware';
 import bootstrapRoutes from 'server/bootstrap/bootstrap-routes';
 import logging, { errorLogging } from 'server/middleware/logging.middleware';
 import logger from 'server/util/logger.util';
@@ -18,6 +19,7 @@ app.disable('etag');
 /* 
     *** MIDDLEWARE ***
 */
+logger.debug('Registering Express middleware...');
 
 /** 
  * Collection of security middlewares. Most of the default config looks good,
@@ -58,6 +60,15 @@ app.use(logging);
 /* 
     *** ROUTERS ***
 */
+logger.debug('Bootstrapping Express Routes...');
 bootstrapRoutes(app);
+
+/* 
+    *** ERROR HANDLING ***
+*/
+logger.debug('Registering Error handlers...');
+app.use(errorLogging);
+app.use(clientErrorHandler);
+app.use(CatchallErrorHandler);
 
 export default app;

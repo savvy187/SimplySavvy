@@ -13,6 +13,12 @@
     "server": {
         "mock": true,
         "useSSL": false,        
-        "port": 7777
+        "port": 7777,
+        "error": {
+            "messages": {
+                "xhr": "Server Error encountered. Please try again.",
+                "default": Server Error encountered. Please refresh and try again."
+            }
+        }
     }
 }
