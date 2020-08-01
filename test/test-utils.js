@@ -5,8 +5,8 @@ import { waitFor } from '@testing-library/dom';
 import { ThemeProvider } from 'styled-components';
 import { Router, Route } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
-import defaultTheme from 'themes/default/default.theme';
-import NetworkProvider from 'contexts/network/network.context';
+import defaultTheme from 'client/themes/default/default.theme';
+import NetworkProvider from 'client/contexts/network/network.context';
 
 const history = createBrowserHistory();
 

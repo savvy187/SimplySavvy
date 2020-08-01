@@ -1,7 +1,7 @@
 import React from 'react';
-import { render, act, history } from 'test-utils';
+import { render, history } from 'test/test-utils';
 import { fireEvent, waitFor } from '@testing-library/react';
-import Header from 'components/header.component';
+import Header from 'client/components/header.component';
 
 describe('Header', () => {
     it('Should container the correct markup structure', () => {
@@ -45,16 +45,16 @@ describe('Header', () => {
         const header = getByTestId('header-component');
         const nav = header.querySelector('.nav-bar nav');
 
-        act(() => fireEvent.click(nav.firstChild));
+        fireEvent.click(nav.firstChild);
         expect(history.location.pathname).toBe('/blog');
 
-        act(() => fireEvent.click(nav.childNodes[1]));
+        fireEvent.click(nav.childNodes[1]);
         expect(history.location.pathname).toBe('/tutorials');
 
-        act(() => fireEvent.click(nav.childNodes[2]));
+        fireEvent.click(nav.childNodes[2]);
         expect(history.location.pathname).toBe('/twitter');
 
-        act(() => fireEvent.click(nav.childNodes[3]));
+        fireEvent.click(nav.childNodes[3]);
         expect(history.location.pathname).toBe('/contact');
     });
 
@@ -80,7 +80,7 @@ describe('Header', () => {
         const header = getByTestId('header-component');
         const primaryNav = header.querySelector('.primary-nav');
 
-        act(() => fireEvent.scroll(document));
+        fireEvent.scroll(document);
 
         await waitFor(() => {        
             expect(primaryNav.classList.contains('scrolling')).toBe(true);

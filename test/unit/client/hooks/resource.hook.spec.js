@@ -1,6 +1,6 @@
 import { renderHook, history } from 'test/test-utils';
-import useResource from 'hooks/resource.hook';
-import * as ApiClient from 'utils/api-client';
+import useResource from 'client/hooks/resource.hook';
+import * as ApiClient from 'client/utils/api-client';
 
 describe('Use Resource Hook', () => {        
     beforeEach(() => {

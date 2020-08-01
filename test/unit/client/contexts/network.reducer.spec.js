@@ -1,4 +1,4 @@
-import NetworkReducer, { NETWORK_ACTION_TYPES, NETWORK_INITIAL_STATE } from 'contexts/network/network.reducer';
+import NetworkReducer, { NETWORK_ACTION_TYPES, NETWORK_INITIAL_STATE } from 'client/contexts/network/network.reducer';
 
 describe('Network Reducer', () => {
     it('Should expose the correct action dispatchers' , () => {

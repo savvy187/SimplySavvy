@@ -1,5 +1,5 @@
 import { renderHook, act } from '@testing-library/react-hooks';
-import useDocumentScroll from 'hooks/document-scroll.hook';
+import useDocumentScroll from 'client/hooks/document-scroll.hook';
 
 describe('Use Document Scroll Hook', () => {
     beforeEach(() => {

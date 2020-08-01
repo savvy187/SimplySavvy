@@ -1,6 +1,6 @@
 import { renderHook } from 'test/test-utils';
 import { act } from '@testing-library/react-hooks';
-import useNetworkStatus from 'hooks/network-status.hook';
+import useNetworkStatus from 'client/hooks/network-status.hook';
 
 describe('Use Network Status Hook', () => {
     let onLineSpy;
