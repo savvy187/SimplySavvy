@@ -87,7 +87,7 @@ export default class SimplySavvyServer {
         logger.debug('Initializing SimplySavvy Server...');
 
         if (_.isNil(app)) {
-            throw new Error('App is required');
+            throw new Error('An app is required to start the server');
         }
 
         this.app = app;

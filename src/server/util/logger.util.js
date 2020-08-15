@@ -1,10 +1,13 @@
 import config from 'config';
 import { createLogger, transports, format } from 'winston';
 
-const writeToFile = config.log.writeToFile || false;
-const logPath = config.log.logPath || '/logs';
+const writeToFile = config.get('log.writeToFile') || false;
+const logPath =  config.get('log.logPath') || '/logs';
+const logLevel = config.get('log.level') || 'info';
+const colors = config.get('log.colors') || null;
+
 const { combine, printf, timestamp, colorize, json, label } = format;
-const colorizeFormat = colorize({ all: true, colors: config.log.colors });
+const colorizeFormat = colorize({ all: true, colors });
 const jsonFormat = json({ space: 4 });
 
 /* 
@@ -36,7 +39,7 @@ const createFileFormat = () => combine(
 const requestTransports = [
     new transports.Console({
         format: createConsoleFormat('Request'),
-        level: config.log.level || 'info'
+        level: logLevel
     })
 ];
 
@@ -56,7 +59,7 @@ if (writeToFile) {
 const serverLogger = createLogger({    
     transports: [
         new transports.Console({
-            level: config.log.level || 'info',
+            level: logLevel,
             format: createConsoleFormat('Server'),
             handleExceptions: true,
             handleRejections: true
@@ -81,7 +84,7 @@ if (writeToFile) {
 const appLogger = createLogger({    
     transports: [
         new transports.Console({
-            level: config.log.level || 'info',
+            level: logLevel,
             format: createConsoleFormat('Express'),
             handleExceptions: true,
             handleRejections: true

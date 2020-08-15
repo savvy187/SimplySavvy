@@ -46,5 +46,35 @@ describe('Simply Savvy Server', () => {
         https.createServer.mockRestore();
     });
 
-    it('Should start', () => {});
+    describe('Constructor', () => {
+        it('Should throw an Error when attempting to start without an App', () => {
+            expect(() => new SavvyServer()).toThrow('An app is required to start the server');
+        });
+
+        it('Should instatiate a SavvyServer with the correct values', () => {
+            const server = new SavvyServer(app);
+
+            expect(server).toHaveProperty('app', app);
+            expect(server).toHaveProperty('env', process.env);
+            expect(server).toHaveProperty('serverConfig', expect.objectContaining({
+                port: process.env.PORT,
+                hostname: 'localhost',
+                mock: true,
+                useSSL: false,
+                error: {
+                    messages: {
+                        xhr: 'Server Error encountered. Please try again.',
+                        'default': 'Server Error encountered. Please refresh and try again.'
+                    }
+                }
+            }));
+            expect(server).toHaveProperty('httpServer');
+            expect(server.httpServer).toBeInstanceOf(MockHttpServer);
+            expect(http.createServer).toHaveBeenCalledWith(app);
+        });
+    });
+
+    describe('Start', () => {
+
+    });
 });

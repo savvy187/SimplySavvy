@@ -1,3 +1,12 @@
 {
-
+    "server": {
+        "mock": true,
+        "useSSL": false,
+        "error": {
+            "messages": {
+                "xhr": "Server Error encountered. Please try again.",
+                "default": "Server Error encountered. Please refresh and try again."
+            }
+        }        
+    }
 }

@@ -12,8 +12,8 @@ const getErrorMessage = (err, defaultMsg) => err.message || defaultMsg;
 export const clientErrorHandler = (err, req, res, next) => {
     if (req.xhr) {
         const status = getErrorStatusCode(err);
-        const message = getErrorMessage(err, config.server.err.message.xhr);
-        return res.status(status).sennd({ error: message });
+        const message = getErrorMessage(err, config.get('server.err.message.xhr'));
+        return res.status(status).send({ error: message });
     }
     
     next(err);
@@ -25,7 +25,7 @@ export const clientErrorHandler = (err, req, res, next) => {
 */
 export default  (err, req, res) => {
     const status = getErrorStatusCode(err);
-    const message = getErrorMessage(err, config.server.error.message.default);
+    const message = getErrorMessage(err, config.get('server.err.message.default'));
     res.status(status);
     res.render('Error', { error: message });
 };
