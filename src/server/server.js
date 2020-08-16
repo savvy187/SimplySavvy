@@ -5,7 +5,7 @@ import fs from 'fs';
 import _ from 'lodash';
 import figlet from 'figlet';
 import { serverLogger as logger } from 'server/util/logger.util';
-import { BANNER_DIVIDER } from 'server/constants';
+import { BANNER_DIVIDER, SERVER_STATUSES } from 'server/constants';
 import { version } from '../../package.json';
 
 /**
@@ -111,6 +111,8 @@ export default class SimplySavvyServer {
                 logger.error('Failed to start server', error);
                 throw error;
             }
+
+            process.env.SERVER_STATUS = SERVER_STATUSES.RUNNING;
 
             figlet.text('SimplySavvy', {
                 font: 'Standard',

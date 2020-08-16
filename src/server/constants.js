@@ -16,3 +16,10 @@ const DIVIDER_LENGTH = 50;
  * @type {string}
 */
 export const BANNER_DIVIDER = _.repeat('*', DIVIDER_LENGTH);
+
+export const SERVER_STATUSES = {
+    STARTING: 'starting',
+    RUNNING: 'running',
+    STOPPING: 'stopping',
+    STOPPED: 'stopped'
+};

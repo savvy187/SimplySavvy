@@ -1,13 +1,15 @@
 import readline from 'readline';
 import SimplySavvyServer from 'server/server';
 import { serverLogger as logger } from 'server/util/logger.util';
-import { SERVER_STOP_TIMEOUT } from 'server/constants';
+import { SERVER_STOP_TIMEOUT, SERVER_STATUSES } from 'server/constants';
 import app from 'server/app';
 
 /**
  * Function that bootstraps the server and starts the application
 */
-async function launchServer () {
+export async function launchServer () {
+    process.env.SERVER_STATUS = SERVER_STATUSES.STARTING;
+
     /**
      * New Instance of our HTTP Server
     */
@@ -26,7 +28,7 @@ async function launchServer () {
             logger.debug('SIGINT signal received. Attempting shutdown...');
             await shutdownServer(server);
         });
-    }
+    }    
 
     /**
      * Here we listen for Signal events. 
@@ -43,16 +45,14 @@ async function launchServer () {
     });    
 }
 
-let isShuttingDown = false;
-
 /**
  * Function that attempts the shutdown of the server, including
  * ensuring that the process is killed...
  * @param server - server instance
 */
-async function shutdownServer(server) {
-    if (!isShuttingDown) {
-        isShuttingDown = true;
+export async function shutdownServer(server) {
+    if (process.env.SERVER_STATUS !== SERVER_STATUSES.STOPPING) {
+        process.env.SERVER_STATUS = SERVER_STATUSES.STOPPING;
 
         logger.info('Stopping SimplySavvy server...');
 
@@ -60,8 +60,9 @@ async function shutdownServer(server) {
             logger.debug(`Server did not stop within ${SERVER_STOP_TIMEOUT} ms. Forcing exit now...`);
             process.exit(0);
         }, SERVER_STOP_TIMEOUT);
-
+        
         server.stop();
+        process.env.SERVER_STATUS = SERVER_STATUSES.STOPPED;
         process.exit(0);
     }
 }
