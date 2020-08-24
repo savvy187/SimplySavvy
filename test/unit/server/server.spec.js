@@ -3,6 +3,7 @@ import https from 'https';
 import config from 'config';
 import express from 'express';
 import SavvyServer from 'server/server';
+import * as ProcessErrorHandler from 'server/process-error-handler';
 import { serverLogger as logger } from 'server/util/logger.util';
 
 jest.mock('server/util/logger.util', () => ({
@@ -11,6 +12,11 @@ jest.mock('server/util/logger.util', () => ({
         debug: jest.fn(),
         error: jest.fn()
     }
+}));
+
+jest.mock('server/process-error-handler', () => ({
+    install: jest.fn(),
+    uninstall: jest.fn()
 }));
 
 describe('Simply Savvy Server', () => {
@@ -72,9 +78,66 @@ describe('Simply Savvy Server', () => {
             expect(server.httpServer).toBeInstanceOf(MockHttpServer);
             expect(http.createServer).toHaveBeenCalledWith(app);
         });
+
+        describe('HTTPS Server', () => {
+            beforeEach(() => {
+                config.set('server.useSSL', true);
+            });
+
+            it('Should create an HTTPS Server if the config directs it to', () => {            
+                //const server = new SavvyServer(app);
+                //expect(server).toHaveProperty('httpServer');
+                //expect(server.httpServer).toBeInstanceOf(MockHttpsServer);
+            });
+        });
+ 
     });
 
     describe('Start', () => {
+        beforeEach(() => {
+            jest.clearAllMocks();
+            server.start();
+        });
 
+        it('Should start the http(s) server', () => {
+            expect(server.httpServer.listen).toHaveBeenCalledWith(
+                expect.objectContaining({
+                    port: undefined
+                }),
+                expect.any(Function)
+            );
+        });
+
+        it('Should install the global process event handlers', () => {
+            expect(ProcessErrorHandler.install).toHaveBeenCalledTimes(1);
+        });
+
+        it('Should re-throw any errors encountered when starting the httpServer', () => {
+            const err = new Error('Error encountered');
+            server.httpServer.listen = jest.fn((port, listener) => listener(err));
+            expect(() => server.start()).toThrowError('Error encountered');
+        });
+    });
+
+    describe('Stop', () => {
+        beforeEach(() => {
+            server.start();
+            server.stop();
+        });
+        
+        it('Should stop the http(s) server', () => {
+            expect(server.httpServer.close).toHaveBeenCalledWith(expect.any(Function));
+        });
+
+        it('Should uninstall the global process event handler', () => {
+            expect(ProcessErrorHandler.uninstall).toHaveBeenCalled();
+        });
+
+        it('Should re-throw any errors encountered when shutting the httpServer down', () => {
+            const err = new Error('Error encountered');
+            server.httpServer.close = jest.fn((listener) => listener(err));
+            server.start();
+            expect(() => server.stop()).toThrowError('Error encountered');
+        });
     });
 });

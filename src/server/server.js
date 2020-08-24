@@ -4,9 +4,12 @@ import https from 'https';
 import fs from 'fs';
 import _ from 'lodash';
 import figlet from 'figlet';
+import * as ProcessErrorHandler from 'server/process-error-handler';
 import { serverLogger as logger } from 'server/util/logger.util';
 import { BANNER_DIVIDER, SERVER_STATUSES } from 'server/constants';
 import { version } from '../../package.json';
+
+const isTestEnvironment = () => process.env.NODE_ENV.toLowerCase() === 'test';
 
 /**
  * Creates a server configuration obhect from
@@ -55,6 +58,7 @@ const createBanner = (server, env, hostname, useSSL) => {
 */
 const createHTTPServer = (app, serverConfig) => {
     const { useSSL, keyFile = '', certFile = '' } = serverConfig;
+    
     let httpServer;
 
     if (useSSL) {
@@ -91,7 +95,7 @@ export default class SimplySavvyServer {
         }
 
         this.app = app;
-        this.env = process.env;
+        this.env = process.env;        
         this.serverConfig = createServerConfig(config);
         this.httpServer = createHTTPServer(this.app, this.serverConfig);
     }
@@ -113,31 +117,40 @@ export default class SimplySavvyServer {
             }
 
             process.env.SERVER_STATUS = SERVER_STATUSES.RUNNING;
+            
+            if (!isTestEnvironment()) {
+                figlet.text('SimplySavvy', {
+                    font: 'Standard',
+                    horizontalLayout: 'fitted',
+                    verticalLayout: 'fitted',                
+                }, (error, data) => {
+                    if (error) {
+                        logger.error('Failed to create ascii banner', error);
+                        return;
+                    }
+                    
+                    console.log(data);
+                    
+                    console.info(createBanner(
+                        this.httpServer, 
+                        this.env,
+                        hostname,
+                        useSSL
+                    ));
+                });
+            }
 
-            figlet.text('SimplySavvy', {
-                font: 'Standard',
-                horizontalLayout: 'fitted',
-                verticalLayout: 'fitted',                
-            }, (error, data) => {
-                if (error) {
-                    logger.error('Failed to create ascii banner', error);
-                    return;
-                }
-                
-                console.log(data);
-                
-                console.info(createBanner(
-                    this.httpServer, 
-                    this.env,
-                    hostname,
-                    useSSL
-                ));
-            });
+            logger.debug('Registering Node process error handler...');
+            ProcessErrorHandler.install(process);
+            
         });
     }
 
     stop() {
         logger.debug('Attempting server shutdown...');
+
+        logger.debug('Unregistering Node process error handler...');
+        ProcessErrorHandler.uninstall(process);
 
         this.httpServer.close((error) => {
             if (error) {
