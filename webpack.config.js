@@ -9,6 +9,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const isDevelopment = process.env.NODE_ENV === 'development';
 
 const PATHS = {
+    ROOT: path.resolve(__dirname),
     ASSETS: path.resolve(__dirname, 'assets'),
     DIST: path.resolve(__dirname, 'dist/client'),
     CLIENT: path.resolve(__dirname, 'src/client'),
@@ -90,7 +91,11 @@ const webPackConfig = {
                 use: {
                     loader: 'babel-loader',
                     options: {
-                        presets: ['@babel/preset-react']
+                        presets: [
+                            '@babel/preset-env',
+                            '@babel/preset-react'
+                        ],
+                        configFile: path.resolve(PATHS.ROOT, 'babel.config.json')
                     }
                 },
                 include: [PATHS.CLIENT]

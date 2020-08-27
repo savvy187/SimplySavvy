@@ -4,9 +4,10 @@
             "@babel/preset-env",
             {
                 "targets": {
-                    "ie": "11",
-                    "node": "10.15.1"
-                }
+                    "ie": "11"
+                },
+                "useBuiltIns": "entry",
+                "corejs": 3
             }
         ],
         "@babel/preset-react"

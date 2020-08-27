@@ -1,0 +1,23 @@
+{
+    "log": {
+        "level": "info",
+        "colors": {
+            "info": "green",
+            "debug": "blue",
+            "warn": "yellow",
+            "error": "red"
+        },
+        "writeToFile": true,
+        "logPath": "logs"
+    },
+    "server": {
+        "mock": true,
+        "useSSL": false,                
+        "error": {
+            "messages": {
+                "xhr": "Server Error encountered. Please try again.",
+                "default": "Server Error encountered. Please refresh and try again.",
+            }
+        }
+    }
+}

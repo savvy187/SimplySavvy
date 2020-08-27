@@ -1,5 +1,5 @@
 import { renderHook, history } from 'test/test-utils';
-import useQuery from 'hooks/query.hook';
+import useQuery from 'client/hooks/query.hook';
 
 
 describe('Use Query Hook', () => {

@@ -1,11 +1,11 @@
 import { renderHook, act } from '@testing-library/react-hooks';
-import usePersistentStore from 'hooks/persistent-store.hook';
+import usePersistentStore from 'client/hooks/persistent-store.hook';
 import { 
     LOCAL_STORAGE,
     REDUCER,
     INITIAL_STATE,
     ACTION_TYPES
-} from '../../fixtures/persistent-store.fixtures';
+} from 'test/fixtures/persistent-store.fixtures';
 
 describe('Persistent Store Hook', () => {        
     const LOCAL_STORAGE_KEY = 'testStore';

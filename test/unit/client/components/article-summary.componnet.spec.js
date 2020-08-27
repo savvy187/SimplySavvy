@@ -1,7 +1,7 @@
 import React from 'react';
-import { render, act, history } from 'test-utils';
+import { render, act, history } from 'test/test-utils';
 import { fireEvent } from '@testing-library/react';
-import ArticleSummary from 'components/article-summary.component';
+import ArticleSummary from 'client/components/article-summary.component';
 
 describe('Article Summary', () => {
     const timestamp = new Date('1996-10-26').toISOString();
@@ -65,13 +65,13 @@ describe('Article Summary', () => {
         expect(nav.firstChild.className).toBe('summary-link');
         expect(nav.firstChild.textContent).toBe('Similar Articles (50)');
 
-        act(() => fireEvent.click(nav.firstChild));
+        fireEvent.click(nav.firstChild);
         expect(history.location.search).toBe('?similarArticles=123');
 
         expect(nav.childNodes[1].className).toBe('summary-link');
         expect(nav.childNodes[1].textContent).toBe('Comments (100)');
 
-        act(() => fireEvent.click(nav.childNodes[1]));
+        fireEvent.click(nav.childNodes[1]);
         expect(history.location.search).toBe('?articleComments=123');
     });
 });
