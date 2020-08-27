@@ -8,6 +8,7 @@ import defaultTheme from 'themes/default/default.theme';
 import GlobalStyles from 'components/global-styles.component';
 import Header from 'components/header.component';
 import NetworkProvider from 'contexts/network/network.context';
+import Blog from 'containers/blog.container';
 
 const history = createBrowserHistory();
 
@@ -22,7 +23,7 @@ const App = (
                         <h2>Landing Page</h2>
                     </Route>
                     <Route path="/blog">
-                        <h2>Blog</h2>
+                        <Blog />
                     </Route>                    
                     <Route path="/tutorials">
                         <h2>Tutorials</h2>

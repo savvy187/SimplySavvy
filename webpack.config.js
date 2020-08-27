@@ -63,7 +63,7 @@ const devOptions = {
         },
         clientLogLevel: 'debug',
         proxy: {
-            '/api': 'http://localhost:9998'
+            '/api': 'http://localhost:7777'
         },
         watchOptions: {
             poll: 1000
