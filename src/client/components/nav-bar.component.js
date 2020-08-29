@@ -1,16 +1,46 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+import useQuery from 'hooks/query.hook';
+import { ARTICLE_TYPE } from 'client/constants';
 
 const NavBar = ({ className }) => {
+    const query = useQuery();
+    const { pathname } = useLocation();    
     return (
         <div className={className}>
             <nav>
-                <Link to="/blog">Blog</Link>
-                <Link to="/tutorials">Tutorials</Link>
-                <Link to="/twitter">Twitter</Link>
-                <Link to="/contact">Contact</Link>
+                <Link 
+                    to={{ 
+                        pathname: '/articles', 
+                        search: `type=${ARTICLE_TYPE.BLOG}` 
+                    }}
+                    className={query.get('type') === ARTICLE_TYPE.BLOG ? 'active' : ''}
+                >
+                    Blog
+                </Link>
+                <Link 
+                    to={{ 
+                        pathname: '/articles',
+                        search: `type=${ARTICLE_TYPE.TUTORIAL}` 
+                    }}
+                    className={query.get('type') === ARTICLE_TYPE.TUTORIAL ? 'active' : ''}
+                >
+                    Tutorials
+                </Link>
+                <Link 
+                    to="/twitter"
+                    className={pathname === '/twitter' ? 'active' : ''}
+                >
+                    Twitter
+                </Link>
+                <Link 
+                    to="/contact"
+                    className={pathname === '/contact' ? 'active' : ''}
+                >
+                    Contact
+                </Link>
             </nav>
             <form>
                 <input 
@@ -48,7 +78,8 @@ export default styled(NavBar)`
         transition: ${({ theme }) => theme.transitions.ease_in};
 
         &:hover,
-        &:focus {
+        &:focus,
+        &.active {
             color: ${({ theme }) => theme.colors.primary_nav_link.hover};
             background-color: ${({ theme }) => theme.backgrounds.primary_nav_link.hover};
             outline: none;

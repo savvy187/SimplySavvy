@@ -8,7 +8,8 @@ import defaultTheme from 'themes/default/default.theme';
 import GlobalStyles from 'components/global-styles.component';
 import Header from 'components/header.component';
 import NetworkProvider from 'contexts/network/network.context';
-import Blog from 'containers/blog.container';
+import ArticlesList from 'containers/articles-list.container';
+import Article from 'containers/article.container';
 
 const history = createBrowserHistory();
 
@@ -20,14 +21,14 @@ const App = (
                 <Header />
                 <Switch>
                     <Route exact path="/">
-                        <h2>Landing Page</h2>
+                        <ArticlesList />
                     </Route>
-                    <Route path="/blog">
-                        <Blog />
-                    </Route>                    
-                    <Route path="/tutorials">
-                        <h2>Tutorials</h2>
-                    </Route>                    
+                    <Route exact path="/articles">
+                        <ArticlesList />
+                    </Route>
+                    <Route path="/articles/:id">
+                        <Article />
+                    </Route>
                     <Route path="/twitter">
                         <h2>Twitter</h2>
                     </Route>
