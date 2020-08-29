@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import styled, { ThemeContext } from 'styled-components';
 import SummaryImage from 'components/summary-image.component';
 import ApproximateTime from 'components/approximate-time.component';
 import { Link } from 'react-router-dom';
+import useIntersectionObserver from 'hooks/intersection-observer.hook';
 
 const ArticleSummary = ({
+    className,
     id,
     summaryImage: { src, alt }, 
     title, 
@@ -13,8 +15,31 @@ const ArticleSummary = ({
     timestamp,
     similarArticlesCount, 
     commentsCount }) => {
+    const theme = useContext(ThemeContext);
+    const [entry, setNode] = useIntersectionObserver({
+        rootMargin: '0px',
+        callback: (entry) => {
+            console.log('ratio: ', entry.intersectionRatio);
+            const opacity = entry.intersectionRatio || 0;
+            const show = entry.intersectionRatio >= 0.9;
+            const nav = entry.target.querySelectorAll('nav a');
+            const img = entry.target.querySelector('img');
+                
+            entry.target.style.opacity = `${opacity}`;
+            img.style.filter = show ? 'none' : theme.filters.blur_1;
+    
+            nav.forEach((link) => {
+                link.style.opacity = show ? 1 : 0;
+            });
+        }
+    });
+    
     return (
-        <div data-testid="article-summary-component">
+        <div 
+            data-testid="article-summary-component"
+            ref={setNode}
+            className={className}
+        >
             <SummaryImage src={src} alt={alt} />
             <article>
                 <div>
@@ -24,17 +49,13 @@ const ArticleSummary = ({
                 <p className="summary">{summary}</p>
                 <nav>
                     <Link 
-                        to={{
-                            search: `?similarArticles=${id}`
-                        }}
+                        to={{ search: `?similarArticles=${id}` }}                        
                         className="summary-link"
                     >
                         Similar Articles ({similarArticlesCount})
                     </Link>
                     <Link 
-                        to={{
-                            search: `?articleComments=${id}`
-                        }}
+                        to={{ search: `?articleComments=${id}` }}
                         className="summary-link"
                     >
                         Comments ({commentsCount})
@@ -46,6 +67,7 @@ const ArticleSummary = ({
 };
 
 ArticleSummary.propTypes = {
+    className: PropTypes.string.isRequired,
     id: PropTypes.number.isRequired,
     summaryImage: PropTypes.shape({
         src: PropTypes.string,

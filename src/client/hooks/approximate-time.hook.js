@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import moment from 'moment';
 
 export default function useApproximateTime(timestamp)  {
-    const approximateTime = useMemo(() => {
+    return useMemo(() => {
         timestamp = moment(timestamp);
 
         const RANGES = {
@@ -24,6 +24,4 @@ export default function useApproximateTime(timestamp)  {
 
         return '...uh how is this still up here?';    
     }, [timestamp]);
-
-    return approximateTime;
 }
