@@ -16,7 +16,7 @@ export default function useIntersectionObserver({ root=null, rootMargin, threshh
             /* 
              * If we have a handle to any previous observers, stop observing
              * on thier nodes and disconnect...
-            */            
+            */                   
             observer.current.disconnect();
         }
 
@@ -27,11 +27,14 @@ export default function useIntersectionObserver({ root=null, rootMargin, threshh
         */
         observer.current = new IntersectionObserver(
             ([entry]) => {
+                /* if (entry.isIntersecting) {
+                    console.log(entry.target.querySelector('h2').textContent, entry.intersectionRatio);
+                } */
                 if (_.isFunction(callback)) {
                     callback(entry);
                 } else {
                     setEntry(entry);
-                }                
+                }
             },
             { root, rootMargin, threshhold }
         );
@@ -45,9 +48,8 @@ export default function useIntersectionObserver({ root=null, rootMargin, threshh
         if (node) {
             /* 
              * If we have access to a node, start observing it...
-            */
-           
-            currentObserver.observe(node);
+            */            
+            observer.current.observe(node);
         }
 
         return () => currentObserver.disconnect();

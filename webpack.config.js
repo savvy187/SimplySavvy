@@ -114,6 +114,7 @@ const webPackConfig = {
     resolve: {
         modules: ['node_modules'],
         alias: {
+            client: PATHS.CLIENT,
             components: PATHS.COMPONENTS,
             containers: PATHS.CONTAINERS,
             hooks: PATHS.HOOKS,

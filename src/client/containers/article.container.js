@@ -2,12 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import _ from 'lodash';
+import { useParams } from 'react-router-dom';
 import useResource from 'hooks/resource.hook';
-import ArticleSummary from 'components/article-summary.component';
 
-const Blog = ({ className }) => {
+
+const Article = ({ className }) => {    
+    const { id } = useParams();
     const { loading, success, error, resource } = useResource({    
-        resourceRoute: '/api/articles'
+        resourceRoute: `/api/articles/${id}`
     });
 
     return (
@@ -16,19 +18,17 @@ const Blog = ({ className }) => {
             { error ? '<Error...>' : null}
             { 
                 success && !_.isEmpty(resource)
-                    ? _.map(resource, (entry) => (
-                        <ArticleSummary key={entry.id} {...entry} />
-                    ))
+                    ? JSON.stringify(resource)
                     : null
             }
         </div>
     );
 };
 
-Blog.propTypes = {
+Article.propTypes = {    
     className: PropTypes.string.isRequired
 };
 
-export default styled(Blog)`
+export default styled(Article)`
     padding: 2em;
 `;

@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import styled, { ThemeContext } from 'styled-components';
+import _ from 'lodash';
 import SummaryImage from 'components/summary-image.component';
 import ApproximateTime from 'components/approximate-time.component';
 import { Link } from 'react-router-dom';
@@ -16,11 +17,15 @@ const ArticleSummary = ({
     similarArticlesCount, 
     commentsCount }) => {
     const theme = useContext(ThemeContext);
-    const [entry, setNode] = useIntersectionObserver({
+    const threshold = _.range(0, 100, 12.5).map((v) => v/100).concat(1);
+    
+    const [, setNode] = useIntersectionObserver({        
         rootMargin: '0px',
+        threshold,
         callback: (entry) => {
-            console.log('ratio: ', entry.intersectionRatio);
-            const opacity = entry.intersectionRatio || 0;
+            //console.log('ratio: ', entry.intersectionRatio);
+            //console.log('title: ', entry.target.querySelector('h2').textContent);
+            /* const opacity = entry.intersectionRatio || 0;
             const show = entry.intersectionRatio >= 0.9;
             const nav = entry.target.querySelectorAll('nav a');
             const img = entry.target.querySelector('img');
@@ -30,7 +35,7 @@ const ArticleSummary = ({
     
             nav.forEach((link) => {
                 link.style.opacity = show ? 1 : 0;
-            });
+            }); */
         }
     });
     
@@ -43,8 +48,15 @@ const ArticleSummary = ({
             <SummaryImage src={src} alt={alt} />
             <article>
                 <div>
-                    <h2 className="summary-title">{title}</h2>
-                    <ApproximateTime timestamp={timestamp} />
+                    <Link
+                        to={{ 
+                            pathname: `/articles/${id}`,
+                            search: null
+                        }}
+                    >
+                        <h2 className="summary-title">{title}</h2>
+                        <ApproximateTime timestamp={timestamp} />
+                    </Link>
                 </div>
                 <p className="summary">{summary}</p>
                 <nav>

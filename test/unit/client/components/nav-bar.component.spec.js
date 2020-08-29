@@ -29,10 +29,42 @@ describe('NavBar', () => {
         expect(history.location.pathname).toBe('/contact');
     });
 
+    it('Should apply an active className to the correct link', () => {
+        const { getByText } = render(<NavBar />);
+
+        const blog = getByText(/Blog/);
+        const tutorials = getByText(/Tutorials/);
+        const twitter = getByText(/Twitter/);
+        const contact = getByText(/Contact/);
+
+        fireEvent.click(blog);
+        expect(blog.className).toEqual('active');
+        expect(tutorials.className).not.toInclude('active');
+        expect(twitter.className).not.toInclude('active');
+        expect(contact.className).not.toInclude('active');
+        
+        fireEvent.click(tutorials);
+        expect(blog.className).not.toInclude('active');
+        expect(tutorials.className).toEqual('active');
+        expect(twitter.className).not.toInclude('active');
+        expect(contact.className).not.toInclude('active');
+
+        fireEvent.click(twitter);
+        expect(blog.className).not.toInclude('active');
+        expect(tutorials.className).not.toInclude('active');
+        expect(twitter.className).toEqual('active');
+        expect(contact.className).not.toInclude('active');
+
+        fireEvent.click(contact);
+        expect(blog.className).not.toInclude('active');
+        expect(tutorials.className).not.toInclude('active');
+        expect(twitter.className).not.toInclude('active');
+        expect(contact.className).toEqual('active');
+    });
+
     it('Should render the search form', () => {
         const { getByPlaceholderText } = render(<NavBar />);
         expect(getByPlaceholderText(/Search/)).toBeInTheDocument();
     });
-
     
 });
