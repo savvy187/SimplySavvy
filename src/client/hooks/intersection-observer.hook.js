@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
+import _ from 'lodash';
 
-export default function useIntersectionObserver({ root=null, rootMargin, threshhold=0 }) {
+export default function useIntersectionObserver({ root=null, rootMargin, threshhold=0, callback }) {
     /* 
      * Here we setup state for the node and entry, as well as, set a ref to
      * hold a reference to the observer...
@@ -25,7 +26,13 @@ export default function useIntersectionObserver({ root=null, rootMargin, threshh
          * state representing the intersection entry...
         */
         observer.current = new IntersectionObserver(
-            ([entry]) => setEntry(entry),
+            ([entry]) => {
+                if (_.isFunction(callback)) {
+                    callback(entry);
+                } else {
+                    setEntry(entry);
+                }                
+            },
             { root, rootMargin, threshhold }
         );
 

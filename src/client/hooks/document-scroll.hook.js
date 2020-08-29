@@ -1,9 +1,9 @@
-import { useLayoutEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 export default function useDocumentScroll(scrollHandler=() => {}) {
     const animationRef = useRef();
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         const onScrollHanlder = (evt) => {
             /* 
              * Here, we're wrapping the passed-in callback inside of a call to

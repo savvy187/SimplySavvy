@@ -29,4 +29,6 @@ Blog.propTypes = {
     className: PropTypes.string.isRequired
 };
 
-export default styled(Blog)``;
+export default styled(Blog)`
+    padding: 2em;
+`;
