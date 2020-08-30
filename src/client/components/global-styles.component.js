@@ -16,6 +16,7 @@ const GlobalStyles = createGlobalStyle`
 
     #savvy {
         width: 980px;
+        min-height: 100vh;
         margin: 0 auto;
         padding: 0 15px;
         background-image:url('assets/bg-wrapper.gif');
