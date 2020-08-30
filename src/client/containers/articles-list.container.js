@@ -12,13 +12,19 @@ const ArticlesList = ({ className }) => {
 
     return (
         <div className={className}>
-            { loading ? '<Loading...>' : null} 
-            { error ? '<Error...>' : null}
             { 
-                success && !_.isEmpty(resource)
-                    ? _.map(resource, (entry) => (
-                        <ArticleSummary key={entry.id} {...entry} />
-                    ))
+                loading 
+                    ? '<Loading...>' 
+                    : null
+            } 
+            { 
+                error 
+                    ? '<Error...>' 
+                    : null
+            }
+            { 
+                success && !_.isEmpty(resource)                                                            
+                    ? _.map(resource, (entry) => <ArticleSummary key={entry.id} {...entry} />)
                     : null
             }
         </div>
