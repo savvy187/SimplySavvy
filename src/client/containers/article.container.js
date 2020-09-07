@@ -1,14 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import _ from 'lodash';
 import { useParams } from 'react-router-dom';
 import useResource from 'hooks/resource.hook';
 
 
 const Article = ({ className }) => {    
     const { id } = useParams();
-    const { loading, success, error, resource } = useResource({    
+    const { loading, success, empty, error, resource } = useResource({    
         resourceRoute: `/api/articles/${id}`
     });
 
@@ -17,7 +16,7 @@ const Article = ({ className }) => {
             { loading ? '<Loading...>' : null} 
             { error ? '<Error...>' : null}
             { 
-                success && !_.isEmpty(resource)
+                success && !empty
                     ? JSON.stringify(resource)
                     : null
             }

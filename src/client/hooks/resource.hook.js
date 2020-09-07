@@ -106,6 +106,7 @@ export default function useResource(options) {
         loading: selector('loading'),
         cancelled: selector('cancelled'),
         success: selector('success'),
+        empty: selector('empty'),
         error: selector('error'),
         statusCode: selector(`requests[${resourceOptions.resourceRoute}].statusCode`),
         resource: selector(`requests[${resourceOptions.resourceRoute}].data`), 

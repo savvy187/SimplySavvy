@@ -6,7 +6,7 @@ import useResource from 'hooks/resource.hook';
 import ArticleSummary from 'components/article-summary.component';
 
 const ArticlesList = ({ className }) => {    
-    const { loading, success, error, resource } = useResource({    
+    const { loading, success, empty, error, resource } = useResource({    
         resourceRoute: `/api/articles`
     });
 
@@ -23,7 +23,7 @@ const ArticlesList = ({ className }) => {
                     : null
             }
             { 
-                success && !_.isEmpty(resource)                                                            
+                success && !empty
                     ? _.map(resource, (entry) => <ArticleSummary key={entry.id} {...entry} />)
                     : null
             }

@@ -1,3 +1,4 @@
+import _ from 'lodash';
 
 export const NETWORK_ACTION_TYPES = {
     UPDATE_NETWORK_STATUS: '/simplySavvy/NETWORK/UPDATE_STATUS',
@@ -12,6 +13,7 @@ export const NETWORK_INITIAL_STATE = {
     online: navigator.onLine,
     loading: false,
     success: null,
+    empty: false,
     error: false,
     cancelled: false,    
     requests: {}
@@ -28,6 +30,7 @@ export default function NetworkReducer(state, action) {
             return {
                 ...state,
                 loading: true,
+                empty: false,
                 requests: {
                     ...state.requests,
                     [action.route]: {
@@ -53,7 +56,8 @@ export default function NetworkReducer(state, action) {
             return {
                 ...state,                
                 loading: false,
-                success: true,      
+                success: true,
+                empty: _.isEmpty(action.data),
                 requests: {
                     ...state.requests,
                     [action.route]: {
