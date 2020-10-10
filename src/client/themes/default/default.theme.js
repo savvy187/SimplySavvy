@@ -3,8 +3,8 @@ import { COLORS } from 'themes/theme.helper';
 export default {
     dimensions: {
         primary_nav: {
-            width: '980px',
-            width_expanded: '990px',
+            width: '945px',
+            width_expanded: '955px',
             height: '30px'
         }
     },
