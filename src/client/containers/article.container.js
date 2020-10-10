@@ -4,20 +4,24 @@ import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
 import useResource from 'hooks/resource.hook';
 
-
 const Article = ({ className }) => {    
     const { id } = useParams();
     const { loading, success, empty, error, resource } = useResource({    
         resourceRoute: `/api/articles/${id}`
     });
+    console.log('resource: ', resource);
 
     return (
         <div className={className}>
             { loading ? '<Loading...>' : null} 
             { error ? '<Error...>' : null}
             { 
-                success && !empty
-                    ? JSON.stringify(resource)
+                success && resource
+                    ? (
+                        <article>
+                            <h1>{resource.title}</h1>
+                        </article>
+                    )
                     : null
             }
         </div>

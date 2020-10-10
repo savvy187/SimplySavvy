@@ -2,10 +2,9 @@ import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import styled, { ThemeContext } from 'styled-components';
 import _ from 'lodash';
-import SummaryImage from 'components/summary-image.component';
-import ApproximateTime from 'components/approximate-time.component';
 import { Link } from 'react-router-dom';
-import useIntersectionObserver from 'hooks/intersection-observer.hook';
+import { SummaryImage, ApproximateTime } from 'components';
+import { useIntersectionObserver } from 'hooks';
 
 const ArticleSummary = ({
     className,
