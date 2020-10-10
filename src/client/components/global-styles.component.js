@@ -15,12 +15,12 @@ const GlobalStyles = createGlobalStyle`
     }
 
     #savvy {
-        width: 980px;
+        width: 945px;
         min-height: 100vh;
         margin: 0 auto;
-        padding: 0 15px;
-        background-image:url('assets/bg-wrapper.gif');
-        background-repeat: repeat-y;
+        padding: 0;
+        background-color: white;
+        box-shadow: 0px 0px 40px black;
     }
 `;
 
