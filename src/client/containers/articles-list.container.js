@@ -2,15 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import _ from 'lodash';
-import useResource from 'hooks/resource.hook';
-import ArticleSummary from 'components/article-summary.component';
+import { useResource } from 'hooks';
+import { ArticleSummary } from 'components';
 
 const ArticlesList = ({ className }) => {    
     const { loading, success, empty, error, resource } = useResource({    
-        resourceRoute: `/api/articles`
+        resourceRoute: '/api/articles'
     });
 
-    return (
+    return (    
         <div className={className}>
             { 
                 loading 
@@ -24,7 +24,11 @@ const ArticlesList = ({ className }) => {
             }
             { 
                 success && !empty
-                    ? _.map(resource, (entry) => <ArticleSummary key={entry.id} {...entry} />)
+                    ? (
+                        <>
+                            {_.map(resource, (entry) => <ArticleSummary key={entry.id} {...entry} />)}
+                        </>
+                    )
                     : null
             }
         </div>

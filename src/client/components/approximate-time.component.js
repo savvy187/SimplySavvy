@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import useApproximateTime from 'hooks/approximate-time.hook';
+import { useApproximateTime } from 'hooks';
 
 const ApproximateTime = ({ className, timestamp }) => {
     const approximation = useApproximateTime(timestamp);
