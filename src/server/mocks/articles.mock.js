@@ -12,9 +12,12 @@ const generateArticle = (index) => {
             src: faker.image.imageUrl(),
             alt: faker.lorem.words()
         },
-        content: _.times(_.random(1, 10), () => faker.lorem.paragraphs()),
-        categories: _.times(_.random(1, 10), faker.lorem.word),
-        similarArticles: _.times(_.random(1, 10), faker.lorem.sentence)
+        sections: _.times(_.random(1, 10), () => ({
+            title: faker.lorem.words(),
+            content: _.times(_.random(1, 10), () => faker.lorem.paragraph())
+        })),        
+        categories: _.times(_.random(1, 10), () => faker.lorem.word()),
+        similarArticles: _.times(_.random(1, 10), () => faker.lorem.sentence())
     };
 };
 
