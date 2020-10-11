@@ -26,7 +26,6 @@ const App = (
                         component={ArticlesList} 
                     />
                     <Route
-                        exact
                         path="/articles/:id"
                         component={Article}
                     />
