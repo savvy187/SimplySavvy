@@ -10,7 +10,6 @@ const Article = ({ className }) => {
     const { loading, success, empty, error, resource } = useResource({    
         resourceRoute: `/api/articles/${id}`
     });
-    console.log('error: ', error);
     console.log('resource: ', resource);
 
     return (
@@ -30,8 +29,10 @@ const Article = ({ className }) => {
                                 </hgroup>
                                 {_.map(resource.sections, (s) => (
                                     <section key={s.title}>
-                                        <h2>{s.title}</h2>
-                                        {_.map(s.content, (p) => (<p>{p}</p>))}
+                                        {/* <h2>{s.title}</h2> */}
+                                        {_.map(s.content, (p) => (
+                                            <p key={p}>{p}</p>
+                                        ))}
                                     </section>
                                 ))}
                             </article>
@@ -39,11 +40,12 @@ const Article = ({ className }) => {
                                 _.size(resource.categories)
                                     ? (
                                         <aside>
-                                            <ul>
+                                            <dl>
+                                                <dt>Categories</dt>
                                                 {_.map(resource.categories, (c) => (
-                                                    <li key={c}>{c}</li>
+                                                    <dd key={c}>{c}</dd>
                                                 ))}
-                                            </ul>
+                                            </dl>
                                         </aside>
                                     )
                                     : null
@@ -52,11 +54,12 @@ const Article = ({ className }) => {
                                 _.size(resource.similiarArticles)
                                     ? (
                                         <aside>
-                                            <ul>
+                                            <dl>
+                                                <dt>Similar Articles</dt>
                                                 {_.map(resource.similiarArticles, (a) => (
                                                     <li key={a}>{a}</li>
                                                 ))}
-                                            </ul>
+                                            </dl>
                                         </aside>
                                     )
                                     : null
@@ -82,20 +85,38 @@ export default styled(Article)`
     section {
         padding: 0 0.5rem;
         margin-bottom: 1.5rem;
-        border: 1px solid red;
 
         p {
             margin-bottom: 1.25em;
             font-size: 1rem;
             line-height: 1.25em;
-        
+            font: ${({ theme }) => theme.fonts.summary};
+
             &:first-of-type {
 
                 &:first-letter {
-                    font-size: 3em;
+                    font: ${({ theme }) => theme.fonts.summary_title};
+                    letter-spacing: 0.1em;
                 }
             }
         }
+    }
+
+    aside {
+        width: 300px;
+
+        dt {
+            background-color: ${({ theme }) => theme.backgrounds.primary_nav};
+            color: white;
+            padding: 0.25em;
+            border-radius: 4px;
+        }
+
+        dd {
+            padding: 0.25em;
+        }
+
+
     }
 
     h1 {
