@@ -3,16 +3,13 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import NavBar from 'components/nav-bar.component';
 import useDocumentScroll from 'hooks/document-scroll.hook';
+import usePinToScroll from 'hooks/pin-to-scroll.hook';
 
 const Header = ({ className }) => {    
     const navRef = useRef(null);
-    useDocumentScroll((evt) => {
-        const navOffset = navRef.current.offsetTop;
-        const scrollTop = window.pageYOffset;
-        scrollTop > navOffset
-            ? navRef.current.classList.add('scrolling')
-            : navRef.current.classList.remove('scrolling');
-    });
+    useDocumentScroll(
+        usePinToScroll(navRef, 'scrolling')
+    );
 
     return (
         <header
