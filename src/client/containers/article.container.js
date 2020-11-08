@@ -1,16 +1,65 @@
-import React from 'react';
+import React, { useRef, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import _ from 'lodash';
 import { useParams } from 'react-router-dom';
 import useResource from 'hooks/resource.hook';
+import useDocumentScroll from 'hooks/document-scroll.hook';
 
-const Article = ({ className }) => {    
+const Article = ({ className }) => {
+    const asideRef = useRef(null);
     const { id } = useParams();
+    
     const { loading, success, empty, error, resource } = useResource({    
         resourceRoute: `/api/articles/${id}`
     });
-    console.log('resource: ', resource);
+
+    useDocumentScroll((evt) => {
+        const asideOffset = asideRef.current.offsetTop;
+        const scrollTop = window.pageYOffset;
+        scrollTop > asideOffset
+            ? asideRef.current.classList.add('scrolling')
+            : asideRef.current.classList.remove('scrolling');
+    });
+    
+    const articleAside = useMemo(() => {
+        const categories = _.get(resource, 'categories', []);
+        const similiarArticles = _.get(resource, 'similiarArticles', []);
+        const showAside = !_.isEmpty(_.concat(categories, similiarArticles));
+
+        if (!showAside) {
+            return null;
+        }
+                
+        return (
+            <aside ref={asideRef}>
+                {
+                    !_.isEmpty(categories)
+                        ? (
+                            <dl>
+                                <dt>Categories</dt>
+                                {_.map(resource.categories, (c) => (
+                                    <dd key={c}>{c}</dd>
+                                ))}
+                            </dl>
+                        )
+                        : null
+                }
+                {
+                    !_.isEmpty(similiarArticles)
+                        ? (
+                            <dl>
+                                <dt>Similar Articles</dt>
+                                {_.map(resource.similiarArticles, (a) => (
+                                    <li key={a}>{a}</li>
+                                ))}
+                            </dl>
+                        )
+                        : null
+                }
+            </aside>
+        );
+    }, [resource]);
 
     return (
         <div className={className}>
@@ -36,34 +85,7 @@ const Article = ({ className }) => {
                                     </section>
                                 ))}
                             </article>
-                            {
-                                _.size(resource.categories)
-                                    ? (
-                                        <aside>
-                                            <dl>
-                                                <dt>Categories</dt>
-                                                {_.map(resource.categories, (c) => (
-                                                    <dd key={c}>{c}</dd>
-                                                ))}
-                                            </dl>
-                                        </aside>
-                                    )
-                                    : null
-                            }
-                            {
-                                _.size(resource.similiarArticles)
-                                    ? (
-                                        <aside>
-                                            <dl>
-                                                <dt>Similar Articles</dt>
-                                                {_.map(resource.similiarArticles, (a) => (
-                                                    <li key={a}>{a}</li>
-                                                ))}
-                                            </dl>
-                                        </aside>
-                                    )
-                                    : null
-                            }
+                            {articleAside}
                         </div>
                     )
                     : null
@@ -103,6 +125,11 @@ export default styled(Article)`
     }
 
     aside {
+        &.scrolling {
+            position: fixed;
+            top: 0;
+        }
+
         width: 300px;
 
         dt {
@@ -115,8 +142,6 @@ export default styled(Article)`
         dd {
             padding: 0.25em;
         }
-
-
     }
 
     h1 {
