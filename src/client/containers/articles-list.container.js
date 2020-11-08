@@ -6,23 +6,18 @@ import { useResource } from 'hooks';
 import { ArticleSummary } from 'components';
 
 const ArticlesList = ({ className }) => {    
-    const { loading, success, empty, error, resource } = useResource({    
+    const { loading, success, empty, resource } = useResource({    
         resourceRoute: '/api/articles'
     });
 
-    return (    
+    return (
         <div className={className}>
-            { 
-                loading 
-                    ? '<Loading...>' 
+            {
+                loading
+                    ? '<Loading...>'
                     : null
-            } 
-            { 
-                error 
-                    ? '<Error...>' 
-                    : null
-            }
-            { 
+            }      
+            {
                 success && !empty
                     ? (
                         <>

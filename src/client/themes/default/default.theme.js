@@ -6,6 +6,10 @@ export default {
             width: '945px',
             width_expanded: '955px',
             height: '30px'
+        },
+        aside: {
+            width: '200px',
+            offset: '20px'
         }
     },
     colors: {

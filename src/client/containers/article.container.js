@@ -12,9 +12,19 @@ const Article = ({ className }) => {
     const asideRef = useRef(null);
     const { id } = useParams();
 
-    const { loading, success, empty, error, resource } = useResource({    
+    const { loading, success, empty, resource } = useResource({    
         resourceRoute: `/api/articles/${id}`
     });
+
+    const categories = useDefinitionList(
+        'Categories',
+        _.get(resource, 'categories', [])
+    );
+
+    const similarArticles = useDefinitionList(
+        'Similar Articles',
+        _.get(resource, 'similarArticles', [])
+    );
 
     useDocumentScroll(
         usePinToScroll(asideRef, 'scrolling')
@@ -45,18 +55,8 @@ const Article = ({ className }) => {
                             </article>
                             <div className="aside-container">
                                 <aside ref={asideRef}>
-                                    { 
-                                        /*useDefinitionList(
-                                            'Categories', 
-                                            _.get(resource, 'categories', [])
-                                        )*/
-                                    }
-                                    { 
-                                        /*useDefinitionList(
-                                            'Similar Articles', 
-                                            _.get(resource, 'similiarArticles', [])
-                                        )*/
-                                    }
+                                    {categories}
+                                    {similarArticles}
                                 </aside>
                             </div>
                         </div>
@@ -99,17 +99,19 @@ export default styled(Article)`
     }
 
     .aside-container {        
-        width: 200px;
-        flex-shrink: 0;
-        border: 1px solid red;
+        width: ${({ theme }) => theme.dimensions.aside.width};
+        flex-shrink: 0;        
     }
 
     aside {
-        width: 200px;
+        width: ${({ theme }) => theme.dimensions.aside.width};
 
         &.scrolling {
             position: fixed;
-            top: 100px;
+            top: calc(
+                ${({ theme }) => theme.dimensions.primary_nav.height}
+                + ${({ theme }) => theme.dimensions.aside.offset}
+            );
         }
 
         dt {
