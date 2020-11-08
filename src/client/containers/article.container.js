@@ -85,7 +85,9 @@ const Article = ({ className }) => {
                                     </section>
                                 ))}
                             </article>
-                            {articleAside}
+                            <div className="aside-container">
+                                {articleAside}
+                            </div>
                         </div>
                     )
                     : null
@@ -124,13 +126,17 @@ export default styled(Article)`
         }
     }
 
+    .aside-container {        
+        width: 200px;
+    }
+
     aside {
+        width: 200px;
+
         &.scrolling {
             position: fixed;
-            top: 0;
+            top: 100px;
         }
-
-        width: 300px;
 
         dt {
             background-color: ${({ theme }) => theme.backgrounds.primary_nav};
