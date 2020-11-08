@@ -1,4 +1,4 @@
-import React, { useRef, useMemo } from 'react';
+import React, { useRef, useMemo, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import _ from 'lodash';
@@ -14,13 +14,13 @@ const Article = ({ className }) => {
         resourceRoute: `/api/articles/${id}`
     });
 
-    useDocumentScroll((evt) => {
+    useDocumentScroll(useCallback(() => {
         const asideOffset = asideRef.current.offsetTop;
         const scrollTop = window.pageYOffset;
         scrollTop > asideOffset
             ? asideRef.current.classList.add('scrolling')
             : asideRef.current.classList.remove('scrolling');
-    });
+    }), [asideRef]);
     
     const articleAside = useMemo(() => {
         const categories = _.get(resource, 'categories', []);
@@ -103,10 +103,11 @@ Article.propTypes = {
 export default styled(Article)`
     .article-container {
         display: flex;
-        padding: 2em;
+        padding: 20px;
     }
 
     section {
+        flex-shrink: 0;
         padding: 0 0.5rem;
         margin-bottom: 1.5rem;
 
@@ -128,6 +129,8 @@ export default styled(Article)`
 
     .aside-container {        
         width: 200px;
+        flex-shrink: 0;
+        border: 1px solid red;
     }
 
     aside {
