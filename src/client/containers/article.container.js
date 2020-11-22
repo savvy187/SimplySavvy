@@ -6,29 +6,19 @@ import { useParams } from 'react-router-dom';
 import useResource from 'hooks/resource.hook';
 import useDocumentScroll from 'hooks/document-scroll.hook';
 import usePinToScroll from 'hooks/pin-to-scroll.hook';
-import useDefinitionList from 'hooks/definition-list.hook';
+import { ApproximateTime, DefinitionList } from 'components';
 
 const Article = ({ className }) => {
     const asideRef = useRef(null);
     const { id } = useParams();
 
-    const { loading, success, empty, resource } = useResource({    
-        resourceRoute: `/api/articles/${id}`
-    });
-
-    const categories = useDefinitionList(
-        'Categories',
-        _.get(resource, 'categories', [])
-    );
-
-    const similarArticles = useDefinitionList(
-        'Similar Articles',
-        _.get(resource, 'similarArticles', [])
-    );
-
     useDocumentScroll(
         usePinToScroll(asideRef, 'scrolling')
     );
+
+    const { loading, success, empty, resource } = useResource({    
+        resourceRoute: `/api/articles/${id}`
+    });
 
     return (
         <div className={className}>
@@ -40,9 +30,7 @@ const Article = ({ className }) => {
                             <article>
                                 <hgroup>
                                     <h1>{resource.title}</h1>
-                                    <time dateTime={resource.timestamp}>
-                                        {resource.timestamp}
-                                    </time>
+                                    <ApproximateTime timestamp={resource.timestamp} />                                    
                                 </hgroup>
                                 {_.map(resource.sections, (s) => (
                                     <section key={s.title}>
@@ -55,8 +43,14 @@ const Article = ({ className }) => {
                             </article>
                             <div className="aside-container">
                                 <aside ref={asideRef}>
-                                    {categories}
-                                    {similarArticles}
+                                    <DefinitionList
+                                        listHeading="Categories"
+                                        listItems={resource.categories}
+                                    />
+                                    <DefinitionList
+                                        listHeading="Similar Articles"
+                                        listItems={resource.similarArticles}
+                                    />
                                 </aside>
                             </div>
                         </div>
@@ -112,17 +106,6 @@ export default styled(Article)`
                 ${({ theme }) => theme.dimensions.primary_nav.height}
                 + ${({ theme }) => theme.dimensions.aside.offset}
             );
-        }
-
-        dt {
-            background-color: ${({ theme }) => theme.backgrounds.primary_nav};
-            color: white;
-            padding: 0.25em;
-            border-radius: 4px;
-        }
-
-        dd {
-            padding: 0.25em;
         }
     }
 
