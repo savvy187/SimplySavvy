@@ -20,7 +20,7 @@ const GlobalStyles = createGlobalStyle`
         margin: 0 auto;
         padding: 0;
         background-color: white;
-        box-shadow: 0px 0px 40px black;
+        box-shadow: ${({ theme }) => theme.shadows.root};
     }
 `;
 
