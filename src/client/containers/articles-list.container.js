@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import _ from 'lodash';
 import { useResource } from 'hooks';
-import { ArticleSummary } from 'components';
+import { ArticleSummary, IntersectionObserverTargetGuidelines } from 'components';
 
 const ArticlesList = ({ className }) => {    
     const { loading, success, empty, resource } = useResource({    
@@ -12,6 +12,7 @@ const ArticlesList = ({ className }) => {
 
     return (
         <div className={className}>
+            <IntersectionObserverTargetGuidelines />
             {
                 loading
                     ? '<Loading...>'

@@ -7,6 +7,7 @@ export default function useIntersectionObserver({ root=null, rootMargin, threshh
      * hold a reference to the observer...
     */
     const [node, setNode] = useState(null);
+    const [bounds, setBounds] = useState(null);
     const [entry, setEntry] = useState({});
     const observer = useRef(null);
 
@@ -27,14 +28,17 @@ export default function useIntersectionObserver({ root=null, rootMargin, threshh
         */
         observer.current = new IntersectionObserver(
             ([entry]) => {
+                setBounds(entry.rootBounds);
+
                 /* if (entry.isIntersecting) {
                     console.log(entry.target.querySelector('h2').textContent, entry.intersectionRatio);
                 } */
-                if (_.isFunction(callback)) {
+
+                /* if (_.isFunction(callback)) {
                     callback(entry);
                 } else {
                     setEntry(entry);
-                }
+                } */
             },
             { root, rootMargin, threshhold }
         );
@@ -61,5 +65,5 @@ export default function useIntersectionObserver({ root=null, rootMargin, threshh
      * We return both the intersection entry and a setter to update the 
      * node to observe on... 
     */
-    return [entry, setNode];
+    return [entry, bounds, setNode];
 }

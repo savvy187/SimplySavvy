@@ -5,3 +5,4 @@ export Header from './header.component';
 export NavBar from './nav-bar.component';
 export SummaryImage from './summary-image.component';
 export DefinitionList from './definition-list.component';
+export IntersectionObserverTargetGuidelines from './intersection-observer-target-guidelines.component';
