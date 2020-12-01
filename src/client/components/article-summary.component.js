@@ -18,7 +18,7 @@ const ArticleSummary = ({
     const theme = useContext(ThemeContext);
     const threshold = _.range(0, 100, 12.5).map((v) => v/100).concat(1);
     
-    const [, setNode] = useIntersectionObserver({        
+    const [, bounds, setNode] = useIntersectionObserver({        
         rootMargin: '0px',
         threshold,
         callback: (entry) => {
