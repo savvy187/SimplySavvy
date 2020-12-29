@@ -17,9 +17,14 @@ export default function usePersistentStore(localStorageKey, reducer={}, initialS
              * Local storage is potentially corrupted, return 
              * initial state...
             */
-            localStorage.removeItem(localStorageKey);
-            return initialState;
+            try {
+                localStorage.removeItem(localStorageKey);            
+            } catch(err) {
+                console.error('Unable to interact with localStorage interface: ', err);
+            }
         }
+
+        return initialState;
     });
 
     /* 
@@ -48,7 +53,7 @@ export default function usePersistentStore(localStorageKey, reducer={}, initialS
              * Probably not serious enough to do anything other than,
              * log and forget...
             */
-            console.log('Failed to serialize local storage', localStorageKey);
+            console.error('Failed to serialize local storage', err, localStorageKey);
         }
     }, [state]);
 

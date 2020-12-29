@@ -10,8 +10,7 @@ const IntersectionObserverTargetGuidelines = ({ className }) => {
     const [, bounds, setNode] = useIntersectionObserver({
         rootMargin: `${-2 * primarNavHeight}px 0px`,
         threshold: 0        
-    });
-    console.log('bounds: ', bounds);
+    });    
     return (
         <div 
             className={className}

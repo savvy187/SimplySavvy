@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
-import _ from 'lodash';
 
-export default function useIntersectionObserver({ root=null, rootMargin, threshhold=0, callback }) {
+export default function useIntersectionObserver({ root=null, rootMargin='0px', threshhold=0 }) {
     /* 
      * Here we setup state for the node and entry, as well as, set a ref to
      * hold a reference to the observer...
@@ -25,20 +24,32 @@ export default function useIntersectionObserver({ root=null, rootMargin, threshh
          * Now we create a new instance of `IntersectionObserver` and supply
          * a callback and our options. Our callback simply updates are exposed
          * state representing the intersection entry...
-        */
+        */       
         observer.current = new IntersectionObserver(
             ([entry]) => {
                 setBounds(entry.rootBounds);
-
-                /* if (entry.isIntersecting) {
-                    console.log(entry.target.querySelector('h2').textContent, entry.intersectionRatio);
-                } */
-
-                /* if (_.isFunction(callback)) {
-                    callback(entry);
+                setEntry(entry);
+                
+                if (entry.isIntersecting) {
+                    //entry.target.style.border = '1px solid blue';
+                    console.log('===================');
+                    console.log('intersectionRatio: ', entry.intersectionRatio, entry.target);
+                    console.log('===================');
                 } else {
-                    setEntry(entry);
-                } */
+                    //entry.target.style.border = 'none';
+                }
+                
+                const opacity = entry.intersectionRatio || 0;
+                //const show = entry.intersectionRatio >= 0.9;
+                //const nav = entry.target.querySelectorAll('nav a');
+                //const img = entry.target.querySelector('img');
+                
+                entry.target.style.opacity = `${opacity}`;
+                //img.style.filter = show ? 'none' : theme.filters.blur_1;
+        
+                /*nav.forEach((link) => {
+                    link.style.opacity = show ? 1 : 0;
+                }); */
             },
             { root, rootMargin, threshhold }
         );
@@ -67,3 +78,15 @@ export default function useIntersectionObserver({ root=null, rootMargin, threshh
     */
     return [entry, bounds, setNode];
 }
+
+/* const opacity = entry.intersectionRatio || 0;
+    const show = entry.intersectionRatio >= 0.9;
+    const nav = entry.target.querySelectorAll('nav a');
+    const img = entry.target.querySelector('img');
+        
+    entry.target.style.opacity = `${opacity}`;
+    img.style.filter = show ? 'none' : theme.filters.blur_1;
+
+    nav.forEach((link) => {
+        link.style.opacity = show ? 1 : 0;
+    }); */
