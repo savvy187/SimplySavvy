@@ -12,7 +12,7 @@ const ArticlesList = ({ className }) => {
 
     return (
         <div className={className}>
-            <IntersectionObserverTargetGuidelines />
+            {/* <IntersectionObserverTargetGuidelines /> */}
             {
                 loading
                     ? '<Loading...>'

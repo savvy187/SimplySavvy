@@ -16,28 +16,13 @@ const ArticleSummary = ({
     similarArticlesCount, 
     commentsCount }) => {
     const theme = useContext(ThemeContext);
-    const threshold = _.range(0, 100, 12.5).map((v) => v/100).concat(1);
-    
-    const [, bounds, setNode] = useIntersectionObserver({        
-        rootMargin: '0px',
-        threshold,
-        callback: (entry) => {
-            //console.log('ratio: ', entry.intersectionRatio);
-            //console.log('title: ', entry.target.querySelector('h2').textContent);
-            /* const opacity = entry.intersectionRatio || 0;
-            const show = entry.intersectionRatio >= 0.9;
-            const nav = entry.target.querySelectorAll('nav a');
-            const img = entry.target.querySelector('img');
-                
-            entry.target.style.opacity = `${opacity}`;
-            img.style.filter = show ? 'none' : theme.filters.blur_1;
-    
-            nav.forEach((link) => {
-                link.style.opacity = show ? 1 : 0;
-            }); */
-        }
-    });
-    
+    const primarNavHeight = _.parseInt(theme.dimensions.primary_nav.height);
+    //const threshold = _.range(0, 100, 12.5).map((v) => v/100).concat(1);    
+    const [entry, bounds, setNode] = useIntersectionObserver({        
+        root: null,
+        rootMargin: `${-2 * primarNavHeight}px 0px`,
+        threshold: [0, 0.25, 0.5, 0.75, 1]
+    });    
     return (
         <div 
             data-testid="article-summary-component"
@@ -91,13 +76,14 @@ ArticleSummary.propTypes = {
     commentsCount: PropTypes.number
 };
 
-export default styled(ArticleSummary)`
+export default styled(ArticleSummary).attrs(props => ({
+    opacity: props.intersectionRatio
+}))`
     display: flex;
     justify-content: 'space-evenly';
     align-items: center;    
     margin: 0 0 1vw 0;
-    padding: 2vw 0;
-    opacity: ${props => `${props.opacity}`};
+    padding: 2vw 0;    
     transform: all 0.5s linear;
 
     .summary-title {
