@@ -1,4 +1,17 @@
-import { COLORS } from 'themes/theme.helper';
+import { COLORS, FONT_WEIGHTS, FONT_SIZES } from 'themes/theme.helper';
+
+const PALETTE = {
+    PRIMARY: COLORS.DARK_BLUE(),
+    SECONDARY: COLORS.LIGHT_BLUE(),
+    TERTIARY: COLORS.WHITE(),
+    DEFAULT: COLORS.DARK_GREY()
+};
+
+const FONT_FAMILIES = {
+    SERIF: 'Gerogia, Times, "Times New Roman", Serif',
+    SANS_SERIF: 'Tahoma, Helvetica, sans-serif'
+};
+
 
 export default {
     dimensions: {
@@ -14,65 +27,65 @@ export default {
     },
     colors: {
         primary_nav_link: {
-            default: COLORS.WHITE(),
-            hover: COLORS.DARK_BLUE(1)
+            default: PALETTE.TERTIARY,
+            hover: PALETTE.PRIMARY
         },
         search_input: {
-            default: COLORS.WHITE(1),
-            hover: COLORS.DARK_BLUE(0.75)
+            default: PALETTE.TERTIARY,
+            hover: PALETTE.PRIMARY
         },
-        search_input_placeholder: COLORS.WHITE(0.75),
+        search_input_placeholder: PALETTE.TERTIARY,
         approximate_time: {
-            default: COLORS.LIGHT_BLUE(),
-            selected: COLORS.WHITE()
+            default: PALETTE.SECONDARY,
+            selected: PALETTE.TERTIARY
         },
         summary_title: {
-            default: COLORS.DARK_GREY(),
-            selected: COLORS.WHITE()
+            default: PALETTE.DEFAULT,
+            selected: PALETTE.TERTIARY
         },
         summary: {
-            default: COLORS.DARK_GREY(0.9),
-            selected: COLORS.WHITE()
+            default: PALETTE.DEFAULT,
+            selected: PALETTE.TERTIARY
         },
         summary_link: {
-            default: COLORS.DARK_BLUE(1),
-            hover: COLORS.WHITE(1)
+            default: PALETTE.PRIMARY,
+            hover: PALETTE.TERTIARY
         },
         definition_term: {            
-            default: COLORS.WHITE(),
-            hover: COLORS.DARK_BLUE(1)            
+            default: PALETTE.TERTIARY,
+            hover: PALETTE.PRIMARY
         },
         definition_definition: {
-            default: COLORS.LIGHT_BLUE()
+            default: PALETTE.SECONDARY
         }
     },
     backgrounds: {
-        primary_nav: COLORS.DARK_BLUE(1),
+        primary_nav: PALETTE.PRIMARY,
         primary_nav_link: {
-            hover: COLORS.LIGHT_BLUE(1)
+            hover: PALETTE.SECONDARY
         },
         search_input: {
             default: COLORS.LIGHT_BLUE(0.5),
-            hover: COLORS.LIGHT_BLUE(1)
+            hover: PALETTE.SECONDARY
         },
         approximate_time: {
-            selected: COLORS.LIGHT_BLUE()
+            selected: PALETTE.SECONDARY
         },
         summary_title: {
-            selected: COLORS.LIGHT_BLUE()
+            selected: PALETTE.SECONDARY
         },
         summary: {
-            selected: COLORS.GREY(0.75)
+            selected: PALETTE.DEFAULT
         },
-        summary_link: COLORS.LIGHT_BLUE(1),
-        definition_term: COLORS.DARK_BLUE()
+        summary_link: PALETTE.SECONDARY,
+        definition_term: PALETTE.PRIMARY
     },
     fonts: {
-        primary_nav_link: 'bold 0.8rem/1 Tahoma,Helvetica,sans-serif',
+        primary_nav_link: `${FONT_WEIGHTS.X_BOLD} ${FONT_SIZES.SMALL} ${FONT_FAMILIES.SANS_SERIF}`,
         summary_title: '26px/1 Gerogia, Times, "Times New Roman", Serif',
         summary: '14px/20px Tahoma, Helvetica, sans-serif',
-        summary_link: '12px/13px Tahoma,Helvetica,sans-serif',
-        definition_term: 'bold 0.8rem/1 Tahoma,Helvetica,sans-serif'
+        summary_link: '${FONT_SIZES.X_SMALL} ${FONT_FAMILIES.SANS_SERIF}',
+        definition_term: `${FONT_WEIGHTS.X_BOLD} ${FONT_SIZES.SMALL} ${FONT_FAMILIES.SANS_SERIF}`
     },
     borders: {
         primary_nav_link: {
