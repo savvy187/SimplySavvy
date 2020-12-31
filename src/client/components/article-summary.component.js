@@ -3,8 +3,10 @@ import PropTypes from 'prop-types';
 import styled, { ThemeContext } from 'styled-components';
 import _ from 'lodash';
 import { Link } from 'react-router-dom';
-import { SummaryImage, ApproximateTime } from 'components';
+import { SummaryImage, ApproximateTime, Typography } from 'components';
 import { useIntersectionObserver } from 'hooks';
+
+const { H2, P } = Typography;
 
 const ArticleSummary = ({
     className,
@@ -38,11 +40,11 @@ const ArticleSummary = ({
                             search: null
                         }}
                     >
-                        <h2 className="summary-title">{title}</h2>
+                        <H2 className="summary-title">{title}</H2>
                         <ApproximateTime timestamp={timestamp} />
                     </Link>
                 </div>
-                <p className="summary">{summary}</p>
+                <P className="summary">{summary}</P>
                 <nav>
                     <Link 
                         to={{ search: `?similarArticles=${id}` }}                        
@@ -87,32 +89,18 @@ export default styled(ArticleSummary).attrs(props => ({
     transform: all 0.5s linear;
 
     .summary-title {
-        display: inline-block;
         margin: 0.5vh 0;
-        color: ${({ theme }) => theme.colors.summary_title.default};
-        font: ${({ theme }) => theme.fonts.summary_title};
-        text-transform: capitalize;
         flex-grow: 5;
-        cursor: pointer;
-
-        &:hover {
-            text-decoration: underline;
-            text-decoration-skip: objects;
-        }
 
         &::selection {
-            color: ${({ theme }) => theme.colors.summary_title.selected};
             background-color: ${({ theme }) => theme.backgrounds.summary_title.selected};
         }
     }
 
     .summary {
         margin: 1vh 0;
-        color: ${({ theme }) => theme.colors.summary.default};
-        font: ${({ theme }) => theme.fonts.summary};
 
-        &::selection {
-            color: ${({ theme }) => theme.colors.summary.selected};
+        &::selection {            
             background-color: ${({ theme }) => theme.backgrounds.summary.selected};
         }
     }

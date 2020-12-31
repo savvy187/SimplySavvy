@@ -20,6 +20,7 @@ const FONT_WEIGHTS = {
     BOLD: 500,
     X_BOLD: 600,
     XX_BOLD: 700,
+    XXX_BOLD: 800,
     JUMBO: 900
 };
 
@@ -31,6 +32,7 @@ const FONT_SIZES = {
     LARGE: '1.125rem',
     X_LARGE: '1.25rem',
     XX_LARGE: '1.5rem',
+    XXX_LARGE: '1.875rem',
     JUMBO: '2rem'
 };
 

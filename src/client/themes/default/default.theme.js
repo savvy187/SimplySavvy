@@ -26,6 +26,10 @@ export default {
         }
     },
     colors: {
+        typography: {
+            default: PALETTE.DEFAULT,
+            selected: PALETTE.TERTIARY
+        },
         primary_nav_link: {
             default: PALETTE.TERTIARY,
             hover: PALETTE.PRIMARY
@@ -85,7 +89,14 @@ export default {
         summary_title: '26px/1 Gerogia, Times, "Times New Roman", Serif',
         summary: '14px/20px Tahoma, Helvetica, sans-serif',
         summary_link: '${FONT_SIZES.X_SMALL} ${FONT_FAMILIES.SANS_SERIF}',
-        definition_term: `${FONT_WEIGHTS.X_BOLD} ${FONT_SIZES.SMALL} ${FONT_FAMILIES.SANS_SERIF}`
+        definition_term: `${FONT_WEIGHTS.X_BOLD} ${FONT_SIZES.SMALL} ${FONT_FAMILIES.SANS_SERIF}`,
+        typography: {
+            p: `${FONT_WEIGHTS.DEFAULT} ${FONT_SIZES.DEFAULT} ${FONT_FAMILIES.SANS_SERIF}`,
+            h1: `${FONT_WEIGHTS.X_BOLD} ${FONT_SIZES.XXX_LARGE} ${FONT_FAMILIES.SERIF}`,
+            h2: `${FONT_WEIGHTS.BOLD} ${FONT_SIZES.XX_LARGE} ${FONT_FAMILIES.SERIF}`,
+            h3: `${FONT_WEIGHTS.BOLD} ${FONT_SIZES.X_LARGE} ${FONT_FAMILIES.SERIF}`,
+            h4: `${FONT_WEIGHTS.BOLD} ${FONT_SIZES.LARGE} ${FONT_FAMILIES.SERIF}`
+        }
     },
     borders: {
         primary_nav_link: {
