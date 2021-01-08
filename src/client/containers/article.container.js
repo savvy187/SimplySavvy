@@ -6,7 +6,9 @@ import { useParams } from 'react-router-dom';
 import useResource from 'hooks/resource.hook';
 import useDocumentScroll from 'hooks/document-scroll.hook';
 import usePinToScroll from 'hooks/pin-to-scroll.hook';
-import { ApproximateTime, DefinitionList } from 'components';
+import { ApproximateTime, DefinitionList, Typography } from 'components';
+
+const { H1, P } = Typography;
 
 const Article = ({ className }) => {
     const asideRef = useRef(null);
@@ -16,7 +18,7 @@ const Article = ({ className }) => {
         usePinToScroll(asideRef, 'scrolling')
     );
 
-    const { loading, success, empty, resource } = useResource({    
+    const { loading, success,  resource } = useResource({    
         resourceRoute: `/api/articles/${id}`
     });
 
@@ -29,14 +31,13 @@ const Article = ({ className }) => {
                         <div className="article-container">
                             <article>
                                 <hgroup>
-                                    <h1>{resource.title}</h1>
+                                    <H1>{resource.title}</H1>
                                     <ApproximateTime timestamp={resource.timestamp} />                                    
                                 </hgroup>
                                 {_.map(resource.sections, (s) => (
-                                    <section key={s.title}>
-                                        {/* <h2>{s.title}</h2> */}
+                                    <section key={s.title}>                                        
                                         {_.map(s.content, (p) => (
-                                            <p key={p}>{p}</p>
+                                            <P key={p}>{p}</P>
                                         ))}
                                     </section>
                                 ))}
@@ -78,17 +79,6 @@ export default styled(Article)`
 
         p {
             margin-bottom: 1.25em;
-            font-size: 1rem;
-            line-height: 1.25em;
-            font: ${({ theme }) => theme.fonts.summary};
-
-            &:first-of-type {
-
-                &:first-letter {
-                    font: ${({ theme }) => theme.fonts.summary_title};
-                    letter-spacing: 0.1em;
-                }
-            }
         }
     }
 
@@ -107,15 +97,5 @@ export default styled(Article)`
                 + ${({ theme }) => theme.dimensions.aside.offset}
             );
         }
-    }
-
-    h1 {
-        font-size: 2.25rem;
-    }
-
-    h2 {
-        margin-bottom: 1rem;
-        font-size: 2rem;
-        text-transform: uppercase;
     }
 `;

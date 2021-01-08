@@ -26,9 +26,16 @@ export default {
         }
     },
     colors: {
-        typography: {
-            default: PALETTE.DEFAULT,
+        approximate_time: {
+            default: PALETTE.SECONDARY,
             selected: PALETTE.TERTIARY
+        },
+        definition_term: {            
+            default: PALETTE.TERTIARY,
+            hover: PALETTE.PRIMARY
+        },
+        definition_definition: {
+            default: PALETTE.SECONDARY
         },
         primary_nav_link: {
             default: PALETTE.TERTIARY,
@@ -39,31 +46,26 @@ export default {
             hover: PALETTE.PRIMARY
         },
         search_input_placeholder: PALETTE.TERTIARY,
-        approximate_time: {
-            default: PALETTE.SECONDARY,
-            selected: PALETTE.TERTIARY
-        },
-        summary_title: {
-            default: PALETTE.DEFAULT,
-            selected: PALETTE.TERTIARY
-        },
-        summary: {
-            default: PALETTE.DEFAULT,
-            selected: PALETTE.TERTIARY
-        },
         summary_link: {
             default: PALETTE.PRIMARY,
             hover: PALETTE.TERTIARY
         },
-        definition_term: {            
-            default: PALETTE.TERTIARY,
-            hover: PALETTE.PRIMARY
-        },
-        definition_definition: {
-            default: PALETTE.SECONDARY
+        typography: {
+            headings: {
+                default: PALETTE.DEFAULT,
+                selected: PALETTE.TERTIARY
+            },
+            p: {
+                default: PALETTE.DEFAULT,
+                selected: PALETTE.TERTIARY
+            }
         }
     },
     backgrounds: {
+        approximate_time: {
+            selected: PALETTE.SECONDARY
+        },
+        definition_term: PALETTE.PRIMARY,
         primary_nav: PALETTE.PRIMARY,
         primary_nav_link: {
             hover: PALETTE.SECONDARY
@@ -72,26 +74,25 @@ export default {
             default: COLORS.LIGHT_BLUE(0.5),
             hover: PALETTE.SECONDARY
         },
-        approximate_time: {
-            selected: PALETTE.SECONDARY
-        },
-        summary_title: {
-            selected: PALETTE.SECONDARY
-        },
         summary: {
             selected: PALETTE.DEFAULT
         },
         summary_link: PALETTE.SECONDARY,
-        definition_term: PALETTE.PRIMARY
+        typography: {
+            p: {
+                selected: PALETTE.DEFAULT
+            },
+            headings: {
+                selected: PALETTE.SECONDARY
+            }
+        }
     },
     fonts: {
-        primary_nav_link: `${FONT_WEIGHTS.X_BOLD} ${FONT_SIZES.SMALL} ${FONT_FAMILIES.SANS_SERIF}`,
-        summary_title: '26px/1 Gerogia, Times, "Times New Roman", Serif',
-        summary: '14px/20px Tahoma, Helvetica, sans-serif',
-        summary_link: '${FONT_SIZES.X_SMALL} ${FONT_FAMILIES.SANS_SERIF}',
         definition_term: `${FONT_WEIGHTS.X_BOLD} ${FONT_SIZES.SMALL} ${FONT_FAMILIES.SANS_SERIF}`,
+        primary_nav_link: `${FONT_WEIGHTS.X_BOLD} ${FONT_SIZES.SMALL} ${FONT_FAMILIES.SANS_SERIF}`,
+        summary_link: '${FONT_SIZES.X_SMALL} ${FONT_FAMILIES.SANS_SERIF}',
         typography: {
-            p: `${FONT_WEIGHTS.DEFAULT} ${FONT_SIZES.DEFAULT} ${FONT_FAMILIES.SANS_SERIF}`,
+            p: `${FONT_WEIGHTS.DEFAULT} ${FONT_SIZES.SMALL} ${FONT_FAMILIES.SANS_SERIF}`,
             h1: `${FONT_WEIGHTS.X_BOLD} ${FONT_SIZES.XXX_LARGE} ${FONT_FAMILIES.SERIF}`,
             h2: `${FONT_WEIGHTS.BOLD} ${FONT_SIZES.XX_LARGE} ${FONT_FAMILIES.SERIF}`,
             h3: `${FONT_WEIGHTS.BOLD} ${FONT_SIZES.X_LARGE} ${FONT_FAMILIES.SERIF}`,
