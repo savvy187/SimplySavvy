@@ -19,7 +19,6 @@ const ArticleSummary = ({
     commentsCount }) => {
     const theme = useContext(ThemeContext);
     const primarNavHeight = _.parseInt(theme.dimensions.primary_nav.height);
-    //const threshold = _.range(0, 100, 12.5).map((v) => v/100).concat(1);    
     const [entry, bounds, setNode] = useIntersectionObserver({        
         root: null,
         rootMargin: `${-2 * primarNavHeight}px 0px`,
@@ -91,18 +90,10 @@ export default styled(ArticleSummary).attrs(props => ({
     .summary-title {
         margin: 0.5vh 0;
         flex-grow: 5;
-
-        &::selection {
-            background-color: ${({ theme }) => theme.backgrounds.summary_title.selected};
-        }
     }
 
     .summary {
         margin: 1vh 0;
-
-        &::selection {            
-            background-color: ${({ theme }) => theme.backgrounds.summary.selected};
-        }
     }
 
     .summary-link {
