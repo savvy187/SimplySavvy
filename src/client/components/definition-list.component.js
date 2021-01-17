@@ -26,7 +26,7 @@ export default styled(DefinitionList)`
     margin-bottom: 50px;
     
     dt {
-        margin-bottom: 10px;
+        margin-bottom: 0.5em;
         padding: 0.5em;
         border-radius: 4px;
         font: ${({ theme }) => theme.fonts.definition_term};
@@ -35,7 +35,9 @@ export default styled(DefinitionList)`
     }
 
     dd {
-        padding: 0.25em;
+        padding: 0.5em;
+        font: ${({ theme }) => theme.fonts.definition_definition};
         color: ${({ theme }) => theme.colors.definition_definition.default};
+        border-bottom: ${({ theme }) => theme.borders.definition_definition.default};
     }    
 `;
