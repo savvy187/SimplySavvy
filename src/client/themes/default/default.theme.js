@@ -89,6 +89,7 @@ export default {
     },
     fonts: {
         definition_term: `${FONT_WEIGHTS.X_BOLD} ${FONT_SIZES.SMALL} ${FONT_FAMILIES.SANS_SERIF}`,
+        definition_definition: `${FONT_WEIGHTS.DEFAULT} ${FONT_SIZES.X_SMALL} ${FONT_FAMILIES.SERIF}`,
         primary_nav_link: `${FONT_WEIGHTS.X_BOLD} ${FONT_SIZES.SMALL} ${FONT_FAMILIES.SANS_SERIF}`,
         summary_link: '${FONT_SIZES.X_SMALL} ${FONT_FAMILIES.SANS_SERIF}',
         typography: {
@@ -100,6 +101,9 @@ export default {
         }
     },
     borders: {
+        definition_definition: {
+            default: `1px solid ${COLORS.DARK_GREY(0.25)}`
+        },
         primary_nav_link: {
             focus: `1px solid ${COLORS.DARK_GREY(0.75)}`
         },
