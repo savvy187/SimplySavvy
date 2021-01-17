@@ -42,9 +42,7 @@ export default function useIntersectionObserver({ root=null, rootMargin='0px', t
                 const opacity = entry.intersectionRatio || 0;
                 //const show = entry.intersectionRatio >= 0.9;
                 //const nav = entry.target.querySelectorAll('nav a');
-                //const img = entry.target.querySelector('img');
-                
-                entry.target.style.opacity = `${opacity}`;
+                //const img = entry.target.querySelector('img');                                
                 //img.style.filter = show ? 'none' : theme.filters.blur_1;
         
                 /*nav.forEach((link) => {

@@ -1,3 +1,4 @@
+import React from 'react';
 import styled, { css } from 'styled-components';
 
 const headingMixin = css`
@@ -52,3 +53,31 @@ export const P = styled.p`
     ${typographyMixin}
     line-height: 1.25;
 `;
+
+const Anchor = React.forwardRef((props, ref) => ( // eslint-disable-line react/display-name
+    <a ref={ref} {...props}>{props.children}</a> // eslint-disable-line react/prop-types
+));
+
+const StyledAnchor = styled(Anchor)`
+    display: inline-block;
+    font: ${({ theme }) => theme.fonts.typography.a};
+    color: ${({ theme }) => theme.colors.typography.a.default};
+    text-decoration: none;
+    margin: 0 0.5em;
+    padding: 0.5em;
+    border-radius: 0.25em;
+    transition: ${({ theme }) => theme.transitions.ease_in};
+
+    &:hover,
+    &:focus {
+        color: ${({ theme }) => theme.colors.typography.a.hover};
+        background-color: ${({ theme }) => theme.backgrounds.typography.a.hover};
+        outline: none;
+    }
+
+    &:focus {
+        border: ${({ theme }) => theme.borders.typography.a.focus};
+    }
+`;
+
+export { StyledAnchor as Anchor };
