@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { SummaryImage, ApproximateTime, Typography } from 'components';
 import { useIntersectionObserver } from 'hooks';
 
-const { H2, P } = Typography;
+const { H2, P, Anchor } = Typography;
 
 const ArticleSummary = ({
     className,
@@ -47,13 +47,13 @@ const ArticleSummary = ({
                 <nav>
                     <Link 
                         to={{ search: `?similarArticles=${id}` }}                        
-                        className="summary-link"
+                        component={Anchor}
                     >
                         Similar Articles ({similarArticlesCount})
                     </Link>
                     <Link 
                         to={{ search: `?articleComments=${id}` }}
-                        className="summary-link"
+                        component={Anchor}
                     >
                         Comments ({commentsCount})
                     </Link>
@@ -77,9 +77,7 @@ ArticleSummary.propTypes = {
     commentsCount: PropTypes.number
 };
 
-export default styled(ArticleSummary).attrs(props => ({
-    opacity: props.intersectionRatio
-}))`
+export default styled(ArticleSummary)`
     display: flex;
     justify-content: 'space-evenly';
     align-items: center;    
@@ -94,29 +92,5 @@ export default styled(ArticleSummary).attrs(props => ({
 
     .summary {
         margin: 1vh 0;
-    }
-
-    .summary-link {
-        padding: 4px;
-        margin-right: 12px;
-        color: ${({ theme }) => theme.colors.summary_link.default};
-        font: ${({ theme }) => theme.fonts.summary_link};
-        text-decoration: none;
-        letter-spacing: 1.25px;
-        border-radius: 4px;
-        border: 1px solid transparent;
-        opacity: ${props => `${props.show ? 1 : 0}`};
-        transition: ${({ theme }) => theme.transitions.ease_in};
-
-        &:hover,
-        &:focus {
-            color: ${({ theme }) => theme.colors.summary_link.hover};
-            background-color: ${({ theme }) => theme.backgrounds.summary_link};
-            outline: none;
-        }
-
-        &:focus {
-            border: ${({ theme }) => theme.borders.summary_link.focus};
-        }
     }
 `;
