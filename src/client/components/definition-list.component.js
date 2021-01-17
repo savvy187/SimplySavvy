@@ -2,13 +2,21 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import _ from 'lodash';
+import { Link } from 'react-router-dom';
+import { Typography } from 'components';
+
+const { Anchor } = Typography;
 
 const DefinitionList = ({ className, listHeading, listItems=[] }) => {
     if (!_.isEmpty(listItems)) {
         return (
             <dl className={className}>
                 <dt>{listHeading}</dt>
-                {_.map(listItems, (item) => (<dd key={item}>{item}</dd>))}
+                {_.map(listItems, (item) => (
+                    <dd key={item}>
+                        <Link component={Anchor}>{item}</Link>
+                    </dd>
+                ))}
             </dl>
         );
     }
@@ -35,9 +43,9 @@ export default styled(DefinitionList)`
     }
 
     dd {
-        padding: 0.5em;
-        font: ${({ theme }) => theme.fonts.definition_definition};
-        color: ${({ theme }) => theme.colors.definition_definition.default};
+        padding: 0.25em;
+        /* font: ${({ theme }) => theme.fonts.definition_definition};
+        color: ${({ theme }) => theme.colors.definition_definition.default}; */
         border-bottom: ${({ theme }) => theme.borders.definition_definition.default};
     }    
 `;
