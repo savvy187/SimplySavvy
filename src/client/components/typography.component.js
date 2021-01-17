@@ -18,6 +18,7 @@ const headingMixin = css`
         text-decoration: none;
     }
 `;
+
 const typographyMixin = css`        
     color: ${props => props.theme.colors.typography.p.default};    
 
