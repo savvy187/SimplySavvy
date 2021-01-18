@@ -17,7 +17,7 @@ const Article = ({ className }) => {
     useDocumentScroll(
         usePinToScroll(asideRef, 'scrolling')
     );
-
+    
     const { loading, success,  resource } = useResource({    
         resourceRoute: `/api/articles/${id}`
     });
@@ -75,11 +75,7 @@ export default styled(Article)`
     section {
         flex-shrink: 0;
         padding: 0 0.5rem;
-        margin-bottom: 1.5rem;
-
-        p {
-            margin-bottom: 1.25em;
-        }
+        margin-bottom: 1.5rem;        
     }
 
     .aside-container {        

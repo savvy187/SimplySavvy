@@ -86,7 +86,6 @@ export default styled(ArticleSummary)`
     transform: all 0.5s linear;
 
     .summary-title {
-        margin: 0.5vh 0;
         flex-grow: 5;
     }
 

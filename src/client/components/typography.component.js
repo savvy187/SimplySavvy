@@ -32,27 +32,32 @@ export const H1 = styled.h1`
     font: ${({ theme }) => theme.fonts.typography.h1};
     ${typographyMixin}
     ${headingMixin}
+    margin: 0.5em 0;
 `;
 
 export const H2 = styled.h2`
     font: ${({ theme }) => theme.fonts.typography.h2};
     ${headingMixin}
+    margin: 0.375em 0;
 `;
 
 export const H3 = styled.h3`
     font: ${({ theme }) => theme.fonts.typography.h3};    
     ${headingMixin}
+    margin: 0.245em 0;
 `;
 
 export const H4 = styled.h4`
     font: ${({ theme }) => theme.fonts.typography.h4};    
     ${headingMixin}
+    margin: 0.12em 0;
 `;
 
 export const P = styled.p`
     font: ${({ theme }) => theme.fonts.typography.p};
     ${typographyMixin}
     line-height: 1.25;
+    margin: 0 0 1.25em 0;
 `;
 
 const Anchor = React.forwardRef((props, ref) => ( // eslint-disable-line react/display-name
