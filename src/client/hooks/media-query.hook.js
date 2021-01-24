@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 export default function useMediaQuery(mediaQuery) {
     const mediaQueryList = window.matchMedia(mediaQuery);
-    const [matches, setMatches] = useState(matches);
+    const [matches, setMatches] = useState(mediaQueryList.matches);
 
     useEffect(() => {
         const changeHandler = (evt) => setMatches(evt.matches);

@@ -1,12 +1,17 @@
 import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import NavBar from 'components/nav-bar.component';
-import useDocumentScroll from 'hooks/document-scroll.hook';
-import usePinToScroll from 'hooks/pin-to-scroll.hook';
+import { NavBar } from 'components';
+import { 
+    useDocumentScroll,
+    usePinToScroll,
+    useMediaQuery
+} from 'hooks';
 
 const Header = ({ className }) => {    
     const navRef = useRef(null);
+    const [matches] = useMediaQuery('(min-width: 965px)');
+
     useDocumentScroll(
         usePinToScroll(navRef, 'scrolling')
     );
@@ -17,11 +22,17 @@ const Header = ({ className }) => {
             className={className}
         >
             <div className="logo-container"></div>
-            <div className="primary-nav">
-                <div ref={navRef} className="nav-container">
-                    <NavBar />
-                </div>
-            </div>
+            {
+                matches
+                    ? (
+                        <div className="primary-nav">
+                            <div ref={navRef} className="nav-container">
+                                <NavBar />
+                            </div>
+                        </div>
+                    )
+                    : null
+            }
         </header>
     );
 };
