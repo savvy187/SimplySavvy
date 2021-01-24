@@ -7,3 +7,4 @@ export usePersistentStore from './persistent-store.hook';
 export useQuery from './query.hook';
 export useResource from './resource.hook';
 export useSendBeacon from './send-beacon.hook';
+export useMediaQuery from './media-query.hook';
