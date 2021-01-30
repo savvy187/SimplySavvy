@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import _ from 'lodash';
 import { Link } from 'react-router-dom';
-import { Typography } from 'components';
+import { Links } from 'components';
 
-const { Anchor } = Typography;
+const { InlineAnchor } = Links;
 
 const DefinitionList = ({ className, listHeading, listItems=[] }) => {
     if (!_.isEmpty(listItems)) {
@@ -14,7 +14,7 @@ const DefinitionList = ({ className, listHeading, listItems=[] }) => {
                 <dt>{listHeading}</dt>
                 {_.map(listItems, (item) => (
                     <dd key={item}>
-                        <Link component={Anchor}>{item}</Link>
+                        <Link component={InlineAnchor}>{item}</Link>
                     </dd>
                 ))}
             </dl>
@@ -43,9 +43,7 @@ export default styled(DefinitionList)`
     }
 
     dd {
-        padding: 0.25em;
-        /* font: ${({ theme }) => theme.fonts.definition_definition};
-        color: ${({ theme }) => theme.colors.definition_definition.default}; */
+        padding: 0.25em;        
         border-bottom: ${({ theme }) => theme.borders.definition_definition.default};
     }    
 `;

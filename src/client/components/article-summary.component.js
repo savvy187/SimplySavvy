@@ -3,10 +3,11 @@ import PropTypes from 'prop-types';
 import styled, { ThemeContext } from 'styled-components';
 import _ from 'lodash';
 import { Link } from 'react-router-dom';
-import { SummaryImage, ApproximateTime, Typography } from 'components';
+import { SummaryImage, ApproximateTime, Typography, Links } from 'components';
 import { useIntersectionObserver } from 'hooks';
 
-const { H2, P, Anchor } = Typography;
+const { H2, P } = Typography;
+const { BlockAnchor } = Links;
 
 const ArticleSummary = ({
     className,
@@ -43,17 +44,17 @@ const ArticleSummary = ({
                         <ApproximateTime timestamp={timestamp} />
                     </Link>
                 </div>
-                <P className="summary">{summary}</P>
+                <P>{summary}</P>
                 <nav>
                     <Link 
                         to={{ search: `?similarArticles=${id}` }}                        
-                        component={Anchor}
+                        component={BlockAnchor}
                     >
                         Similar Articles ({similarArticlesCount})
                     </Link>
                     <Link 
                         to={{ search: `?articleComments=${id}` }}
-                        component={Anchor}
+                        component={BlockAnchor}
                     >
                         Comments ({commentsCount})
                     </Link>
@@ -85,11 +86,7 @@ export default styled(ArticleSummary)`
     padding: 2vw 0;    
     transform: all 0.5s linear;
 
-    .summary-title {
-        flex-grow: 5;
-    }
-
-    .summary {
-        margin: 1vh 0;
+    nav a:first-child {
+        margin-left: 0;
     }
 `;

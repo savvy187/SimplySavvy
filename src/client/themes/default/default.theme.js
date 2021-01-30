@@ -33,23 +33,12 @@ export default {
         definition_term: {            
             default: PALETTE.TERTIARY,
             hover: PALETTE.PRIMARY
-        },
-        definition_definition: {
-            default: PALETTE.SECONDARY
-        },
-        primary_nav_link: {
-            default: PALETTE.TERTIARY,
-            hover: PALETTE.PRIMARY
-        },
+        },                
         search_input: {
             default: PALETTE.TERTIARY,
             hover: PALETTE.PRIMARY
         },
-        search_input_placeholder: PALETTE.TERTIARY,
-        summary_link: {
-            default: PALETTE.PRIMARY,
-            hover: PALETTE.TERTIARY
-        },
+        search_input_placeholder: PALETTE.TERTIARY,        
         typography: {
             headings: {
                 default: PALETTE.DEFAULT,
@@ -58,8 +47,18 @@ export default {
             p: {
                 default: PALETTE.DEFAULT,
                 selected: PALETTE.TERTIARY
+            }            
+        },
+        links: {
+            nav: {
+                default: PALETTE.TERTIARY,
+                hover: PALETTE.PRIMARY
             },
-            a: {
+            inline: {
+                default: PALETTE.PRIMARY,
+                hover: PALETTE.SECONDARY
+            },
+            block: {
                 default: PALETTE.PRIMARY,
                 hover: PALETTE.TERTIARY
             }
@@ -70,10 +69,7 @@ export default {
             selected: PALETTE.SECONDARY
         },
         definition_term: PALETTE.PRIMARY,
-        primary_nav: PALETTE.PRIMARY,
-        primary_nav_link: {
-            hover: PALETTE.SECONDARY
-        },
+        primary_nav: PALETTE.PRIMARY,        
         search_input: {
             default: COLORS.LIGHT_BLUE(0.5),
             hover: PALETTE.SECONDARY
@@ -88,41 +84,48 @@ export default {
             },
             headings: {
                 selected: PALETTE.SECONDARY
+            }            
+        },
+        links: {
+            nav: {                
+                hover: PALETTE.SECONDARY
             },
-            a: {
+            inline: {
+                hover: PALETTE.PRIMARY
+            },
+            block: {
                 hover: PALETTE.SECONDARY
             }
         }
     },
     fonts: {
         definition_term: `${FONT_WEIGHTS.X_BOLD} ${FONT_SIZES.SMALL} ${FONT_FAMILIES.SANS_SERIF}`,
-        definition_definition: `${FONT_WEIGHTS.DEFAULT} ${FONT_SIZES.X_SMALL} ${FONT_FAMILIES.SERIF}`,
-        primary_nav_link: `${FONT_WEIGHTS.X_BOLD} ${FONT_SIZES.SMALL} ${FONT_FAMILIES.SANS_SERIF}`,
-        summary_link: '${FONT_SIZES.X_SMALL} ${FONT_FAMILIES.SANS_SERIF}',
-        typography: {
-            a: `${FONT_WEIGHTS.DEFAULT} ${FONT_SIZES.X_SMALL} ${FONT_FAMILIES.SANS_SERIF}`,
+        definition_definition: `${FONT_WEIGHTS.DEFAULT} ${FONT_SIZES.X_SMALL} ${FONT_FAMILIES.SERIF}`,        
+        typography: {            
             p: `${FONT_WEIGHTS.DEFAULT} ${FONT_SIZES.SMALL} ${FONT_FAMILIES.SANS_SERIF}`,
             h1: `${FONT_WEIGHTS.X_BOLD} ${FONT_SIZES.XXX_LARGE} ${FONT_FAMILIES.SERIF}`,
             h2: `${FONT_WEIGHTS.BOLD} ${FONT_SIZES.XX_LARGE} ${FONT_FAMILIES.SERIF}`,
             h3: `${FONT_WEIGHTS.BOLD} ${FONT_SIZES.X_LARGE} ${FONT_FAMILIES.SERIF}`,
             h4: `${FONT_WEIGHTS.BOLD} ${FONT_SIZES.LARGE} ${FONT_FAMILIES.SERIF}`
+        },
+        links: {
+            nav: `${FONT_WEIGHTS.X_BOLD} ${FONT_SIZES.SMALL} ${FONT_FAMILIES.SANS_SERIF}`,
+            inline: `${FONT_WEIGHTS.DEFAULT} ${FONT_SIZES.X_SMALL} ${FONT_FAMILIES.SANS_SERIF}`,
+            block: `${FONT_WEIGHTS.DEFAULT} ${FONT_SIZES.X_SMALL} ${FONT_FAMILIES.SANS_SERIF}`
         }
     },
     borders: {
         definition_definition: {
-            default: `1px solid ${COLORS.DARK_GREY(0.25)}`
-        },
-        primary_nav_link: {
-            focus: `1px solid ${COLORS.DARK_GREY(0.75)}`
-        },
+            default: `0.5px dotted ${COLORS.DARK_GREY(0.1)}`
+        },        
         search_input: {
             hover: `1px solid ${COLORS.DARK_GREY(1)}`
-        },
-        summary_link: {
-            focus: `1px solid ${COLORS.DARK_GREY(0.75)}`
-        },
-        typography: {
-            a: {
+        },        
+        links: {
+            nav: {
+                focus: `1px solid ${COLORS.DARK_GREY(0.75)}`
+            },            
+            block: {
                 focus: `1px solid ${COLORS.DARK_GREY(0.75)}`
             }
         }
