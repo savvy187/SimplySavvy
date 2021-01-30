@@ -14,6 +14,9 @@ const FONT_FAMILIES = {
 
 
 export default {
+    media_queries: {
+        nav_bar: '(min-width: 965px)'
+    },
     dimensions: {
         primary_nav: {
             width: '945px',

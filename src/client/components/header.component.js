@@ -1,6 +1,6 @@
-import React, { useRef } from 'react';
+import React, { useRef, useContext } from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import styled, { ThemeContext } from 'styled-components';
 import { NavBar } from 'components';
 import { 
     useDocumentScroll,
@@ -8,9 +8,10 @@ import {
     useMediaQuery
 } from 'hooks';
 
-const Header = ({ className }) => {    
+const Header = ({ className }) => {
     const navRef = useRef(null);
-    const [matches] = useMediaQuery('(min-width: 965px)');
+    const { media_queries: { nav_bar } } = useContext(ThemeContext);
+    const [matches] = useMediaQuery(nav_bar);
 
     useDocumentScroll(
         usePinToScroll(navRef, 'scrolling')

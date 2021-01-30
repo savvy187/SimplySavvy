@@ -4,12 +4,7 @@ const headingMixin = css`
     display: inline-block;
     text-transform: capitalize;
     cursor: pointer;
-    color: ${props => props.theme.colors.typography.headings.default};
-
-    &:hover {
-        text-decoration: underline;
-        text-decoration-skip: objects;
-    }
+    color: ${props => props.theme.colors.typography.headings.default};    
 
     &::selection {
         color: ${({ theme }) => theme.colors.typography.headings.selected};
@@ -24,6 +19,22 @@ const typographyMixin = css`
     &::selection {
         color: ${({ theme }) => theme.colors.typography.p.selected};
         background-color: ${({ theme }) => theme.backgrounds.typography.p.selected};
+    }
+`;
+
+export const Hgroup = styled.hgroup`
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    margin-bottom: 0.5em;
+
+    *:first-child {
+        margin-right: 0.25em;
+    }
+
+    > * {
+        text-decoration: inherit;
+        text-decoration-color: inherit;
     }
 `;
 
