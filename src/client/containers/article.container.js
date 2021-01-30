@@ -8,7 +8,7 @@ import useDocumentScroll from 'hooks/document-scroll.hook';
 import usePinToScroll from 'hooks/pin-to-scroll.hook';
 import { ApproximateTime, DefinitionList, Typography } from 'components';
 
-const { H1, P } = Typography;
+const { Hgroup, H1, P } = Typography;
 
 const Article = ({ className }) => {
     const asideRef = useRef(null);
@@ -30,10 +30,13 @@ const Article = ({ className }) => {
                     ? (
                         <div className="article-container">
                             <article>
-                                <hgroup>
+                                <Hgroup>
                                     <H1>{resource.title}</H1>
-                                    <ApproximateTime timestamp={resource.timestamp} />                                    
-                                </hgroup>
+                                    <ApproximateTime 
+                                        timestamp={resource.timestamp} 
+                                        show                                            
+                                    />
+                                </Hgroup>
                                 {_.map(resource.sections, (s) => (
                                     <section key={s.title}>                                        
                                         {_.map(s.content, (p) => (

@@ -5,28 +5,41 @@ const Anchor = React.forwardRef((props, ref) => ( // eslint-disable-line react/d
     <a ref={ref} {...props}>{props.children}</a> // eslint-disable-line react/prop-types
 ));
 
+export const HeadingAnchor = styled(Anchor)`
+    text-decoration: none;
+
+    &:hover {
+        text-decoration: underline;
+        text-decoration-skip: objects;
+    }
+
+    &:visited {
+        
+    }
+`;
+
 export const NavAnchor = styled(Anchor)`
-     padding: 4px;
-        margin-right: 12px;
-        color: ${({ theme }) => theme.colors.links.nav.default};
-        font: ${({ theme }) => theme.fonts.links.nav};
-        text-decoration: none;
-        letter-spacing: 1.25px;
-        border-radius: 4px;
-        border: 1px solid transparent;
-        transition: ${({ theme }) => theme.transitions.ease_in};
+    padding: 0.25em;
+    margin-right: 0.75em;
+    color: ${({ theme }) => theme.colors.links.nav.default};
+    font: ${({ theme }) => theme.fonts.links.nav};
+    text-decoration: none;
+    letter-spacing: 0.1em;
+    border-radius: 0.25em;
+    border: 1px solid transparent;
+    transition: ${({ theme }) => theme.transitions.ease_in};
 
-        &:hover,
-        &:focus,
-        &.active {
-            color: ${({ theme }) => theme.colors.links.nav.hover};
-            background-color: ${({ theme }) => theme.backgrounds.links.nav.hover};
-            outline: none;
-        }
+    &:hover,
+    &:focus,
+    &.active {
+        color: ${({ theme }) => theme.colors.links.nav.hover};
+        background-color: ${({ theme }) => theme.backgrounds.links.nav.hover};
+        outline: none;
+    }
 
-        &:focus {
-            border: ${({ theme }) => theme.borders.links.nav.focus};
-        }
+    &:focus {
+        border: ${({ theme }) => theme.borders.links.nav.focus};
+    }
 `;
 
 export const InlineAnchor = styled(Anchor)`
