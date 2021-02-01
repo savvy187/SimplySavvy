@@ -1,19 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Anchor = React.forwardRef((props, ref) => ( // eslint-disable-line react/display-name
-    <a ref={ref} {...props}>{props.children}</a> // eslint-disable-line react/prop-types
-));
+const Anchor = React.forwardRef((props, ref) => { // eslint-disable-line react/display-name
+    const { navigate, ...rest } = props;
+    return (
+        <a ref={ref} {...rest}>{props.children}</a> // eslint-disable-line react/prop-types
+    );
+});
 
 export const HeadingAnchor = styled(Anchor)`
-    text-decoration: none;
+    text-decoration: none;    
+    text-decoration-color: ${({ theme }) => theme.colors.typography.headings.textDecoration}!important;
 
     &:hover {
         text-decoration: underline;
-        text-decoration-skip: objects;
-    }
-
-    &:visited {
         
     }
 `;

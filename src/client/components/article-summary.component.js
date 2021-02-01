@@ -4,7 +4,7 @@ import styled, { ThemeContext } from 'styled-components';
 import _ from 'lodash';
 import { Link } from 'react-router-dom';
 import { SummaryImage, ApproximateTime, Typography, Links } from 'components';
-import { useIntersectionObserver } from 'hooks';
+//import { useIntersectionObserver } from 'hooks';
 
 const { Hgroup, H2, P } = Typography;
 const { HeadingAnchor, BlockAnchor } = Links;
@@ -19,7 +19,7 @@ const ArticleSummary = ({
     similarArticlesCount, 
     commentsCount }) => {
     const theme = useContext(ThemeContext);
-    const primarNavHeight = _.parseInt(theme.dimensions.primary_nav.height);
+    //const primarNavHeight = _.parseInt(theme.dimensions.primary_nav.height);
     /* const [entry, bounds, setNode] = useIntersectionObserver({        
         root: null,
         rootMargin: `${-2 * primarNavHeight}px 0px`,

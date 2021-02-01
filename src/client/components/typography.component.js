@@ -2,9 +2,15 @@ import styled, { css } from 'styled-components';
 
 const headingMixin = css`
     display: inline-block;
+    cursor: inherit;
     text-transform: capitalize;
-    cursor: pointer;
-    color: ${props => props.theme.colors.typography.headings.default};    
+    text-decoration: inherit;
+    text-decoration-skip: objects;        
+    color: ${({ theme }) => theme.colors.typography.headings.default};    
+
+    &:hover {
+        text-decoration: inherit;
+    }
 
     &::selection {
         color: ${({ theme }) => theme.colors.typography.headings.selected};
@@ -26,15 +32,11 @@ export const Hgroup = styled.hgroup`
     display: flex;
     flex-wrap: wrap;
     align-items: baseline;
-    margin-bottom: 0.5em;
+    margin-bottom: 0.5em;    
+    ${headingMixin};
 
     *:first-child {
         margin-right: 0.25em;
-    }
-
-    > * {
-        text-decoration: inherit;
-        text-decoration-color: inherit;
     }
 `;
 

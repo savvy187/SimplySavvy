@@ -45,5 +45,9 @@ export default styled(DefinitionList)`
     dd {
         padding: 0.25em;        
         border-bottom: ${({ theme }) => theme.borders.definition_definition.default};
+
+        &:last-child {
+            border-bottom: none;
+        }
     }    
 `;

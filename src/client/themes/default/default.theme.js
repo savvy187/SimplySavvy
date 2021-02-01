@@ -28,11 +28,7 @@ export default {
             offset: '20px'
         }
     },
-    colors: {
-        approximate_time: {
-            default: PALETTE.SECONDARY,
-            selected: PALETTE.TERTIARY
-        },
+    colors: {        
         definition_term: {            
             default: PALETTE.TERTIARY,
             hover: PALETTE.PRIMARY
@@ -45,7 +41,8 @@ export default {
         typography: {
             headings: {
                 default: PALETTE.DEFAULT,
-                selected: PALETTE.TERTIARY
+                selected: PALETTE.TERTIARY,
+                textDecoration: PALETTE.SECONDARY
             },
             p: {
                 default: PALETTE.DEFAULT,
@@ -53,6 +50,9 @@ export default {
             }            
         },
         links: {
+            heading: {
+                default: PALETTE.default
+            },
             nav: {
                 default: PALETTE.TERTIARY,
                 hover: PALETTE.PRIMARY
@@ -67,10 +67,7 @@ export default {
             }
         }
     },
-    backgrounds: {
-        approximate_time: {
-            selected: PALETTE.SECONDARY
-        },
+    backgrounds: {        
         definition_term: PALETTE.PRIMARY,
         primary_nav: PALETTE.PRIMARY,        
         search_input: {
