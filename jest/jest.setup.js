@@ -10,4 +10,6 @@ global.navigator = {
 
 global.IntersectionObserver = jest.fn();
 
+global.matchMedia = jest.fn();
+
 jest.mock('config', () => mockConfig);

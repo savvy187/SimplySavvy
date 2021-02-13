@@ -5,7 +5,7 @@ export default function useMediaQuery(mediaQuery) {
     const [matches, setMatches] = useState(mediaQueryList.matches);
 
     useEffect(() => {
-        const changeHandler = (evt) => setMatches(evt.matches);
+        const changeHandler = (evt) => setMatches(evt.matches);        
         mediaQueryList.addEventListener('change', changeHandler);
 
         return () => mediaQueryList.removeEventListner('change', changeHandler);

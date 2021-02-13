@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import _ from 'lodash';
-import { Link } from 'react-router-dom';
 import { Links } from 'components';
 
 const { InlineAnchor } = Links;
@@ -14,7 +13,7 @@ const DefinitionList = ({ className, listHeading, listItems=[] }) => {
                 <dt>{listHeading}</dt>
                 {_.map(listItems, (item) => (
                     <dd key={item}>
-                        <Link component={InlineAnchor}>{item}</Link>
+                        <InlineAnchor>{item}</InlineAnchor>
                     </dd>
                 ))}
             </dl>

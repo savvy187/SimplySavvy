@@ -2,7 +2,6 @@ import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import styled, { ThemeContext } from 'styled-components';
 import _ from 'lodash';
-import { Link } from 'react-router-dom';
 import { SummaryImage, ApproximateTime, Typography, Links } from 'components';
 //import { useIntersectionObserver } from 'hooks';
 
@@ -34,12 +33,8 @@ const ArticleSummary = ({
             <SummaryImage src={src} alt={alt} />
             <article>
                 <div>
-                    <Link
-                        to={{ 
-                            pathname: `/articles/${id}`,
-                            search: null
-                        }}
-                        component={HeadingAnchor}
+                    <HeadingAnchor
+                        to={`/articles/${id}`}
                     >
                         <Hgroup>
                             <H2 className="summary-title">{title}</H2>
@@ -48,22 +43,20 @@ const ArticleSummary = ({
                                 timestamp={timestamp} 
                             />
                         </Hgroup>
-                    </Link>
+                    </HeadingAnchor>
                 </div>
                 <P>{summary}</P>
                 <nav>
-                    <Link 
-                        to={{ search: `?similarArticles=${id}` }}                        
-                        component={BlockAnchor}
+                    <BlockAnchor 
+                        to={{ search: `?similarArticles=${id}` }}
                     >
                         Similar Articles ({similarArticlesCount})
-                    </Link>
-                    <Link 
-                        to={{ search: `?articleComments=${id}` }}
-                        component={BlockAnchor}
+                    </BlockAnchor>
+                    <BlockAnchor 
+                        to={{ search: `?articleComments=${id}` }}                        
                     >
                         Comments ({commentsCount})
-                    </Link>
+                    </BlockAnchor>
                 </nav>
             </article>
         </div>

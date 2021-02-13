@@ -1,14 +1,7 @@
-import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
-const Anchor = React.forwardRef((props, ref) => { // eslint-disable-line react/display-name
-    const { navigate, ...rest } = props;
-    return (
-        <a ref={ref} {...rest}>{props.children}</a> // eslint-disable-line react/prop-types
-    );
-});
-
-export const HeadingAnchor = styled(Anchor)`
+export const HeadingAnchor = styled(Link)`
     text-decoration: none;    
     text-decoration-color: ${({ theme }) => theme.colors.typography.headings.textDecoration}!important;
 
@@ -18,7 +11,7 @@ export const HeadingAnchor = styled(Anchor)`
     }
 `;
 
-export const NavAnchor = styled(Anchor)`
+export const NavAnchor = styled(Link)`
     padding: 0.25em;
     margin-right: 0.75em;
     color: ${({ theme }) => theme.colors.links.nav.default};
@@ -42,7 +35,7 @@ export const NavAnchor = styled(Anchor)`
     }
 `;
 
-export const InlineAnchor = styled(Anchor)`
+export const InlineAnchor = styled(Link)`
     display: inline-block;
     font: ${({ theme }) => theme.fonts.links.inline};
     color: ${({ theme }) => theme.colors.links.inline.default};
@@ -59,7 +52,7 @@ export const InlineAnchor = styled(Anchor)`
     }
 `;
 
-export const BlockAnchor = styled(Anchor)`
+export const BlockAnchor = styled(Link)`
     display: inline-block;
     margin: 0 0.5em;
     padding: 0.5em;

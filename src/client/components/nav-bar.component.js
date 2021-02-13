@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { Links } from 'components';
 import useQuery from 'hooks/query.hook';
 import { ARTICLE_TYPE } from 'client/constants';
@@ -14,40 +14,36 @@ const NavBar = ({ className }) => {
     return (
         <div className={className}>
             <nav>
-                <Link 
+                <NavAnchor 
                     to={{ 
                         pathname: '/articles', 
                         search: `type=${ARTICLE_TYPE.BLOG}` 
-                    }}
-                    component={NavAnchor}       
+                    }}                    
                     className={query.get('type') === ARTICLE_TYPE.BLOG ? 'active' : ''}
                 >
                     Blog
-                </Link>
-                <Link 
+                </NavAnchor>
+                <NavAnchor 
                     to={{ 
                         pathname: '/articles',
                         search: `type=${ARTICLE_TYPE.TUTORIAL}` 
                     }}
-                    component={NavAnchor}
                     className={query.get('type') === ARTICLE_TYPE.TUTORIAL ? 'active' : ''}
                 >
                     Tutorials
-                </Link>
-                <Link 
-                    to="/twitter"
-                    component={NavAnchor}              
+                </NavAnchor>
+                <NavAnchor 
+                    to="/twitter"                    
                     className={pathname === '/twitter' ? 'active' : ''}
                 >
                     Twitter
-                </Link>
-                <Link 
-                    to="/contact"
-                    component={NavAnchor}          
+                </NavAnchor>
+                <NavAnchor 
+                    to="/contact"                    
                     className={pathname === '/contact' ? 'active' : ''}
                 >
                     Contact
-                </Link>
+                </NavAnchor>
             </nav>
             <form>
                 <input 
