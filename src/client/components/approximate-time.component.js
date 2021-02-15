@@ -10,7 +10,7 @@ const ApproximateTime = ({ className, timestamp }) => {
             className={className}
             dateTime={timestamp}
         >
-            {`written ${approximation}`}
+            {`Written ${approximation}`}
         </time>
     );
 };
