@@ -14,9 +14,12 @@ const Article = ({ className }) => {
     const asideRef = useRef(null);
     const { id } = useParams();
 
-    useDocumentScroll(
-        usePinToScroll(asideRef, 'scrolling')
-    );
+    useDocumentScroll({
+        scrollHandler: usePinToScroll(asideRef, 'scrolling'),
+        eventOptions: {
+            passive: true
+        }
+    });
     
     const { loading, success,  resource } = useResource({    
         resourceRoute: `/api/articles/${id}`

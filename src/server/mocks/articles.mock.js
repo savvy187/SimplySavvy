@@ -1,6 +1,16 @@
 import _ from 'lodash';
 import faker from 'faker';
 
+const categories = [
+    'React',
+    'Javascript',
+    'GoLang',
+    'Python',
+    'Arduino',
+    'CSS',
+    'Angular'
+];
+
 const generateArticle = (index) => {
     return {
         id: index,
@@ -16,7 +26,7 @@ const generateArticle = (index) => {
             title: faker.lorem.words(),
             content: _.times(_.random(1, 10), () => faker.lorem.paragraph())
         })),        
-        categories: _.times(_.random(1, 10), () => faker.lorem.word()),
+        categories: _.times(_.random(1, 3), () => faker.random.arrayElement(categories)),
         similarArticles: _.times(_.random(1, 10), () => faker.lorem.sentence())
     };
 };

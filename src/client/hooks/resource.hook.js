@@ -76,7 +76,8 @@ export default function useResource(options) {
                     dispatchAction({
                         type: CANCEL_NETWORK_REQUEST,
                         route: resourceRoute,
-                        statusCode: res.status
+                        statusCode: res.status,
+                        stack: error.stack
                     });
                 
                 } else {
@@ -85,7 +86,8 @@ export default function useResource(options) {
                         type: NETWORK_REQUEST_FAIL,
                         route: resourceRoute,
                         statusCode: error.status,
-                        error: error.message
+                        error: error.message,
+                        stack: error.stack
                     });
                 }
     

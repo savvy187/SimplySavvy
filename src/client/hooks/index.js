@@ -9,3 +9,4 @@ export usePinToScroll from './pin-to-scroll.hook';
 export useQuery from './query.hook';
 export useResource from './resource.hook';
 export useSendBeacon from './send-beacon.hook';
+export useDirectionalElement from './directional-element.hook';

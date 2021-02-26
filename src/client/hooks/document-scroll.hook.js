@@ -1,6 +1,9 @@
 import { useEffect, useRef } from 'react';
 
-export default function useDocumentScroll(scrollHandler=() => {}) {
+export default function useDocumentScroll({
+    scrollHandler = () => { },
+    eventOptions = {}
+}) {
     const animationRef = useRef();
 
     useEffect(() => {
@@ -12,7 +15,10 @@ export default function useDocumentScroll(scrollHandler=() => {}) {
             animationRef.current = requestAnimationFrame(() => scrollHandler(evt));
         };
 
-        document.addEventListener('scroll', onScrollHanlder);
+        document.addEventListener('scroll', onScrollHanlder, {
+            ...eventOptions
+        });
+
         return () => {            
             /* 
              * And on cleanup, we cancel any pending animations...

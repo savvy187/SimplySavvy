@@ -1,21 +1,23 @@
 import React, { useRef, useContext } from 'react';
 import PropTypes from 'prop-types';
 import styled, { ThemeContext } from 'styled-components';
-import { NavBar } from 'components';
 import { 
     useDocumentScroll,
     usePinToScroll,
     useMediaQuery
 } from 'hooks';
 
-const Header = ({ className }) => {
+const Header = ({ children, className }) => {
     const navRef = useRef(null);
     const { media_queries: { nav_bar } } = useContext(ThemeContext);
     const [matches] = useMediaQuery(nav_bar);
 
-    useDocumentScroll(
-        usePinToScroll(navRef, 'scrolling')
-    );
+    useDocumentScroll({
+        scrollHandler: usePinToScroll(navRef, 'scrolling'),
+        eventOptions: {
+            passive: true
+        }
+    });
 
     return (
         <header
@@ -28,7 +30,7 @@ const Header = ({ className }) => {
                     ? (
                         <div className="primary-nav">
                             <div ref={navRef} className="nav-container">
-                                <NavBar />
+                                { children }
                             </div>
                         </div>
                     )
@@ -39,6 +41,7 @@ const Header = ({ className }) => {
 };
 
 Header.propTypes = {
+    children: PropTypes.node,
     className: PropTypes.string.isRequired
 };
 
