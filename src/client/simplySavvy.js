@@ -5,8 +5,6 @@ import { ArticlesList, Article } from 'containers';
 import { useDirectionalElement } from 'hooks';
 import { DIRECTION_TYPE, ROUTES } from 'client/constants';
 
-const Yo = () => <h1>yoooo</h1>;
-
 const SimplySavvy = () => {    
     const HeaderBar = useDirectionalElement({
         y: [

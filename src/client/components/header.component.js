@@ -15,7 +15,7 @@ const Header = ({ children, className }) => {
     useDocumentScroll({
         scrollHandler: usePinToScroll(navRef, 'scrolling'),
         eventOptions: {
-            passive: true
+            passive: false
         }
     });
 

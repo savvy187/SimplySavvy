@@ -54,14 +54,14 @@ function useDirectionalElement(directions) {
                 x: dX,
                 y: dY
             });
-            console.log(dY);
+
             scrollPosition.current = {
                 x: window.scrollX,
                 y: window.scrollY
             };
         },
         eventOptions: {
-            passive: true
+            passive: false
         }
     });
     
