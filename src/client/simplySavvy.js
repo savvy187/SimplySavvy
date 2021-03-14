@@ -10,13 +10,22 @@ const SimplySavvy = () => {
         y: [
             {
                 type: DIRECTION_TYPE.UP,
-                component: NavBar,
-                isDefault: true
+                component: NavBar,                
             },
             {
                 type: DIRECTION_TYPE.DOWN,
-                component: FilterBar,
-                isDefault: false
+                component: FilterBar,                
+                routes: [
+                    ROUTES.HOME,
+                    ROUTES.ARTICLES
+                ]
+            },
+            {
+                type: DIRECTION_TYPE.DOWN,
+                component: null,
+                routes: [
+                    ROUTES.ARTICLE
+                ]
             }
         ]
     });    

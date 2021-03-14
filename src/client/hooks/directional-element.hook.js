@@ -1,81 +1,51 @@
-import React, { useState, useMemo, useRef } from 'react';
+import React, { useMemo } from 'react';
 import _ from 'lodash';
-import { useDocumentScroll } from 'hooks';
-import { DIRECTION_TYPE } from 'client/constants';
+import { useLocation } from 'react-router-dom';
+import { useScrollDirection } from 'hooks';
 
-const getDirectionalElement = ({ directions, axis, currentDirection }) => {
+const getDirectionalElement = ({ directions, axis, currentDirection, pathname }) => {    
+    /*
+     * axisDirections gives up the entire set of possible directions and associated
+     * components. Some components may only show on a certain route.
+    */
     const axisDirections = _.get(directions, axis, []);
-    const directional = _.find(axisDirections, {
-        type: currentDirection[axis]
+    /* 
+     * directional is the singular element to show for a given direction if
+     * the route applies or there is no route specified and the direction 
+     * is equal to the direction that is currently being scrolled in...
+    */
+    const directionEntry = _.find(axisDirections, (axisDirection) => {                
+        const isCurrentDirection = axisDirection.type === currentDirection;        
+        const hasNoRouteSpecified = _.isEmpty(axisDirection.routes);        
+        const hasApplicableRoute = _.includes(axisDirection.routes, pathname);        
+        return isCurrentDirection && (hasNoRouteSpecified || hasApplicableRoute);
     });
-    const directionalElement = _.get(directional, 'component', null);    
-    const defaulted = _.find(axisDirections, { isDefault: true });
-    const defauledElement = _.get(defaulted, 'component', null);
     
-    return !_.isNil(directionalElement)
-        ? directionalElement
-        : defauledElement;
-    
+    return _.get(directionEntry, 'component', null);
 };
 
 function useDirectionalElement(directions) {
-    /* 
-     * Here, we track the scrollPosition to compare
-     * against that of the evt...
-    */
-    const scrollPosition = useRef({
-        x: window.scrollX,
-        y: window.scrollY
-    });
-
-    /* 
-     * We cannot yet determine a direction...
-    */
-    const [direction, setDirection] = useState(() => ({
-        x: null,
-        y: null
-    }));
-
-    useDocumentScroll({
-        scrollHandler: () => {
-            /* 
-            * A scroll evt fires and we capture both the 
-            * direction and coordinates
-            */
-            const dX = window.scrollX < scrollPosition.current.x
-                ? DIRECTION_TYPE.LEFT
-                : DIRECTION_TYPE.RIGHT;
-            
-            const dY = window.scrollY < scrollPosition.current.y
-                ? DIRECTION_TYPE.UP
-                : DIRECTION_TYPE.DOWN;
-            
-            setDirection({
-                x: dX,
-                y: dY
-            });
-
-            scrollPosition.current = {
-                x: window.scrollX,
-                y: window.scrollY
-            };
-        },
-        eventOptions: {
-            passive: false
-        }
-    });
-    
+    const { pathname } = useLocation();
+    const direction = useScrollDirection();    
 
     return useMemo(() => {
+        /* 
+         * A computed element to show for the Y Axis...
+        */
         const YDirectionalElement = getDirectionalElement({                     
             directions,
             axis: 'y',
-            currentDirection: direction
+            currentDirection: direction.y,
+            pathname
         });
+        /* 
+         * A computed element to show for the X Axis...
+        */
         const XDirectionalElement = getDirectionalElement({                     
             directions,
             axis: 'x',
-            currentDirection: direction
+            currentDirection: direction.x,
+            pathname
         });
         
         return (
@@ -93,7 +63,7 @@ function useDirectionalElement(directions) {
             </>
         );
         
-    }, [direction]);
+    }, [direction, pathname]);
 }
 
 export default useDirectionalElement;

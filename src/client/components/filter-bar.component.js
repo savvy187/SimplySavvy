@@ -29,10 +29,10 @@ const FilterBar = ({ className }) => {
                     _.map(articleCategories, (value, key) => (
                         <NavAnchor
                             to={{
-                                search: `categories=${value}`
+                                search: `categories=${key}`
                             }}
                             key={key}
-                            className={query.get('categories') === value ? 'active' : ''}
+                            className={query.get('categories') === key ? 'active' : ''}
                         >
                             {key}: <em>{value}</em>
                         </NavAnchor>
