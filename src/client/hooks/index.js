@@ -1,5 +1,3 @@
-import useScrollDirection from "./scroll-direction.hook";
-
 export useApproximateTime from './approximate-time.hook';
 export useDocumentScroll from './document-scroll.hook';
 export useIntersectionObserver from './intersection-observer.hook';
@@ -13,3 +11,5 @@ export useResource from './resource.hook';
 export useSendBeacon from './send-beacon.hook';
 export useDirectionalElement from './directional-element.hook';
 export useScrollDirection from './scroll-direction.hook';
+export useScrollProgress from './scroll-progress.hook';
+export useCurrentRoute from './current-route.hook';

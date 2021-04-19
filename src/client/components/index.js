@@ -7,6 +7,7 @@ export GlobalStyles from './global-styles.component';
 export Header from './header.component';
 export NavBar from './nav-bar.component';
 export FilterBar from './filter-bar.component';
+export ProgressBar from './progress-bar.component';
 export SummaryImage from './summary-image.component';
 export DefinitionList from './definition-list.component';
 export TrailAnimation from './trail-animation.component';

@@ -1,7 +1,6 @@
-import _ from 'lodash';
 
 export const UI_ACTION_TYPES = {
-    UPDATE_ARTICLE_META: '/simplySavvy/UI/UPDATE_ARTICLE_META',
+    UPDATE_SCROLL_PROGRESS: '/simplySavvy/UI/UPDATE_SCROLL_PROGRESS',
     RESET: '/simplySavvy/UI/RESET'
 };
 
@@ -11,13 +10,13 @@ export const UI_INITIAL_STATE = {
 
 export default function UIReducer(state, action) {
     switch (action.type) {
-        case UI_ACTION_TYPES.UPDATE_ARTICLE_META:
+        case UI_ACTION_TYPES.UPDATE_SCROLL_PROGRESS:
             return {
                 ...state,
                 routes: {
                     ...state.routes,
                     [action.route]: {
-                        scrollPosition: action.scrollPosition
+                        scrollProgress: action.scrollProgress
                     }
                 }
             };

@@ -1,8 +1,8 @@
 export const ROUTES = {
-    HOME: '/',
-    ARTICLES: '/articles',
-    ARTICLE: '/articles/:id',
-    TWITTER: '/twitter'
+    HOME: { pathname: '/', re: /^\/$/ },
+    ARTICLES: { pathname: '/articles', re: /^\/articles$/ },
+    ARTICLE: { pathname: '/articles/:id', re: /^\/articles\/\d+$/ },
+    TWITTER: { pathname: '/twitter', re: /^\/twitter$/ }
 };
 
 export const ARTICLE_TYPE = {

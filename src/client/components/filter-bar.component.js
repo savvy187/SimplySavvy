@@ -5,6 +5,7 @@ import _ from 'lodash';
 import { Links } from 'components';
 import { NetworkContext } from 'contexts/network/network.context';
 import { useQuery } from 'hooks';
+
 const { NavAnchor } = Links;
 
 const FilterBar = ({ className }) => {

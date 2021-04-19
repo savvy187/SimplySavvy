@@ -5,6 +5,13 @@ import ApiClient, { CancelToken, isCancel } from 'utils/api-client';
 import { NetworkContext } from 'contexts/network/network.context';
 import { NETWORK_ACTION_TYPES } from 'contexts/network/network.reducer';
 
+const { 
+    START_NETWORK_REQUEST, 
+    CANCEL_NETWORK_REQUEST,
+    NETWORK_REQUEST_SUCCESS,
+    NETWORK_REQUEST_FAIL
+} = NETWORK_ACTION_TYPES; 
+
 export default function useResource(options) {    
     const { id } = useParams();
     const query = useQuery();
@@ -22,13 +29,7 @@ export default function useResource(options) {
         
         const fetchResource = async () => {            
             let res;
-            const { resourceRoute, ...rest } = resourceOptions;
-            const { 
-                START_NETWORK_REQUEST, 
-                CANCEL_NETWORK_REQUEST,
-                NETWORK_REQUEST_SUCCESS,
-                NETWORK_REQUEST_FAIL
-            } = NETWORK_ACTION_TYPES; 
+            const { resourceRoute, ...rest } = resourceOptions;            
             
                 
             try {

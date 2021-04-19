@@ -1,32 +1,31 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useCallback } from 'react';
 import _ from 'lodash';
-import { useLocation } from 'react-router-dom';
-import { useScrollDirection } from 'hooks';
-
-const getDirectionalElement = ({ directions, axis, currentDirection, pathname }) => {    
-    /*
-     * axisDirections gives up the entire set of possible directions and associated
-     * components. Some components may only show on a certain route.
-    */
-    const axisDirections = _.get(directions, axis, []);
-    /* 
-     * directional is the singular element to show for a given direction if
-     * the route applies or there is no route specified and the direction 
-     * is equal to the direction that is currently being scrolled in...
-    */
-    const directionEntry = _.find(axisDirections, (axisDirection) => {                
-        const isCurrentDirection = axisDirection.type === currentDirection;        
-        const hasNoRouteSpecified = _.isEmpty(axisDirection.routes);        
-        const hasApplicableRoute = _.includes(axisDirection.routes, pathname);        
-        return isCurrentDirection && (hasNoRouteSpecified || hasApplicableRoute);
-    });
-    
-    return _.get(directionEntry, 'component', null);
-};
+import { useScrollDirection, useCurrentRoute } from 'hooks';
 
 function useDirectionalElement(directions) {
-    const { pathname } = useLocation();
-    const direction = useScrollDirection();    
+    const direction = useScrollDirection();
+    const { pathname } = useCurrentRoute({ routeMatchHook: false });
+    
+    const getDirectionalElement = useCallback(({ directions, axis, currentDirection }) => {
+        /*
+         * axisDirections gives us the entire set of possible directions and associated
+         * components. Some components may only show on a certain route.
+        */
+        const axisDirections = _.get(directions, axis, []);
+        /* 
+         * directional is the singular element to show for a given direction if
+         * the route applies or there is no route specified and the direction 
+         * is equal to the direction that is currently being scrolled in...
+        */
+        const directionEntry = _.find(axisDirections, (axisDirection) => {                
+            const isCurrentDirection = axisDirection.type === currentDirection;        
+            const hasNoRouteSpecified = _.isEmpty(axisDirection.routes);
+            const hasApplicableRoute = _.includes(axisDirection.routes, pathname);
+            return isCurrentDirection && (hasNoRouteSpecified || hasApplicableRoute);
+        });
+        
+        return _.get(directionEntry, 'component', null);
+    }, [pathname]);
 
     return useMemo(() => {
         /* 
@@ -35,8 +34,7 @@ function useDirectionalElement(directions) {
         const YDirectionalElement = getDirectionalElement({                     
             directions,
             axis: 'y',
-            currentDirection: direction.y,
-            pathname
+            currentDirection: direction.y
         });
         /* 
          * A computed element to show for the X Axis...
@@ -44,20 +42,19 @@ function useDirectionalElement(directions) {
         const XDirectionalElement = getDirectionalElement({                     
             directions,
             axis: 'x',
-            currentDirection: direction.x,
-            pathname
+            currentDirection: direction.x
         });
         
         return (
             <>
                 {
                     !_.isNil(YDirectionalElement)
-                        ? <YDirectionalElement />
+                        ? <YDirectionalElement pathname={pathname} />
                         : null
                 }
                 {
                     !_.isNil(XDirectionalElement)
-                        ? <XDirectionalElement />
+                        ? <XDirectionalElement pathname={pathname} />
                         : null
                 }
             </>

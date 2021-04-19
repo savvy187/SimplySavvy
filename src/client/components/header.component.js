@@ -1,13 +1,11 @@
 import React, { useRef, useContext } from 'react';
 import PropTypes from 'prop-types';
 import styled, { ThemeContext } from 'styled-components';
-import { 
-    useDocumentScroll,
-    usePinToScroll,
-    useMediaQuery
-} from 'hooks';
+import { useDocumentScroll, usePinToScroll, useMediaQuery, useDirectionalElement } from 'hooks';
+import { NavBar, FilterBar, ProgressBar } from 'components';
+import { DIRECTION_TYPE, ROUTES } from 'client/constants';
 
-const Header = ({ children, className }) => {
+const Header = ({ className }) => {
     const navRef = useRef(null);
     const { media_queries: { nav_bar } } = useContext(ThemeContext);
     const [matches] = useMediaQuery(nav_bar);
@@ -18,6 +16,30 @@ const Header = ({ children, className }) => {
             passive: false
         }
     });
+    
+    const HeaderBar = useDirectionalElement({
+        y: [
+            {
+                type: DIRECTION_TYPE.UP,
+                component: NavBar,
+            },
+            {
+                type: DIRECTION_TYPE.DOWN,
+                component: FilterBar,                
+                routes: [
+                    ROUTES.HOME.pathname,
+                    ROUTES.ARTICLES.pathname
+                ]
+            },
+            {
+                type: DIRECTION_TYPE.DOWN,
+                component: ProgressBar,
+                routes: [
+                    ROUTES.ARTICLE.pathname
+                ]
+            }
+        ]
+    });    
 
     return (
         <header
@@ -30,7 +52,7 @@ const Header = ({ children, className }) => {
                     ? (
                         <div className="primary-nav">
                             <div ref={navRef} className="nav-container">
-                                { children }
+                                { HeaderBar }
                             </div>
                         </div>
                     )
@@ -41,7 +63,6 @@ const Header = ({ children, className }) => {
 };
 
 Header.propTypes = {
-    children: PropTypes.node,
     className: PropTypes.string.isRequired
 };
 
