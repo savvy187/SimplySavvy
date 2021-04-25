@@ -39,11 +39,12 @@ export default function usePersistentStore(store, reducer = {}, initialState) {
      * We provide a selector to return a portion of the state tree, instead
      * of returning the whole tree, each time...
      * 
-     * TODO: memoize? Use state[stateKey] on watcher?
     */
-    const selector = useCallback((stateKey, defaultValue) => {
+    const selector = useCallback(({ stateKey, defaultValue, parser, transformer }) => {
         const defaulted = _.isUndefined(defaultValue) ? state : defaultValue;
-        return _.get(state, stateKey, defaulted);
+        const stateSlice = _.get(state, stateKey, defaulted);
+        const parsed = _.isFunction(parser) ? parser(stateSlice) : stateSlice;
+        return _.isFunction(transformer) ? transformer(parsed) : stateSlice;
     }, [state]);
     
     useEffect(() => {
@@ -52,7 +53,7 @@ export default function usePersistentStore(store, reducer = {}, initialState) {
          * time it is mutated...
         */
         try {
-            window[storageType].setItem(storageKey, JSON.stringify(selector()));
+            window[storageType].setItem(storageKey, JSON.stringify(selector({})));
         } catch(err) {
             /* 
              * Probably not serious enough to do anything other than,

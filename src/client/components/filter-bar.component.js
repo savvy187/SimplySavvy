@@ -11,17 +11,14 @@ const { NavAnchor } = Links;
 const FilterBar = ({ className }) => {
     const query = useQuery();
     const { selector } = useContext(NetworkContext);
-    const requests = selector('requests');
-    
-    const articles = _.find(requests, (request, requestKey) => {        
-        return requestKey === '/api/articles';
+    const articleCategories = selector({
+        stateKey: 'requests./api/articles.data',
+        defaultValue: [],
+        transformer: (state) => {
+            const categories = _.flatMap(state, 'categories');
+            return _.countBy(categories);        
+        }
     });
-    
-    const articleCategories = useMemo(() => {
-        const data = _.get(articles, 'data', []);
-        const categories = _.flatMap(data, 'categories');
-        return _.countBy(categories);        
-    }, [articles]);
     
     return (
         <div className={className}>

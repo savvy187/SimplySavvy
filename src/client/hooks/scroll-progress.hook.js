@@ -10,7 +10,11 @@ const { UPDATE_SCROLL_PROGRESS } = UI_ACTION_TYPES;
 function useScrollProgress(pathname) {    
     //const direction = useScrollDirection();
     const { selector, dispatchAction } = useContext(UIContext);
-    const scrollProgress = _.parseInt(selector(`routes.${pathname}.scrollProgress`, 0));
+    const scrollProgress = selector({
+        stateKey: `routes.${pathname}.scrollProgress`,
+        defaultValue: 0,
+        parser: _.parseInt
+    });
     
     useDocumentScroll({
         scrollHandler: () => {

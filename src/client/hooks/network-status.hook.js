@@ -35,5 +35,5 @@ export default function useNetworkStatus() {
         };
     }, []);
 
-    return selector('online');
+    return selector({ stateKey: 'online', defaultValue: false });
 }

@@ -106,13 +106,13 @@ export default function useResource(options) {
     }, [resourceOptions, id, query.toString()]);
     
     return {        
-        loading: selector('loading'),
-        cancelled: selector('cancelled'),
-        success: selector('success'),
-        empty: selector('empty'),
-        error: selector('error'),
-        statusCode: selector(`requests[${resourceOptions.resourceRoute}].statusCode`),
-        resource: selector(`requests[${resourceOptions.resourceRoute}].data`), 
+        loading: selector({ stateKey: 'loading', defaultValue: false }),
+        cancelled: selector({ stateKey: 'cancelled', defaultValue: false }),
+        success: selector({ stateKey: 'success', defaultValue: false }),
+        empty: selector({ stateKey: 'empty', defaultValue: false }),
+        error: selector({ stateKey: 'error', defaultValue: false }),
+        statusCode: selector({ stateKey: `requests[${resourceOptions.resourceRoute}].statusCode` }),
+        resource: selector({ stateKey: `requests[${resourceOptions.resourceRoute}].data` }), 
         resourceOptions,
         cancelToken: cancelRef.current,
         updateResourceOptions
