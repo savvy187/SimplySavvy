@@ -5,6 +5,8 @@ export const ROUTES = {
     TWITTER: { pathname: '/twitter', re: /^\/twitter$/ }
 };
 
+export const MAX_SCROLL_PROGRESS = 100;
+
 export const ARTICLE_TYPE = {
     BLOG: 'blog',
     TUTORIAL: 'tutorial'
@@ -21,3 +23,4 @@ export const DIRECTION_TYPE = {
     LEFT: 'left',
     RIGHT: 'right'
 };
+

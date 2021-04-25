@@ -7,7 +7,7 @@ function useCurrentRoute({ routeMatchHook, route }) {
     const { pathname } = useLocation();
     const match = useRouteMatch(route);
     /* 
-     * Defer to the real-deal holyfield routeMatch hook to
+     * Defer to the real-deal holyfield routeMatch hook
      * from react router.
     */
     if (routeMatchHook) {

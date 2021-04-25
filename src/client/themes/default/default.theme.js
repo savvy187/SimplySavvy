@@ -37,6 +37,7 @@ export default {
             default: PALETTE.TERTIARY,
             hover: PALETTE.PRIMARY
         },
+        indicator: PALETTE.TERTIARY,
         search_input_placeholder: PALETTE.TERTIARY,        
         typography: {
             headings: {
@@ -100,7 +101,8 @@ export default {
     },
     fonts: {
         definition_term: `${FONT_WEIGHTS.X_BOLD} ${FONT_SIZES.SMALL} ${FONT_FAMILIES.SANS_SERIF}`,
-        definition_definition: `${FONT_WEIGHTS.DEFAULT} ${FONT_SIZES.X_SMALL} ${FONT_FAMILIES.SERIF}`,        
+        definition_definition: `${FONT_WEIGHTS.DEFAULT} ${FONT_SIZES.X_SMALL} ${FONT_FAMILIES.SERIF}`,
+        indicator: `${FONT_WEIGHTS.X_BOLD} ${FONT_SIZES.SMALL} ${FONT_FAMILIES.SANS_SERIF}`,
         typography: {            
             p: `${FONT_WEIGHTS.DEFAULT} ${FONT_SIZES.SMALL} ${FONT_FAMILIES.SANS_SERIF}`,
             h1: `${FONT_WEIGHTS.X_BOLD} ${FONT_SIZES.XXX_LARGE} ${FONT_FAMILIES.SERIF}`,

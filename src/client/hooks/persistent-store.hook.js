@@ -41,7 +41,10 @@ export default function usePersistentStore(store, reducer = {}, initialState) {
      * 
      * TODO: memoize? Use state[stateKey] on watcher?
     */
-    const selector = useCallback((stateKey) => _.get(state, stateKey, state), [state]);
+    const selector = useCallback((stateKey, defaultValue) => {
+        const defaulted = _.isUndefined(defaultValue) ? state : defaultValue;
+        return _.get(state, stateKey, defaulted);
+    }, [state]);
     
     useEffect(() => {
         /* 

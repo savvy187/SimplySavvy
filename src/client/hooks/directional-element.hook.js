@@ -5,7 +5,7 @@ import { useScrollDirection, useCurrentRoute } from 'hooks';
 function useDirectionalElement(directions) {
     const direction = useScrollDirection();
     const { pathname } = useCurrentRoute({ routeMatchHook: false });
-    
+
     const getDirectionalElement = useCallback(({ directions, axis, currentDirection }) => {
         /*
          * axisDirections gives us the entire set of possible directions and associated
@@ -49,12 +49,12 @@ function useDirectionalElement(directions) {
             <>
                 {
                     !_.isNil(YDirectionalElement)
-                        ? <YDirectionalElement pathname={pathname} />
+                        ? <YDirectionalElement />
                         : null
                 }
                 {
                     !_.isNil(XDirectionalElement)
-                        ? <XDirectionalElement pathname={pathname} />
+                        ? <XDirectionalElement />
                         : null
                 }
             </>

@@ -32,7 +32,7 @@ function useScrollDirection() {
             const dY = window.scrollY < scrollPosition.current.y
                 ? DIRECTION_TYPE.UP
                 : DIRECTION_TYPE.DOWN;
-            
+
             setDirection({
                 x: dX,
                 y: dY
