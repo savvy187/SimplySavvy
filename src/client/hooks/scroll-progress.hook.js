@@ -3,12 +3,12 @@ import _ from 'lodash';
 import { useScrollDirection, useDocumentScroll } from 'hooks';
 import { UIContext } from 'contexts/ui/ui.context';
 import { UI_ACTION_TYPES } from 'contexts/ui/ui.reducer';
-import { DIRECTION_TYPE, MAX_SCROLL_PROGRESS } from 'client/constants';
+import { DIRECTION_TYPE, AXIS_TYPE, MAX_SCROLL_PROGRESS } from 'client/constants';
 
 const { UPDATE_SCROLL_PROGRESS } = UI_ACTION_TYPES;
 
 function useScrollProgress(pathname) {    
-    //const direction = useScrollDirection();
+    const direction = useScrollDirection(AXIS_TYPE.Y);
     const { selector, dispatchAction } = useContext(UIContext);
     const scrollProgress = selector({
         stateKey: `routes.${pathname}.scrollProgress`,
@@ -18,8 +18,12 @@ function useScrollProgress(pathname) {
     
     useDocumentScroll({
         scrollHandler: () => {
-            
-            if (scrollProgress < MAX_SCROLL_PROGRESS) {
+            const shouldReportProgress = (
+                direction === DIRECTION_TYPE.DOWN
+                && scrollProgress < MAX_SCROLL_PROGRESS
+            );
+    
+            if (shouldReportProgress) {
                 dispatchAction({
                     type: UPDATE_SCROLL_PROGRESS,
                     route: pathname,

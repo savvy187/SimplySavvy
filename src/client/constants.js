@@ -24,3 +24,7 @@ export const DIRECTION_TYPE = {
     RIGHT: 'right'
 };
 
+export const AXIS_TYPE = {
+    X: 'x',
+    Y: 'y'
+};

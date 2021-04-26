@@ -1,8 +1,14 @@
-import { useState, useRef } from 'react';
+import { useContext, useRef } from 'react';
+import _ from 'lodash';
+import { UIContext } from 'contexts/ui/ui.context';
 import { useDocumentScroll } from 'hooks';
-import { DIRECTION_TYPE } from 'client/constants';
+import { UI_ACTION_TYPES } from 'contexts/ui/ui.reducer';
+import { DIRECTION_TYPE, AXIS_TYPE } from 'client/constants';
 
-function useScrollDirection() {
+const { UPDATE_SCROLL_DIRECTION } = UI_ACTION_TYPES;
+
+function useScrollDirection(axis) {
+    const isValidAxis = _.includes(_.values(AXIS_TYPE), axis);
     /*
      * Here, we track the scrollPosition to compare
      * against that of the evt...
@@ -14,11 +20,18 @@ function useScrollDirection() {
     /* 
      * An object to hold directions along both axis...
     */
-    const [direction, setDirection] = useState(() => ({
-        x: DIRECTION_TYPE.LEFT,
-        y: DIRECTION_TYPE.UP
-    }));
-
+    const { selector, dispatchAction } = useContext(UIContext);
+    const direction = selector({
+        stateKey: 'scrollDirection',
+        defaultValue: {
+            x: DIRECTION_TYPE.LEFT,
+            y: DIRECTION_TYPE.UP
+        },
+        transformer: isValidAxis
+            ? (state) => state[axis]
+            : null
+    });
+    
     useDocumentScroll({
         scrollHandler: () => {
             /* 
@@ -33,9 +46,9 @@ function useScrollDirection() {
                 ? DIRECTION_TYPE.UP
                 : DIRECTION_TYPE.DOWN;
 
-            setDirection({
-                x: dX,
-                y: dY
+            dispatchAction({
+                type: UPDATE_SCROLL_DIRECTION,
+                scrollDirection: { x: dX, y: dY }
             });
             /* 
              * Keep a reference to this to compare against, the next
