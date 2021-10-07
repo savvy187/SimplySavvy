@@ -12,4 +12,32 @@ const COLORS = {
     BLACK: (opacity) => getRGBA([0, 0, 0], opacity)
 };
 
-export { COLORS };
+const FONT_WEIGHTS = {
+    XX_LIGHT: 100,
+    X_LIGHT: 200,
+    LIGHT: 300,
+    DEFAULT: 400,
+    BOLD: 500,
+    X_BOLD: 600,
+    XX_BOLD: 700,
+    XXX_BOLD: 800,
+    JUMBO: 900
+};
+
+const FONT_SIZES = {
+    XX_SMALL: '0.625rem',
+    X_SMALL: '0.75rem',
+    SMALL: '0.875rem',
+    DEFAULT: '1rem',
+    LARGE: '1.125rem',
+    X_LARGE: '1.25rem',
+    XX_LARGE: '1.5rem',
+    XXX_LARGE: '1.875rem',
+    JUMBO: '2rem'
+};
+
+export { 
+    COLORS, 
+    FONT_WEIGHTS, 
+    FONT_SIZES 
+};

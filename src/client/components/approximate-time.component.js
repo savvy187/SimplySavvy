@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import useApproximateTime from 'hooks/approximate-time.hook';
+import { useApproximateTime } from 'hooks';
 
 const ApproximateTime = ({ className, timestamp }) => {
     const approximation = useApproximateTime(timestamp);
@@ -10,7 +10,7 @@ const ApproximateTime = ({ className, timestamp }) => {
             className={className}
             dateTime={timestamp}
         >
-            {`written ${approximation}`}
+            {`Written ${approximation}`}
         </time>
     );
 };
@@ -29,12 +29,12 @@ export default styled(ApproximateTime)`
     text-transform: lowercase;    
     font-size: 1em;
     font-style: italic;
-    color: ${({ theme }) => theme.colors.approximate_time.defaut};
+    color: inherit;
     opacity: ${props => `${props.show ? 1 : 0}`};
     transition: ${({ theme }) => theme.transitions.ease_in};
 
     &::selection {
-        color: ${({ theme }) => theme.colors.approximate_time.selected};
-        background-color: ${({ theme }) => theme.backgrounds.approximate_time.selected};
+        color: inherit;
+        background-color: inherit;
     }    
 `;

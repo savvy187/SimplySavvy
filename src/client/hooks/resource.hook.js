@@ -5,6 +5,13 @@ import ApiClient, { CancelToken, isCancel } from 'utils/api-client';
 import { NetworkContext } from 'contexts/network/network.context';
 import { NETWORK_ACTION_TYPES } from 'contexts/network/network.reducer';
 
+const { 
+    START_NETWORK_REQUEST, 
+    CANCEL_NETWORK_REQUEST,
+    NETWORK_REQUEST_SUCCESS,
+    NETWORK_REQUEST_FAIL
+} = NETWORK_ACTION_TYPES; 
+
 export default function useResource(options) {    
     const { id } = useParams();
     const query = useQuery();
@@ -22,13 +29,7 @@ export default function useResource(options) {
         
         const fetchResource = async () => {            
             let res;
-            const { resourceRoute, ...rest } = resourceOptions;
-            const { 
-                START_NETWORK_REQUEST, 
-                CANCEL_NETWORK_REQUEST,
-                NETWORK_REQUEST_SUCCESS,
-                NETWORK_REQUEST_FAIL
-            } = NETWORK_ACTION_TYPES; 
+            const { resourceRoute, ...rest } = resourceOptions;            
             
                 
             try {
@@ -76,7 +77,8 @@ export default function useResource(options) {
                     dispatchAction({
                         type: CANCEL_NETWORK_REQUEST,
                         route: resourceRoute,
-                        statusCode: res.status
+                        statusCode: res.status,
+                        stack: error.stack
                     });
                 
                 } else {
@@ -85,7 +87,8 @@ export default function useResource(options) {
                         type: NETWORK_REQUEST_FAIL,
                         route: resourceRoute,
                         statusCode: error.status,
-                        error: error.message
+                        error: error.message,
+                        stack: error.stack
                     });
                 }
     
@@ -103,12 +106,13 @@ export default function useResource(options) {
     }, [resourceOptions, id, query.toString()]);
     
     return {        
-        loading: selector('loading'),
-        cancelled: selector('cancelled'),
-        success: selector('success'),
-        error: selector('error'),
-        statusCode: selector(`requests[${resourceOptions.resourceRoute}].statusCode`),
-        resource: selector(`requests[${resourceOptions.resourceRoute}].data`), 
+        loading: selector({ stateKey: 'loading', defaultValue: false }),
+        cancelled: selector({ stateKey: 'cancelled', defaultValue: false }),
+        success: selector({ stateKey: 'success', defaultValue: false }),
+        empty: selector({ stateKey: 'empty', defaultValue: false }),
+        error: selector({ stateKey: 'error', defaultValue: false }),
+        statusCode: selector({ stateKey: `requests[${resourceOptions.resourceRoute}].statusCode` }),
+        resource: selector({ stateKey: `requests[${resourceOptions.resourceRoute}].data` }), 
         resourceOptions,
         cancelToken: cancelRef.current,
         updateResourceOptions

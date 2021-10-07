@@ -1,11 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
-import SummaryImage from 'components/summary-image.component';
-import ApproximateTime from 'components/approximate-time.component';
-import { Link } from 'react-router-dom';
+import styled, { ThemeContext } from 'styled-components';
+import _ from 'lodash';
+import { SummaryImage, ApproximateTime, Typography, Links } from 'components';
+//import { useIntersectionObserver } from 'hooks';
+
+const { Hgroup, H2, P } = Typography;
+const { HeadingAnchor, BlockAnchor } = Links;
 
 const ArticleSummary = ({
+    className,
     id,
     summaryImage: { src, alt }, 
     title, 
@@ -13,32 +17,46 @@ const ArticleSummary = ({
     timestamp,
     similarArticlesCount, 
     commentsCount }) => {
+    const theme = useContext(ThemeContext);
+    //const primarNavHeight = _.parseInt(theme.dimensions.primary_nav.height);
+    /* const [entry, bounds, setNode] = useIntersectionObserver({        
+        root: null,
+        rootMargin: `${-2 * primarNavHeight}px 0px`,
+        threshold: [0, 0.25, 0.5, 0.75, 1]
+    });     */
     return (
-        <div data-testid="article-summary-component">
+        <div 
+            data-testid="article-summary-component"
+            //ref={setNode}
+            className={className}
+        >
             <SummaryImage src={src} alt={alt} />
             <article>
                 <div>
-                    <h2 className="summary-title">{title}</h2>
-                    <ApproximateTime timestamp={timestamp} />
+                    <HeadingAnchor
+                        to={`/articles/${id}`}
+                    >
+                        <Hgroup>
+                            <H2 className="summary-title">{title}</H2>
+                            <ApproximateTime 
+                                show
+                                timestamp={timestamp} 
+                            />
+                        </Hgroup>
+                    </HeadingAnchor>
                 </div>
-                <p className="summary">{summary}</p>
+                <P>{summary}</P>
                 <nav>
-                    <Link 
-                        to={{
-                            search: `?similarArticles=${id}`
-                        }}
-                        className="summary-link"
+                    <BlockAnchor 
+                        to={{ search: `?similarArticles=${id}` }}
                     >
                         Similar Articles ({similarArticlesCount})
-                    </Link>
-                    <Link 
-                        to={{
-                            search: `?articleComments=${id}`
-                        }}
-                        className="summary-link"
+                    </BlockAnchor>
+                    <BlockAnchor 
+                        to={{ search: `?articleComments=${id}` }}                        
                     >
                         Comments ({commentsCount})
-                    </Link>
+                    </BlockAnchor>
                 </nav>
             </article>
         </div>
@@ -46,6 +64,7 @@ const ArticleSummary = ({
 };
 
 ArticleSummary.propTypes = {
+    className: PropTypes.string.isRequired,
     id: PropTypes.number.isRequired,
     summaryImage: PropTypes.shape({
         src: PropTypes.string,
@@ -62,63 +81,11 @@ export default styled(ArticleSummary)`
     display: flex;
     justify-content: 'space-evenly';
     align-items: center;    
-    margin: 0 0 1vw 0;
-    padding: 2vw 0;
-    opacity: ${props => `${props.opacity}`};
-    transform: all 0.5s linear;
+    margin: 0 0 1em 0;
+    padding: 0.5em 0;    
+    transform: all 0.5s linear;    
 
-    .summary-title {
-        display: inline-block;
-        margin: 0.5vh 0;
-        color: ${({ theme }) => theme.colors.summary_title.default};
-        font: ${({ theme }) => theme.fonts.summary_title};
-        text-transform: capitalize;
-        flex-grow: 5;
-        cursor: pointer;
-
-        &:hover {
-            text-decoration: underline;
-            text-decoration-skip: objects;
-        }
-
-        &::selection {
-            color: ${({ theme }) => theme.colors.summary_title.selected};
-            background-color: ${({ theme }) => theme.backgrounds.summary_title.selected};
-        }
-    }
-
-    .summary {
-        margin: 1vh 0;
-        color: ${({ theme }) => theme.colors.summary.default};
-        font: ${({ theme }) => theme.fonts.summary};
-
-        &::selection {
-            color: ${({ theme }) => theme.colors.summary.selected};
-            background-color: ${({ theme }) => theme.backgrounds.summary.selected};
-        }
-    }
-
-    .summary-link {
-        padding: 4px;
-        margin-right: 12px;
-        color: ${({ theme }) => theme.colors.summary_link.default};
-        font: ${({ theme }) => theme.fonts.summary_link};
-        text-decoration: none;
-        letter-spacing: 1.25px;
-        border-radius: 4px;
-        border: 1px solid transparent;
-        opacity: ${props => `${props.show ? 1 : 0}`};
-        transition: ${({ theme }) => theme.transitions.ease_in};
-
-        &:hover,
-        &:focus {
-            color: ${({ theme }) => theme.colors.summary_link.hover};
-            background-color: ${({ theme }) => theme.backgrounds.summary_link};
-            outline: none;
-        }
-
-        &:focus {
-            border: ${({ theme }) => theme.borders.summary_link.focus};
-        }
+    nav a:first-child {
+        margin-left: 0;
     }
 `;

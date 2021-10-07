@@ -1,25 +1,33 @@
 import { useReducer, useEffect, useCallback } from 'react';
 import _ from 'lodash';
 
-export default function usePersistentStore(localStorageKey, reducer={}, initialState) {    
+export default function usePersistentStore(store, reducer = {}, initialState) {
+    const { storageType, storageKey } = store;
+
     const [state, dispatchAction] = useReducer(reducer, null, () => {
         try {
             /* 
              * Here we attempt to prime the store with whatever
              * state tree was last saved, but first we must determine 
-             * if localStorage actually has an item with that key...
+             * if the store actually has an item with that key...
             */
-            const item = localStorage.getItem(localStorageKey);
+            const item = window[storageType].getItem(storageKey);
 
             return !_.isEmpty(item) ? JSON.parse(item) : initialState;
         } catch (err) {
             /* 
-             * Local storage is potentially corrupted, return 
+             * The store is potentially corrupted, return 
              * initial state...
             */
-            localStorage.removeItem(localStorageKey);
-            return initialState;
+            try {
+                window[storageType].removeItem(storageKey);
+                window[storageType].setItem(storageKey, initialState);
+            } catch(err) {
+                console.error(`Unable to interact with ${storageType} interface: `, err);
+            }
         }
+
+        return initialState;
     });
 
     /* 
@@ -32,9 +40,13 @@ export default function usePersistentStore(localStorageKey, reducer={}, initialS
      * We provide a selector to return a portion of the state tree, instead
      * of returning the whole tree, each time...
      * 
-     * TODO: memoize? Use state[stateKey] on watcher?
     */
-    const selector = useCallback((stateKey) => _.get(state, stateKey, state), [state]);
+    const selector = useCallback(({ stateKey, defaultValue, parser, transformer }) => {
+        const defaulted = _.isUndefined(defaultValue) ? state : defaultValue;
+        const stateSlice = _.get(state, stateKey, defaulted);
+        const parsed = _.isFunction(parser) ? parser(stateSlice) : stateSlice;
+        return _.isFunction(transformer) ? transformer(parsed) : stateSlice;
+    }, [state]);
     
     useEffect(() => {
         /* 
@@ -42,13 +54,13 @@ export default function usePersistentStore(localStorageKey, reducer={}, initialS
          * time it is mutated...
         */
         try {
-            localStorage.setItem(localStorageKey, JSON.stringify(selector()));
+            window[storageType].setItem(storageKey, JSON.stringify(selector({})));
         } catch(err) {
             /* 
              * Probably not serious enough to do anything other than,
              * log and forget...
             */
-            console.log('Failed to serialize local storage', localStorageKey);
+            console.error(`Failed to serialize ${storageType} entry`, err, storageKey);
         }
     }, [state]);
 

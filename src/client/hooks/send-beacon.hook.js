@@ -4,7 +4,7 @@ import _ from 'lodash';
 export default function useSendBeacon(initialBeacons=[]) {
     const [beacons, setBeacons] = useState(initialBeacons);
 
-    const addBeacons = (beaconsToAdd) => setBeacons(beacons.concat(beaconsToAdd));
+    const addBeacons = (beaconsToAdd) => setBeacons(_.concat(beacons, beaconsToAdd));
     const removeBeacons = (index, count) => {
         
         if (!_.isNil(index) & !_.isNil(count)) {
@@ -18,12 +18,12 @@ export default function useSendBeacon(initialBeacons=[]) {
     useEffect(() => {
 
         const flushAllBeacons = () => {
-            beacons.forEach((beacon) => {
-                const { url, stateKey } = beacon;
+            _.each(beacons, (beacon) => {
+                const { url, data } = beacon;
                 /* 
                  * TODO: Supply state and selector...
                 */
-                navigator.sendBeacon(url, stateKey);
+                navigator.sendBeacon(url, data);
             });
         };
 

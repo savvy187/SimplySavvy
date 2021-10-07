@@ -63,7 +63,7 @@ const devOptions = {
         },
         clientLogLevel: 'debug',
         proxy: {
-            '/api': 'http://localhost:9998'
+            '/api': 'http://localhost:7777'
         },
         watchOptions: {
             poll: 1000
@@ -114,6 +114,7 @@ const webPackConfig = {
     resolve: {
         modules: ['node_modules'],
         alias: {
+            client: PATHS.CLIENT,
             components: PATHS.COMPONENTS,
             containers: PATHS.CONTAINERS,
             hooks: PATHS.HOOKS,

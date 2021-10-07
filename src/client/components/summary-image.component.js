@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-const SummaryImage = ({ src, alt, sources }) => {        
+const SummaryImage = ({ className, src, alt, sources }) => {        
     return (
-        <picture>
+        <picture className={className}>
             {sources.map((source) => (
                 <source 
                     key={source.srcset}
@@ -19,6 +19,7 @@ const SummaryImage = ({ src, alt, sources }) => {
 };
 
 SummaryImage.propTypes = {
+    className: PropTypes.string.isRequired,
     sources: PropTypes.arrayOf(PropTypes.shape({
         media: PropTypes.string,
         srcset: PropTypes.string.isRequired,        
@@ -33,9 +34,11 @@ SummaryImage.defaultProps = {
 };
 
 export default styled(SummaryImage)`
-    width: 150px;
-    margin-right: 1em;
-    border-radius: 4px;
-    filter: ${({ theme }) => theme.filters.blur_1};
-    box-shadow: ${({ theme }) => theme.shadows.summary_image};
+    img {
+        width: 150px;
+        margin-right: 1em;
+        border-radius: 4px;
+        filter: ${({ theme }) => theme.filters.blur_1};
+        box-shadow: ${({ theme }) => theme.shadows.summary_image};
+    }
 `;
