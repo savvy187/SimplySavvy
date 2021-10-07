@@ -8,7 +8,7 @@ import { useQuery } from 'hooks';
 
 const { NavAnchor } = Links;
 
-const FilterBar = ({ className }) => {
+const FilterBar = React.forwardRef(({ className }, ref) => {
     const query = useQuery();
     const { selector } = useContext(NetworkContext);
     const articleCategories = selector({
@@ -26,10 +26,8 @@ const FilterBar = ({ className }) => {
                 {
                     _.map(articleCategories, (value, key) => (
                         <NavAnchor
-                            to={{
-                                search: `categories=${key}`
-                            }}
                             key={key}
+                            to={{ search: `categories=${key}` }}
                             className={query.get('categories') === key ? 'active' : ''}
                         >
                             {key}: <em>{value}</em>
@@ -39,7 +37,7 @@ const FilterBar = ({ className }) => {
             </nav>
         </div>
     );
-};
+});
 
 FilterBar.propTypes = {
     className: PropTypes.string.isRequired

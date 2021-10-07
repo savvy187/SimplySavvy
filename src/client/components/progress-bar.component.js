@@ -1,13 +1,21 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import _ from 'lodash';
+import styled, { ThemeContext } from 'styled-components';
 import { useLocation } from 'react-router-dom';
 import { useScrollProgress } from 'hooks';
 import { MAX_SCROLL_PROGRESS } from 'client/constants';
 
-const ProgressBar = ({ className }) => {
+const ProgressBar = React.forwardRef(({ className }, ref) => {
+    const { current: navRef } = ref;
+    const { dimensions } = useContext(ThemeContext);
     const { pathname } = useLocation();
-    const scrollProgress = useScrollProgress(pathname);
+    const logoContainerHeight = _.get(dimensions, 'logo_container.height');
+    const scrollProgress = useScrollProgress({
+        pathname,
+        ref: navRef,
+        initialRefOffset: _.parseInt(logoContainerHeight)
+    });
     return (
         <div className={className}>
             {
@@ -17,10 +25,9 @@ const ProgressBar = ({ className }) => {
             }
         </div>
     );
-};
+});
 
-ProgressBar.propTypes = {
-    pathname: PropTypes.string,
+ProgressBar.propTypes = {    
     className: PropTypes.string.isRequired
 };
 

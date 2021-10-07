@@ -20,7 +20,8 @@ export default function usePersistentStore(store, reducer = {}, initialState) {
              * initial state...
             */
             try {
-                window[storageType].removeItem(storageKey);            
+                window[storageType].removeItem(storageKey);
+                window[storageType].setItem(storageKey, initialState);
             } catch(err) {
                 console.error(`Unable to interact with ${storageType} interface: `, err);
             }

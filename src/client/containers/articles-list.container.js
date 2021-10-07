@@ -9,7 +9,7 @@ const ArticlesList = ({ className }) => {
     const { loading, success, empty, resource } = useResource({    
         resourceRoute: '/api/articles'
     });
-
+    
     return (
         <div className={className}>
             {/* <IntersectionObserverTargetGuidelines /> */}

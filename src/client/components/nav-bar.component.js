@@ -8,7 +8,7 @@ import { ARTICLE_TYPE } from 'client/constants';
 
 const { NavAnchor } = Links;
 
-const NavBar = ({ className }) => {
+const NavBar = React.forwardRef(({ className }, ref) => { // eslint-disable-line react/display-name
     const query = useQuery();
     const { pathname } = useLocation();    
     return (
@@ -56,7 +56,7 @@ const NavBar = ({ className }) => {
             </form>
         </div>
     );
-};
+});
 
 NavBar.propTypes = {
     className: PropTypes.string.isRequired

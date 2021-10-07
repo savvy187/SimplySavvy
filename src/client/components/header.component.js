@@ -18,27 +18,30 @@ const Header = ({ className }) => {
     });
     
     const HeaderBar = useDirectionalElement({
-        y: [
-            {
-                type: DIRECTION_TYPE.UP,
-                component: NavBar,
-            },
-            {
-                type: DIRECTION_TYPE.DOWN,
-                component: FilterBar,                
-                routes: [
-                    ROUTES.HOME.pathname,
-                    ROUTES.ARTICLES.pathname
-                ]
-            },
-            {
-                type: DIRECTION_TYPE.DOWN,
-                component: ProgressBar,
-                routes: [
-                    ROUTES.ARTICLE.pathname
-                ]
-            }
-        ]
+        ref: navRef,
+        directions: {
+            y: [
+                {
+                    type: DIRECTION_TYPE.UP,
+                    component: NavBar,
+                },
+                {
+                    type: DIRECTION_TYPE.DOWN,
+                    component: FilterBar,                
+                    routes: [
+                        ROUTES.HOME.pathname,
+                        ROUTES.ARTICLES.pathname
+                    ]
+                },
+                {
+                    type: DIRECTION_TYPE.DOWN,
+                    component: ProgressBar,
+                    routes: [
+                        ROUTES.ARTICLE.pathname
+                    ]
+                }
+            ]
+        }
     });    
 
     return (
@@ -68,7 +71,7 @@ Header.propTypes = {
 
 export default styled(Header)`
     .logo-container {
-        height: 100px;
+        height: ${({ theme }) => theme.dimensions.logo_container.height};
     }
 
     .primary-nav {

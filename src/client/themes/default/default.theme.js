@@ -18,14 +18,17 @@ export default {
         nav_bar: '(min-width: 965px)'
     },
     dimensions: {
+        aside: {
+            width: '200px',
+            offset: '20px'
+        },
+        logo_container: {
+            height: '100px'
+        },
         primary_nav: {
             width: '945px',
             width_expanded: '955px',
             height: '30px'
-        },
-        aside: {
-            width: '200px',
-            offset: '20px'
         }
     },
     colors: {        
