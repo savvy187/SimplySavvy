@@ -10,7 +10,7 @@ const history = createBrowserHistory();
 const SimplySavvy = () => {
     return (
         <Router history={history}>
-            <Header />
+            {/* <Header /> */}
             <Switch>
                 <Route 
                     exact 

@@ -21,7 +21,7 @@ const Article = ({ className }) => {
         }
     });
     
-    const { loading, success,  resource } = useResource({    
+    const { loading, success, resource } = useResource({    
         resourceRoute: `/api/articles/${id}`
     });
 

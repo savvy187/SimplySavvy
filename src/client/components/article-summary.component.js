@@ -1,14 +1,13 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import styled, { ThemeContext } from 'styled-components';
-import _ from 'lodash';
+import styled from 'styled-components';
 import { SummaryImage, ApproximateTime, Typography, Links } from 'components';
-//import { useIntersectionObserver } from 'hooks';
 
 const { Hgroup, H2, P } = Typography;
 const { HeadingAnchor, BlockAnchor } = Links;
 
-const ArticleSummary = ({
+// eslint-disable-next-line react/display-name
+const ArticleSummary = React.forwardRef(({
     className,
     id,
     summaryImage: { src, alt }, 
@@ -16,18 +15,12 @@ const ArticleSummary = ({
     summary,
     timestamp,
     similarArticlesCount, 
-    commentsCount }) => {
-    const theme = useContext(ThemeContext);
-    //const primarNavHeight = _.parseInt(theme.dimensions.primary_nav.height);
-    /* const [entry, bounds, setNode] = useIntersectionObserver({        
-        root: null,
-        rootMargin: `${-2 * primarNavHeight}px 0px`,
-        threshold: [0, 0.25, 0.5, 0.75, 1]
-    });     */
+    commentsCount }, ref) => {
+    
     return (
         <div 
+            ref={ref}
             data-testid="article-summary-component"
-            //ref={setNode}
             className={className}
         >
             <SummaryImage src={src} alt={alt} />
@@ -61,7 +54,7 @@ const ArticleSummary = ({
             </article>
         </div>
     );
-};
+});
 
 ArticleSummary.propTypes = {
     className: PropTypes.string.isRequired,
@@ -83,7 +76,7 @@ export default styled(ArticleSummary)`
     align-items: center;    
     margin: 0 0 1em 0;
     padding: 0.5em 0;    
-    transform: all 0.5s linear;    
+    transform: all 0.5s linear;
 
     nav a:first-child {
         margin-left: 0;

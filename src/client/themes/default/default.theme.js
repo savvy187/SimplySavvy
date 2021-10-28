@@ -28,7 +28,8 @@ export default {
         primary_nav: {
             width: '945px',
             width_expanded: '955px',
-            height: '30px'
+            height: '30px',
+            intersection_observer_root_margin: '-60px 0px'
         }
     },
     colors: {        

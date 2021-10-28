@@ -2,19 +2,20 @@ import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import styled, { ThemeContext } from 'styled-components';
 import _ from 'lodash';
-import { useIntersectionObserver } from 'hooks';
+//import { useIntersectionObserver } from 'hooks';
 
 const IntersectionObserverTargetGuidelines = ({ className }) => {
     const theme = useContext(ThemeContext);
-    const primarNavHeight = _.parseInt(theme.dimensions.primary_nav.height);
-    const [, bounds, setNode] = useIntersectionObserver({
-        rootMargin: `${-2 * primarNavHeight}px 0px`,
-        threshold: 0        
-    });    
-    return (
+    /* const [node, entry] = useIntersectionObserver({        
+        rootMargin: theme.dimensions.primary_nav.intersection_observer_root_margin,
+        threshold: 0
+    }); */
+    //const { rootBounds: bounds } = entry;
+    
+    /* return (
         <div 
             className={className}
-            ref={setNode}
+            ref={node}
             style={{
                 top: `${_.get(bounds, 'top')}px`,
                 left: `${_.get(bounds, 'left')}px`,
@@ -22,7 +23,7 @@ const IntersectionObserverTargetGuidelines = ({ className }) => {
                 height: `${_.get(bounds, 'height')}px`
             }}
         />
-    );
+    ); */
 };
 
 IntersectionObserverTargetGuidelines.propTypes = {
