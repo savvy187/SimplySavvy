@@ -1,12 +1,19 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useCallback } from 'react';
 
-export default function useIntersectionObserver({ root=null, rootMargin='0px', threshold=0 }) {
-    /* 
-     * Here, we setup a piece of state to trak the entries of the intersection observer's event,
-     * along with a ref to hold the value of the intersectio observer itself...
-    */
-    const [entries, setEntries] = useState([]);
+export default function useIntersectionObserver({ root, rootMargin, threshold, entryCallback }) {
     const observer = useRef(null);
+
+    const unobserve = useCallback((target) => {
+        if (observer.current) {
+            observer.current.unobserve(target);
+        }
+    }, [observer.current]);
+
+    const observe = useCallback((target) => {
+        if (observer.current) {
+            observer.current.observe(target);
+        }
+    });
 
     useEffect(() => {
         console.log('Effect running...');
@@ -21,10 +28,11 @@ export default function useIntersectionObserver({ root=null, rootMargin='0px', t
         }
 
         console.log('Initializing Observer...');
-        observer.current = new IntersectionObserver((entries) => {
-            //console.log('Observer Callback: ', entries);
-            setEntries(entries);
-        }, { root, rootMargin, threshold });
+        observer.current = new IntersectionObserver(entryCallback, { 
+            root, 
+            rootMargin, 
+            threshold: [0, 0.25, 0.5, 0.75, 1]
+        });
 
         /* 
          * Now, we save a reference to the current observer, to 
@@ -40,5 +48,5 @@ export default function useIntersectionObserver({ root=null, rootMargin='0px', t
 
     }, [root, rootMargin, threshold]);
 
-    return { entries, observer: observer.current };
+    return { observe, unobserve };
 }

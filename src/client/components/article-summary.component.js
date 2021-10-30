@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { SummaryImage, ApproximateTime, Typography, Links } from 'components';
@@ -7,19 +7,26 @@ const { Hgroup, H2, P } = Typography;
 const { HeadingAnchor, BlockAnchor } = Links;
 
 // eslint-disable-next-line react/display-name
-const ArticleSummary = React.forwardRef(({
+const ArticleSummary = ({
     className,
-    id,
+    id,    
     summaryImage: { src, alt }, 
     title, 
     summary,
     timestamp,
     similarArticlesCount, 
-    commentsCount }, ref) => {
+    commentsCount,
+    observe
+}) => {
+    const articleSummaryRef = useRef();
     
+    useEffect(() => {
+        observe(articleSummaryRef.current);
+    }, []);
+
     return (
         <div 
-            ref={ref}
+            ref={articleSummaryRef}
             data-testid="article-summary-component"
             className={className}
         >
@@ -54,11 +61,12 @@ const ArticleSummary = React.forwardRef(({
             </article>
         </div>
     );
-});
+};
 
 ArticleSummary.propTypes = {
     className: PropTypes.string.isRequired,
     id: PropTypes.number.isRequired,
+    observerEntry: PropTypes.object,
     summaryImage: PropTypes.shape({
         src: PropTypes.string,
         alt: PropTypes.string
@@ -67,7 +75,9 @@ ArticleSummary.propTypes = {
     summary: PropTypes.string.isRequired,
     timestamp: PropTypes.any,
     similarArticlesCount: PropTypes.number,
-    commentsCount: PropTypes.number
+    commentsCount: PropTypes.number,
+    observe: PropTypes.func.isRequired,
+    unobserve: PropTypes.func.isRequired
 };
 
 export default styled(ArticleSummary)`
