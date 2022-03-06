@@ -31,16 +31,14 @@ const ArticlesList = ({ className }) => {
                 success && !empty
                     ? (
                         <>
-                            {_.map(resource, (entry) => {
-                                return (
-                                    <ArticleSummary 
-                                        key={entry.id}
-                                        {...entry}
-                                        observe={observe}
-                                        unobserve={unobserve}
-                                    />
-                                );
-                            })}
+                            {_.map(resource, (entry) => (                                
+                                <ArticleSummary 
+                                    key={entry.id}
+                                    {...entry}
+                                    observe={observe}
+                                    unobserve={unobserve}
+                                />
+                            ))}
                         </>
                     )
                     : null

@@ -11,6 +11,18 @@ const categories = [
     'Angular'
 ];
 
+const generateImage = (size='') => ({
+    src: `https://source.unsplash.com/random${!_.isEmpty(size) ? `/${size}` : ''}`,
+    alt: faker.lorem.words()
+});
+
+const generateSectionContent = (index) => ({
+    id: index,
+    images: _.times(_.random(0, 5), () => generateImage()),
+    pullQuote: faker.lorem.sentence(),
+    text: _.times(_.random(5, 10), () => faker.lorem.paragraph()) 
+});
+
 const generateArticle = (index) => {
     return {
         id: index,
@@ -18,13 +30,11 @@ const generateArticle = (index) => {
         title: faker.lorem.sentence(),
         timestamp: faker.date.past(),
         summary: faker.lorem.sentences(),
-        summaryImage: {
-            src: faker.image.imageUrl(),
-            alt: faker.lorem.words()
-        },
-        sections: _.times(_.random(1, 10), () => ({
+        summaryImage: generateImage(),
+        sections: _.times(_.random(5, 15), (index) => ({
+            id: index,
             title: faker.lorem.words(),
-            content: _.times(_.random(1, 10), () => faker.lorem.paragraph())
+            content: generateSectionContent(index)
         })),        
         categories: _.times(_.random(1, 3), () => faker.random.arrayElement(categories)),
         similarArticles: _.times(_.random(1, 10), () => faker.lorem.sentence())

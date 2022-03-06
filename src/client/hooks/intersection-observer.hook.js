@@ -13,7 +13,7 @@ export default function useIntersectionObserver({ root, rootMargin, threshold, e
         if (observer.current) {
             observer.current.observe(target);
         }
-    });
+    }, [observer.current]);
 
     useEffect(() => {
         console.log('Effect running...');
