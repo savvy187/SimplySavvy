@@ -7,7 +7,7 @@ import { DIRECTION_TYPE, AXIS_TYPE, MAX_SCROLL_PROGRESS } from 'client/constants
 
 const { UPDATE_SCROLL_PROGRESS } = UI_ACTION_TYPES;
 
-function useScrollProgress({ pathname, ref, initialRefOffset=0 }) {
+function useScrollProgress({ pathname, ref }) {
     const direction = useScrollDirection(AXIS_TYPE.Y);
     const { selector, dispatchAction } = useContext(UIContext);
     
@@ -27,8 +27,9 @@ function useScrollProgress({ pathname, ref, initialRefOffset=0 }) {
             const axis = (direction === DIRECTION_TYPE.DOWN)
                 ? AXIS_TYPE.Y
                 : AXIS_TYPE.X;
-            const containerOffset = getRefOffset(axis);
             
+            const containerOffset = getRefOffset(axis);
+
             const shouldReportProgress = (
                 containerOffset === 0
                 && direction === DIRECTION_TYPE.DOWN
@@ -36,22 +37,16 @@ function useScrollProgress({ pathname, ref, initialRefOffset=0 }) {
             );
             
             if (shouldReportProgress) {
-                const bodyHeight = document.body.clientHeight;
-                const scrollOffset = Math.round((window.scrollY / bodyHeight) * 100);
-                const scrollProgress = scrollOffset - initialRefOffset;
+                const windowHeight = window.innerHeight;
+                const documentScrollHeight = document.documentElement.scrollHeight;                
+                const trackLength = documentScrollHeight - windowHeight;                
+                const scrollProgress = Math.floor((window.scrollY / trackLength) * 100);
                 
-                console.log('=============');
-                console.log('scrollY: ', window.scrollY);
-                console.log('scrollOffset: ', scrollOffset);
-                console.log('initialOffset: ', initialRefOffset);
-                console.log('scrollProgress: ', scrollProgress);
-                
-                
-                /* dispatchAction({
+                dispatchAction({
                     type: UPDATE_SCROLL_PROGRESS,
                     route: pathname,
                     scrollProgress
-                }); */
+                });
             }
         },
         eventOptions: {
