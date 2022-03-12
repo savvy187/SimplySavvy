@@ -1,8 +1,8 @@
 export const ROUTES = {
-    HOME: { pathname: '/', re: /^\/$/ },
-    ARTICLES: { pathname: '/articles', re: /^\/articles$/ },
-    ARTICLE: { pathname: '/articles/:id', re: /^\/articles\/\d+$/ },
-    TWITTER: { pathname: '/twitter', re: /^\/twitter$/ }
+    HOME: '/',
+    ARTICLES: '/articles',
+    ARTICLE: '/articles/:id',
+    TWITTER: '/twitter'
 };
 
 export const MAX_SCROLL_PROGRESS = 100;

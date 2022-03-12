@@ -1,15 +1,16 @@
 import React, { useRef, useContext } from 'react';
 import PropTypes from 'prop-types';
 import styled, { ThemeContext } from 'styled-components';
+import { withRouter, matchPath } from 'react-router-dom';
 import { useDocumentScroll, usePinToScroll, useMediaQuery, useDirectionalElement } from 'hooks';
 import { NavBar, FilterBar, ProgressBar } from 'components';
 import { DIRECTION_TYPE, ROUTES } from 'client/constants';
 
-const Header = ({ className }) => {
+const Header = ({ className, location }) => {
     const navRef = useRef(null);
     const { media_queries: { nav_bar } } = useContext(ThemeContext);
     const [matches] = useMediaQuery(nav_bar);
-
+    
     useDocumentScroll({
         scrollHandler: usePinToScroll(navRef, 'scrolling'),
         eventOptions: {
@@ -17,8 +18,9 @@ const Header = ({ className }) => {
         }
     });
     
-    const HeaderBar = useDirectionalElement({
-        ref: navRef,
+    const HeaderBar = useDirectionalElement({        
+        pathname: location.pathname,
+        ref: navRef,        
         directions: {
             y: [
                 {
@@ -27,18 +29,24 @@ const Header = ({ className }) => {
                 },
                 {
                     type: DIRECTION_TYPE.DOWN,
-                    component: FilterBar,                
-                    routes: [
-                        ROUTES.HOME.pathname,
-                        ROUTES.ARTICLES.pathname
-                    ]
+                    component: FilterBar,
+                    routeMatch: matchPath(location.pathname, {
+                        path: [
+                            ROUTES.HOME,
+                            ROUTES.ARTICLES
+                        ],
+                        exact: true,
+                        strict: true
+                    })
                 },
                 {
                     type: DIRECTION_TYPE.DOWN,
-                    component: ProgressBar,
-                    routes: [
-                        ROUTES.ARTICLE.pathname
-                    ]
+                    component: ProgressBar,                    
+                    routeMatch: matchPath(location.pathname, {
+                        path: ROUTES.ARTICLE,
+                        exact: false,
+                        strict: true
+                    })
                 }
             ]
         }
@@ -66,10 +74,11 @@ const Header = ({ className }) => {
 };
 
 Header.propTypes = {
+    location: PropTypes.object,
     className: PropTypes.string.isRequired
 };
 
-export default styled(Header)`
+const StyledHeader = styled(Header)`
     .logo-container {
         height: ${({ theme }) => theme.dimensions.logo_container.height};
     }
@@ -100,3 +109,5 @@ export default styled(Header)`
         }
     }
 `;
+
+export default withRouter(StyledHeader);

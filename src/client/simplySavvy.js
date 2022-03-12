@@ -14,20 +14,20 @@ const SimplySavvy = () => {
             <Switch>
                 <Route 
                     exact 
-                    path={ROUTES.HOME.pathname}
+                    path={ROUTES.HOME}
                     component={ArticlesList} 
                 />
                 <Route 
                     exact 
-                    path={ROUTES.ARTICLES.pathname}
+                    path={ROUTES.ARTICLES}
                     component={ArticlesList} 
                 />
                 <Route
-                    path={ROUTES.ARTICLE.pathname}
+                    path={ROUTES.ARTICLE}
                     component={Article}
                 />
                 <Route 
-                    path={ROUTES.TWITTER.pathname}
+                    path={ROUTES.TWITTER}
                 />                        
             </Switch>
         </Router>

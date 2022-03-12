@@ -13,3 +13,4 @@ export useDirectionalElement from './directional-element.hook';
 export useScrollDirection from './scroll-direction.hook';
 export useScrollProgress from './scroll-progress.hook';
 export useCurrentRoute from './current-route.hook';
+export useArticleSectionsNavigation from './article-sections-navigation.hook';

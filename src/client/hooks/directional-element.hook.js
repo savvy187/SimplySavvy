@@ -1,12 +1,11 @@
 import React, { useMemo, useCallback } from 'react';
 import _ from 'lodash';
-import { useScrollDirection, useCurrentRoute } from 'hooks';
+import { useScrollDirection } from 'hooks';
 
-function useDirectionalElement({ ref, directions }) {
+function useDirectionalElement({ ref, directions, pathname }) {
     const direction = useScrollDirection();
-    const { pathname } = useCurrentRoute({ routeMatchHook: false });
 
-    const getDirectionalElement = useCallback(({ directions, axis, currentDirection }) => {
+    const getDirectionalEntry = useCallback(({ directions, axis, currentDirection }) => {
         /*
          * axisDirections gives us the entire set of possible directions and associated
          * components. Some components may only show on a certain route.
@@ -19,19 +18,19 @@ function useDirectionalElement({ ref, directions }) {
         */
         const directionEntry = _.find(axisDirections, (axisDirection) => {                
             const isCurrentDirection = axisDirection.type === currentDirection;        
-            const hasNoRouteSpecified = _.isEmpty(axisDirection.routes);
-            const hasApplicableRoute = _.includes(axisDirection.routes, pathname);
+            const hasNoRouteSpecified = _.isUndefined(axisDirection.routeMatch);
+            const hasApplicableRoute = !_.isEmpty(axisDirection.routeMatch);
             return isCurrentDirection && (hasNoRouteSpecified || hasApplicableRoute);
         });
         
-        return _.get(directionEntry, 'component', null);
+        return directionEntry;
     }, [pathname]);
 
     return useMemo(() => {
         /* 
          * A computed element to show for the Y Axis...
         */
-        const YDirectionalElement = getDirectionalElement({                     
+        const yDirectionalEntry = getDirectionalEntry({
             directions,
             axis: 'y',
             currentDirection: direction.y
@@ -39,22 +38,35 @@ function useDirectionalElement({ ref, directions }) {
         /* 
          * A computed element to show for the X Axis...
         */
-        const XDirectionalElement = getDirectionalElement({                     
+        const xDirectionalEntry = getDirectionalEntry({                     
             directions,
             axis: 'x',
             currentDirection: direction.x
         });
         
+        const YDirectionalElement = _.get(yDirectionalEntry, 'component');
+        const XDirectionalElement = _.get(xDirectionalEntry, 'component');
+
         return (
             <>
                 {
                     !_.isNil(YDirectionalElement)
-                        ? <YDirectionalElement ref={ref} />
+                        ? (
+                            <YDirectionalElement 
+                                ref={ref} 
+                                routeMatch={yDirectionalEntry.routeMatch} 
+                            />
+                        )
                         : null
                 }
                 {
                     !_.isNil(XDirectionalElement)
-                        ? <XDirectionalElement ref={ref} />
+                        ? (
+                            <XDirectionalElement
+                                ref={ref}
+                                routeMatch={xDirectionalEntry.routeMatch}
+                            />
+                        )
                         : null
                 }
             </>

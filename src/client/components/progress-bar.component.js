@@ -1,27 +1,27 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
-import styled, { ThemeContext } from 'styled-components';
+import styled from 'styled-components';
 import { useLocation } from 'react-router-dom';
-import { useScrollProgress } from 'hooks';
+import { useScrollProgress, useArticleSectionsNavigation } from 'hooks';
 import { MAX_SCROLL_PROGRESS } from 'client/constants';
 
 const ProgressBar = React.forwardRef(({ className }, ref) => {
-    const { current: navRef } = ref;
-    const { dimensions } = useContext(ThemeContext);
-    const { pathname } = useLocation();
-    const logoContainerHeight = _.get(dimensions, 'logo_container.height');
+    const { current: navRef } = ref;    
+    const { pathname } = useLocation();    
     const scrollProgress = useScrollProgress({
         pathname,
-        ref: navRef,
-        initialRefOffset: _.parseInt(logoContainerHeight)
+        ref: navRef
     });
+    const articleSectionsNavigation = useArticleSectionsNavigation();
     return (
         <div className={className}>
             {
                 scrollProgress >= MAX_SCROLL_PROGRESS
                     ? <span>Article Read!</span>
                     : <span>Reading Progress: {scrollProgress}%</span>
+            }
+            {
+                articleSectionsNavigation
             }
         </div>
     );

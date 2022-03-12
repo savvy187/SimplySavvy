@@ -6,9 +6,14 @@ import { useParams } from 'react-router-dom';
 import useResource from 'hooks/resource.hook';
 import useDocumentScroll from 'hooks/document-scroll.hook';
 import usePinToScroll from 'hooks/pin-to-scroll.hook';
-import { ApproximateTime, DefinitionList, Typography } from 'components';
+import { 
+    ArticleSection,
+    ApproximateTime, 
+    DefinitionList, 
+    Typography 
+} from 'components';
 
-const { Hgroup, H1, H2, P } = Typography;
+const { Hgroup, H1 } = Typography;
 
 const Article = ({ className }) => {
     const asideRef = useRef(null);
@@ -41,12 +46,11 @@ const Article = ({ className }) => {
                                     />
                                 </Hgroup>
                                 {_.map(resource.sections, (s) => (
-                                    <section key={s.id}>
-                                        <H2>{s.title}</H2>                                     
-                                        {_.map(s.content.text, (t, index) => (
-                                            <P key={`${id}-text-${index}`}>{t}</P>
-                                        ))}
-                                    </section>
+                                    <ArticleSection 
+                                        key={s.id}
+                                        title={s.title}
+                                        content={s.content}
+                                    />
                                 ))}
                             </article>
                             <div className="aside-container">
@@ -77,12 +81,6 @@ export default styled(Article)`
     .article-container {
         display: flex;
         padding: 20px;
-    }
-
-    section {
-        flex-shrink: 0;
-        padding: 0 0.5rem;
-        margin-bottom: 1.5rem;        
     }
 
     .aside-container {        

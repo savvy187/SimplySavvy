@@ -1,4 +1,4 @@
-import { useContext, useCallback, useRef, useEffect } from 'react';
+import { useContext, useCallback } from 'react';
 import _ from 'lodash';
 import { useScrollDirection, useDocumentScroll } from 'hooks';
 import { UIContext } from 'contexts/ui/ui.context';
@@ -32,9 +32,9 @@ function useScrollProgress({ pathname, ref }) {
 
             const shouldReportProgress = (
                 containerOffset === 0
-                && direction === DIRECTION_TYPE.DOWN
                 && scrollProgress < MAX_SCROLL_PROGRESS
             );
+
             
             if (shouldReportProgress) {
                 const windowHeight = window.innerHeight;

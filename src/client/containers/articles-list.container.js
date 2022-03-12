@@ -12,12 +12,13 @@ const ArticlesList = ({ className }) => {
     });
 
     const { observe, unobserve } = useIntersectionObserver({        
+        thresholdRange: [0, 0.25, 0.5, 0.75, 1],
         entryCallback: (entries) => {
             _.each(entries, (entry) => {
                 const intersectionRatio = entry.intersectionRatio;
                 entry.target.style.opacity = intersectionRatio;                
             });
-        }
+        }       
     });
     
     return (
