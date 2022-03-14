@@ -1,14 +1,41 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import _ from 'lodash';
+import { useHistory } from 'react-router-dom';
 import { Typography } from 'components';
+import { useIntersectionObserver } from 'hooks';
 
 const { H2, P } = Typography;
 
 const ArticleSection = ({ className, title, content }) => {
+    const history = useHistory();
+    const sectionRef = useRef();
+
+    const { observe, unobserve } = useIntersectionObserver({        
+        rootMargin: '-90% 0px 0px 0px',
+        thresholdRange: 1,
+        entryCallback: (entries) => {
+            const entry = _.first(entries);
+            
+            if (entry.isIntersecting) {
+                const id = entry.target.id;
+                history.push(`#${id}`);
+            }
+        }       
+    });
+
+    useEffect(() => {
+        observe(sectionRef.current);
+        return () => unobserve(sectionRef.current);
+    }, []);
+    
     return (
-        <section className={className}>
+        <section 
+            id={_.snakeCase(title)}
+            ref={sectionRef}
+            className={className}
+        >
             <H2>{title}</H2>                                     
             {
                 _.map(content.text, (t, index) => (
@@ -20,7 +47,7 @@ const ArticleSection = ({ className, title, content }) => {
 };
 
 ArticleSection.propTypes = {
-    className: PropTypes.string.isRequired,
+    className: PropTypes.string.isRequired,    
     title: PropTypes.string.isRequired,
     content: PropTypes.shape({
         id: PropTypes.oneOfType([

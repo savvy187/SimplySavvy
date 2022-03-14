@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import _ from 'lodash';
 import { useResource } from 'hooks';
 import { ArticleSummary } from 'components';
-import useIntersectionObserver from '../hooks/intersection-observer.hook';
+import { useIntersectionObserver } from 'hooks';
 
 const ArticlesList = ({ className }) => {    
     const { loading, success, empty, resource } = useResource({    

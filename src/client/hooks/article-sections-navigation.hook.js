@@ -1,32 +1,29 @@
 import React, { useMemo, useContext } from 'react';
 import _ from 'lodash';
-import { useLocation, useParams } from 'react-router-dom';
 import { NetworkContext } from 'contexts/network/network.context';
 import { Links } from 'components';
 
 const { NavAnchor } = Links;
 
-function useArticleSectionsNavigation() {
-    const { hash } = useLocation();
-    const { id } = useParams();
+function useArticleSectionsNavigation({ location, routeMatch }) {    
     const { selector } = useContext(NetworkContext);    
     const articleSections = selector({
-        stateKey: `requests['/api/articles/${id}']`,
+        stateKey: `requests['/api/articles/${routeMatch.params.id}']`,
         defaultValue: [],
         transformer: (article) => {
-            //console.log('article: ', article);
-            /* _.map(article, (a) => {
-                return _.flatMap(a.section, 'title');
-            }); */
+            const sections = _.get(article, 'data.sections', []);
+            return _.map(sections, 'title');
         }
-    });
-    //console.log(selector({}));
+    });        
 
-    return useMemo(() => {
+    return useMemo(() => {                
+        const hash = location.hash.substr(1);
+
         return _.map(articleSections, (sectionTitle) => {
             const hashTitle = _.snakeCase(sectionTitle);
             return (
                 <NavAnchor
+                    key={hashTitle}
                     to={{ hash: hashTitle }}
                     className={hash === hashTitle ? 'active' : ''}
                 >
@@ -34,7 +31,7 @@ function useArticleSectionsNavigation() {
                 </NavAnchor>
             );
         });
-    }, [articleSections]);
+    }, [articleSections, location.hash]);
 }
 
 export default useArticleSectionsNavigation;

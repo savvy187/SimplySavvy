@@ -47,7 +47,7 @@ const Article = ({ className }) => {
                                 </Hgroup>
                                 {_.map(resource.sections, (s) => (
                                     <ArticleSection 
-                                        key={s.id}
+                                        key={s.id}                                        
                                         title={s.title}
                                         content={s.content}
                                     />

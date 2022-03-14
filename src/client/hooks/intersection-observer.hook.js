@@ -15,19 +15,15 @@ export default function useIntersectionObserver({ root, rootMargin, threshold, e
         }
     }, [observer.current]);
 
-    useEffect(() => {
-        console.log('Effect running...');
-
+    useEffect(() => {        
         if (observer.current) {
             /* 
              * If we have a handle to any previous observer instances, stop observing
              * on thier nodes and disconnect...
-            */                   
-            console.log('Disconnecting Observer...');
+            */                               
             observer.current.disconnect();
         }
-
-        console.log('Initializing Observer...');
+        
         observer.current = new IntersectionObserver(entryCallback, { 
             root, 
             rootMargin, 
@@ -40,8 +36,7 @@ export default function useIntersectionObserver({ root, rootMargin, threshold, e
         */
         const { current: currentObserver } = observer;
 
-        return () => {
-            console.log('Cleaning up observer and disconnecting...');
+        return () => {            
             currentObserver.disconnect();
             observer.current = null;
         };

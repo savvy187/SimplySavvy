@@ -2,7 +2,7 @@ import React, { useMemo, useCallback } from 'react';
 import _ from 'lodash';
 import { useScrollDirection } from 'hooks';
 
-function useDirectionalElement({ ref, directions, pathname }) {
+function useDirectionalElement({ ref, directions, location }) {
     const direction = useScrollDirection();
 
     const getDirectionalEntry = useCallback(({ directions, axis, currentDirection }) => {
@@ -24,7 +24,7 @@ function useDirectionalElement({ ref, directions, pathname }) {
         });
         
         return directionEntry;
-    }, [pathname]);
+    }, [location.pathname]);
 
     return useMemo(() => {
         /* 
@@ -54,6 +54,7 @@ function useDirectionalElement({ ref, directions, pathname }) {
                         ? (
                             <YDirectionalElement 
                                 ref={ref} 
+                                location={location}
                                 routeMatch={yDirectionalEntry.routeMatch} 
                             />
                         )
@@ -64,6 +65,7 @@ function useDirectionalElement({ ref, directions, pathname }) {
                         ? (
                             <XDirectionalElement
                                 ref={ref}
+                                location={location}
                                 routeMatch={xDirectionalEntry.routeMatch}
                             />
                         )
@@ -72,7 +74,7 @@ function useDirectionalElement({ ref, directions, pathname }) {
             </>
         );
         
-    }, [direction, pathname]);
+    }, [direction, location.pathname]);
 }
 
 export default useDirectionalElement;

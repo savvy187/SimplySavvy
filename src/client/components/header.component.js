@@ -19,7 +19,7 @@ const Header = ({ className, location }) => {
     });
     
     const HeaderBar = useDirectionalElement({        
-        pathname: location.pathname,
+        location,
         ref: navRef,        
         directions: {
             y: [

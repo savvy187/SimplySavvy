@@ -16,12 +16,14 @@ const ArticleSummary = ({
     timestamp,
     similarArticlesCount, 
     commentsCount,
-    observe
+    observe,
+    unobserve
 }) => {
     const articleSummaryRef = useRef();
     
     useEffect(() => {
         observe(articleSummaryRef.current);
+        return () => unobserve(articleSummaryRef.current);
     }, []);
 
     return (
