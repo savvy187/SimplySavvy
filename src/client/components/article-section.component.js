@@ -12,8 +12,8 @@ const ArticleSection = ({ className, title, content }) => {
     const history = useHistory();
     const sectionRef = useRef();
 
-    const { observe, unobserve } = useIntersectionObserver({        
-        rootMargin: '-90% 0px 0px 0px',
+    const { observe, unobserve, debugTarget } = useIntersectionObserver({        
+        rootMargin: '0px 0px -95% 0px',
         thresholdRange: 1,
         entryCallback: (entries) => {
             const entry = _.first(entries);
@@ -22,7 +22,8 @@ const ArticleSection = ({ className, title, content }) => {
                 const id = entry.target.id;
                 history.push(`#${id}`);
             }
-        }       
+        },
+        debug: true
     });
 
     useEffect(() => {
@@ -42,6 +43,7 @@ const ArticleSection = ({ className, title, content }) => {
                     <P key={`${content.id}-text-${index}`}>{t}</P>
                 ))
             }
+            {debugTarget}
         </section>
     );
 };

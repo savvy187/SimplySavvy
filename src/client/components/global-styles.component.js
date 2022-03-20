@@ -22,6 +22,20 @@ const GlobalStyles = createGlobalStyle`
         background-color: white;
         box-shadow: ${({ theme }) => theme.shadows.root};
     }
+
+    .debug-target {
+        .root {
+            position: fixed;
+            border: 1px solid red;
+            &:before {
+                content: 'ROOT';
+                display: inline-block;                
+                color: white;                
+                background-color: red;
+                
+            }
+        }
+    }
 `;
 
 export default GlobalStyles;

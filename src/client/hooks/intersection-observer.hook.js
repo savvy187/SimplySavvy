@@ -1,7 +1,10 @@
-import { useEffect, useRef, useCallback } from 'react';
+import React, { useEffect, useMemo, useRef, useCallback } from 'react';
+import _ from 'lodash';
 
-export default function useIntersectionObserver({ root, rootMargin, threshold, entryCallback }) {
-    const observer = useRef(null);
+export default function useIntersectionObserver({ root, rootMargin, threshold, entryCallback, debug=false }) {
+    const observer = useRef(null);    
+    const rootBounds = useRef(null);
+    
 
     const unobserve = useCallback((target) => {
         if (observer.current) {
@@ -15,6 +18,14 @@ export default function useIntersectionObserver({ root, rootMargin, threshold, e
         }
     }, [observer.current]);
 
+    const debugTarget = useMemo(() => {       
+        return (
+            <div className="debug-target">
+                <div ref={rootBounds} className="root"/>
+            </div>
+        );
+    }, []);
+
     useEffect(() => {        
         if (observer.current) {
             /* 
@@ -24,7 +35,17 @@ export default function useIntersectionObserver({ root, rootMargin, threshold, e
             observer.current.disconnect();
         }
         
-        observer.current = new IntersectionObserver(entryCallback, { 
+        observer.current = new IntersectionObserver((entries) => {            
+            entryCallback(entries);
+
+            if (debug && rootBounds.current) {
+                const entry = _.first(entries);
+                rootBounds.current.style.top = `${entry.rootBounds.y}px`;
+                rootBounds.current.style.left = `${entry.rootBounds.x}px`;
+                rootBounds.current.style.width = `${entry.rootBounds.width}px`;                    
+                rootBounds.current.style.height = `${entry.rootBounds.height}px`;                
+            }
+        }, { 
             root, 
             rootMargin, 
             threshold: [0, 0.25, 0.5, 0.75, 1]
@@ -43,5 +64,9 @@ export default function useIntersectionObserver({ root, rootMargin, threshold, e
 
     }, [root, rootMargin, threshold]);
 
-    return { observe, unobserve };
+    return { 
+        observe, 
+        unobserve,
+        debugTarget
+    };
 }
