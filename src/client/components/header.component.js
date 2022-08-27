@@ -98,6 +98,7 @@ const StyledHeader = styled(Header)`
         border-radius: initial;
         box-shadow: initial;
         z-index: ${({ theme }) => theme.stacking_order.primary_nav};
+        overflow: hidden;
 
         &.scrolling {
             position: fixed;

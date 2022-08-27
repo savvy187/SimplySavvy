@@ -15,3 +15,4 @@ export useScrollProgress from './scroll-progress.hook';
 export useCurrentRoute from './current-route.hook';
 export useArticleSectionsNavigation from './article-sections-navigation.hook';
 export useScrollToHash from './scroll-to-hash.hook';
+export useScrollNavigation from './scroll-navigation.hook';

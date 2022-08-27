@@ -4,7 +4,7 @@ import { NetworkContext } from 'contexts/network/network.context';
 import { useScrollToHash } from 'hooks';
 import { Links } from 'components';
 
-const { NavAnchor } = Links;
+const { HashAnchor } = Links;
 
 function useArticleSectionsNavigation({ location, routeMatch }) {    
     const { selector } = useContext(NetworkContext);    
@@ -19,7 +19,7 @@ function useArticleSectionsNavigation({ location, routeMatch }) {
     });
 
     useScrollToHash({ 
-        idPrefix: 'section-navigation__'        
+        idPrefix: 'section-navigation__'
     });
 
 
@@ -29,14 +29,15 @@ function useArticleSectionsNavigation({ location, routeMatch }) {
         return _.map(articleSections, (sectionTitle) => {
             const hashTitle = _.snakeCase(sectionTitle);
             return (
-                <NavAnchor
-                    id={`section-navigation__${hashTitle}`}
+                <HashAnchor
                     key={hashTitle}
-                    to={{ hash: hashTitle, replace: true }}
-                    className={hash === hashTitle ? 'active' : ''}
+                    displayAs="NavAnchor"
+                    id={`section-navigation__${hashTitle}`}
+                    hash={hashTitle}
+                    isActive={hash === hashTitle}
                 >
                     {sectionTitle}
-                </NavAnchor>
+                </HashAnchor>
             );
         });
     }, [articleSections, location.hash]);

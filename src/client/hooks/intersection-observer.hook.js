@@ -1,10 +1,9 @@
 import React, { useEffect, useMemo, useRef, useCallback } from 'react';
 import _ from 'lodash';
 
-export default function useIntersectionObserver({ root, rootMargin, threshold, entryCallback, debug=false }) {
+export default function useIntersectionObserver({ root, rootMargin, threshold, entryCallback }) {
     const observer = useRef(null);    
     const rootBounds = useRef(null);
-    
 
     const unobserve = useCallback((target) => {
         if (observer.current) {
@@ -38,7 +37,7 @@ export default function useIntersectionObserver({ root, rootMargin, threshold, e
         observer.current = new IntersectionObserver((entries) => {            
             entryCallback(entries);
 
-            if (debug && rootBounds.current) {
+            if (rootBounds.current) {
                 const entry = _.first(entries);
                 rootBounds.current.style.top = `${entry.rootBounds.y}px`;
                 rootBounds.current.style.left = `${entry.rootBounds.x}px`;
