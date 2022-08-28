@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import _ from 'lodash';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 import useResource from 'hooks/resource.hook';
 import useDocumentScroll from 'hooks/document-scroll.hook';
 import usePinToScroll from 'hooks/pin-to-scroll.hook';
@@ -10,14 +10,18 @@ import {
     ArticleSection,
     ApproximateTime, 
     DefinitionList, 
-    Typography 
+    Typography,
+    Links
 } from 'components';
+import { ROUTES } from 'client/constants';
 
 const { Hgroup, H1 } = Typography;
+const { InlineAnchor, HashAnchor } = Links;
 
 const Article = ({ className }) => {
     const asideRef = useRef(null);
     const { id } = useParams();
+    const { hash } = useLocation();
 
     useDocumentScroll({
         scrollHandler: usePinToScroll(asideRef, 'scrolling'),
@@ -26,7 +30,7 @@ const Article = ({ className }) => {
         }
     });
     
-    const { loading, success, resource } = useResource({    
+    const { loading, success, resource: article } = useResource({    
         resourceRoute: `/api/articles/${id}`
     });
 
@@ -34,35 +38,66 @@ const Article = ({ className }) => {
         <div className={className}>
             { loading ? '<Loading...>' : null}             
             { 
-                success && resource
+                success && article
                     ? (
                         <div className="article-container">
                             <article>
                                 <Hgroup>
-                                    <H1>{resource.title}</H1>
+                                    <H1>{article.title}</H1>
                                     <ApproximateTime 
-                                        timestamp={resource.timestamp} 
+                                        timestamp={article.timestamp} 
                                         show                                            
                                     />
                                 </Hgroup>
-                                {_.map(resource.sections, (s) => (
-                                    <ArticleSection 
-                                        key={s.id}                                        
-                                        title={s.title}
-                                        content={s.content}
-                                    />
-                                ))}
+                                {
+                                    _.map(article.sections, (section) => (
+                                        <ArticleSection 
+                                            key={section.id}                                        
+                                            title={section.title}
+                                            content={section.content}
+                                        />
+                                    ))
+                                }
                             </article>
                             <div className="aside-container">
                                 <aside ref={asideRef}>
                                     <DefinitionList
-                                        listHeading="Categories"
-                                        listItems={resource.categories}
-                                    />
+                                        listHeading="In This Article"
+                                    >
+                                        {
+                                            _.map(article.sections, (section) => (
+                                                <HashAnchor
+                                                    key={section.hash}
+                                                    displayAs="InlineAnchor"
+                                                    hash={section.hash}
+                                                    isActive={hash.substr(1) === section.hash}
+                                                >
+                                                    {section.hash}
+                                                </HashAnchor>
+                                            ))
+                                        }
+                                    </DefinitionList>
                                     <DefinitionList
                                         listHeading="Similar Articles"
-                                        listItems={resource.similarArticles}
+                                        listItems={article.similarArticles}
                                     />
+                                    <DefinitionList
+                                        listHeading="Categories"                                        
+                                    >
+                                        {
+                                            _.map(article.categories, (cat) => (
+                                                <InlineAnchor
+                                                    key={cat}
+                                                    to={{
+                                                        pathname: ROUTES.HOME,
+                                                        search: `categories=${cat}`
+                                                    }}
+                                                >
+                                                    {cat}
+                                                </InlineAnchor>   
+                                            ))
+                                        }
+                                    </DefinitionList>
                                 </aside>
                             </div>
                         </div>

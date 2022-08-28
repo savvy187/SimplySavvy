@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { useScrollProgress } from 'hooks';    
 import { MAX_SCROLL_PROGRESS } from 'client/constants';
 
-const ProgressBar = React.forwardRef(({ className, location, routeMatch }, ref) => {
+const ProgressBar = React.forwardRef(({ className, routeMatch }, ref) => {
     const { current: navRef } = ref;    
     const scrollProgress = useScrollProgress({
         pathname: routeMatch.path,

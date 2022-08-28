@@ -44,7 +44,8 @@ const InlineAnchorStyles = css`
     text-decoration: none;
 
     &:hover,
-    &:focus {
+    &:focus,
+    &.active {
         color: ${({ theme }) => theme.colors.links.inline.hover};
         text-decoration-color: ${({ theme }) => theme.backgrounds.links.inline.hover}!important;
         text-decoration-skip-ink: auto;

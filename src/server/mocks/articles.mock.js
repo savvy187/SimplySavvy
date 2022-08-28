@@ -31,11 +31,15 @@ const generateArticle = (index) => {
         timestamp: faker.date.past(),
         summary: faker.lorem.sentences(),
         summaryImage: generateImage(),
-        sections: _.times(_.random(5, 15), (index) => ({
-            id: index,
-            title: faker.lorem.words(),
-            content: generateSectionContent(index)
-        })),        
+        sections: _.times(_.random(5, 15), (index) => {
+            const title = faker.lorem.words();
+            return {
+                id: index,
+                hash: _.snakeCase(title),
+                title,
+                content: generateSectionContent(index)
+            };            
+        }),        
         categories: _.times(_.random(1, 3), () => faker.random.arrayElement(categories)),
         similarArticles: _.times(_.random(1, 10), () => faker.lorem.sentence())
     };

@@ -2,20 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import _ from 'lodash';
-import { Links } from 'components';
 
-const { InlineAnchor } = Links;
-
-const DefinitionList = ({ className, listHeading, listItems=[] }) => {
-    if (!_.isEmpty(listItems)) {
+const DefinitionList = ({ children, className, listHeading }) => {
+    if (!_.isEmpty(children)) {
         return (
             <dl className={className}>
                 <dt>{listHeading}</dt>
-                {_.map(listItems, (item) => (
-                    <dd key={item}>
-                        <InlineAnchor>{item}</InlineAnchor>
-                    </dd>
-                ))}
+                {React.Children.map(children, (child, index) => {
+                    return <dd key={index}>{child}</dd>;
+                })}
             </dl>
         );
     }
@@ -26,7 +21,7 @@ const DefinitionList = ({ className, listHeading, listItems=[] }) => {
 DefinitionList.propTypes = {
     className: PropTypes.string.isRequired,
     listHeading: PropTypes.string.isRequired,
-    listItems: PropTypes.arrayOf(PropTypes.string)
+    children: PropTypes.arrayOf(PropTypes.node)
 };
 
 export default styled(DefinitionList)`
