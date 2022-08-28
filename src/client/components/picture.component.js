@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-const SummaryImage = ({ className, src, alt, sources }) => {        
+const Picture = ({ className, src, alt, sources }) => {        
     return (
         <picture className={className}>
             {sources.map((source) => (
@@ -18,7 +18,7 @@ const SummaryImage = ({ className, src, alt, sources }) => {
     );
 };
 
-SummaryImage.propTypes = {
+Picture.propTypes = {
     className: PropTypes.string.isRequired,
     sources: PropTypes.arrayOf(PropTypes.shape({
         media: PropTypes.string,
@@ -29,16 +29,10 @@ SummaryImage.propTypes = {
     alt: PropTypes.string
 };
 
-SummaryImage.defaultProps = {
+Picture.defaultProps = {
     sources: []
 };
 
-export default styled(SummaryImage)`
-    img {
-        width: 150px;
-        margin-right: 1em;
-        border-radius: 4px;
-        filter: ${({ theme }) => theme.filters.blur_1};
-        box-shadow: ${({ theme }) => theme.shadows.summary_image};
-    }
+export default styled(Picture)`
+    
 `;

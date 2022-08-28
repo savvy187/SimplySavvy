@@ -6,7 +6,7 @@ import { useHistory } from 'react-router-dom';
 import { Typography } from 'components';
 import { useIntersectionObserver } from 'hooks';
 
-const { H2, P } = Typography;
+const { H2, P, PullQuote } = Typography;
 
 const ArticleSection = ({ className, title, content }) => {
     const history = useHistory();
@@ -38,10 +38,19 @@ const ArticleSection = ({ className, title, content }) => {
         >
             <H2 className="section-title">{title}</H2>                                     
             {
+                !_.isEmpty(content.pullQuote)
+                    ? (
+                        <PullQuote>
+                            {content.pullQuote}
+                        </PullQuote>
+                    )
+                    : null                
+            }
+            {
                 _.map(content.text, (t, index) => (
                     <P key={`${content.id}-text-${index}`}>{t}</P>
                 ))
-            }            
+            }             
         </section>
     );
 };
@@ -67,4 +76,8 @@ export default styled(ArticleSection)`
     flex-shrink: 0;
     padding: 0 0.5rem;
     margin-bottom: 1.5rem;
+
+    blockquote {
+        float: right;        
+    }
 `;

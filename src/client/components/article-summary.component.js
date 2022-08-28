@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { SummaryImage, ApproximateTime, Typography, Links } from 'components';
+import { Picture, ApproximateTime, Typography, Links } from 'components';
 
 const { Hgroup, H2, P } = Typography;
 const { HeadingAnchor, BlockAnchor } = Links;
@@ -32,7 +32,7 @@ const ArticleSummary = ({
             data-testid="article-summary-component"
             className={className}
         >
-            <SummaryImage src={src} alt={alt} />
+            <Picture src={src} alt={alt} />
             <article>
                 <div>
                     <HeadingAnchor
@@ -92,5 +92,13 @@ export default styled(ArticleSummary)`
 
     nav a:first-child {
         margin-left: 0;
+    }
+
+    img {
+        width: 150px;
+        margin-right: 1em;
+        border-radius: 4px;
+        filter: ${({ theme }) => theme.filters.blur_1};
+        box-shadow: ${({ theme }) => theme.shadows.summary_image};
     }
 `;

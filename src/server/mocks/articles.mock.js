@@ -12,15 +12,21 @@ const categories = [
 ];
 
 const generateImage = (size='') => ({
+    type: 'image',
     src: `https://source.unsplash.com/random${!_.isEmpty(size) ? `/${size}` : ''}`,
     alt: faker.lorem.words()
 });
 
+const generateText = () => _.times(_.random(5, 10), () => faker.lorem.paragraph());
+    
+const generatePullQuote = () => _.times(_.random(0, 1), () => faker.lorem.sentence());
+    
+
 const generateSectionContent = (index) => ({
     id: index,
     images: _.times(_.random(0, 5), () => generateImage()),
-    pullQuote: faker.lorem.sentence(),
-    text: _.times(_.random(5, 10), () => faker.lorem.paragraph()) 
+    pullQuote: generatePullQuote(),
+    text: generateText()
 });
 
 const generateArticle = (index) => {

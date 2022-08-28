@@ -52,7 +52,10 @@ export default {
             p: {
                 default: PALETTE.DEFAULT,
                 selected: PALETTE.TERTIARY
-            }            
+            },
+            pullQuote: {
+                default: COLORS.GREY()
+            }  
         },
         links: {
             heading: {
@@ -109,6 +112,7 @@ export default {
         indicator: `${FONT_WEIGHTS.X_BOLD} ${FONT_SIZES.SMALL} ${FONT_FAMILIES.SANS_SERIF}`,
         typography: {            
             p: `${FONT_WEIGHTS.DEFAULT} ${FONT_SIZES.SMALL} ${FONT_FAMILIES.SANS_SERIF}`,
+            pullQuote: `${FONT_WEIGHTS.X_BOLD} ${FONT_SIZES.XX_LARGE} ${FONT_FAMILIES.SERIF}`,
             h1: `${FONT_WEIGHTS.X_BOLD} ${FONT_SIZES.XXX_LARGE} ${FONT_FAMILIES.SERIF}`,
             h2: `${FONT_WEIGHTS.BOLD} ${FONT_SIZES.XX_LARGE} ${FONT_FAMILIES.SERIF}`,
             h3: `${FONT_WEIGHTS.BOLD} ${FONT_SIZES.X_LARGE} ${FONT_FAMILIES.SERIF}`,
@@ -134,6 +138,9 @@ export default {
             block: {
                 focus: `1px solid ${COLORS.DARK_GREY(0.75)}`
             }
+        },
+        pullQuote: {
+            default: `2px solid ${COLORS.LIGHT_BLUE(0.75)}`
         }
     },
     shadows: {

@@ -68,6 +68,18 @@ export const H4 = styled.h4`
 export const P = styled.p`
     font: ${({ theme }) => theme.fonts.typography.p};
     ${typographyMixin}
-    line-height: 1.25;
+    line-height: 1.65;
     margin: 0 0 1.125em 0;
+`;
+
+export const PullQuote = styled.blockquote`
+    font: ${({ theme }) => theme.fonts.typography.pullQuote};
+    font-style: italic;
+    ${typographyMixin}
+    margin: 1em;
+    padding: 0.5em;
+    max-width: 10em;
+    line-height: 1.5;
+    color: ${({ theme }) => theme.colors.typography.pullQuote.default};
+    border-left: ${({ theme }) => theme.borders.pullQuote.default};
 `;
