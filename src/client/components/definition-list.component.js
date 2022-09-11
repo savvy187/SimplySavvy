@@ -21,7 +21,10 @@ const DefinitionList = ({ children, className, listHeading }) => {
 DefinitionList.propTypes = {
     className: PropTypes.string.isRequired,
     listHeading: PropTypes.string.isRequired,
-    children: PropTypes.arrayOf(PropTypes.node)
+    children: PropTypes.oneOfType([
+        PropTypes.arrayOf(PropTypes.node),
+        PropTypes.node
+    ])
 };
 
 export default styled(DefinitionList)`
