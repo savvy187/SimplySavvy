@@ -44,7 +44,7 @@ const ArticleSection = ({ className, title, content }) => {
                             {content.pullQuote}
                         </PullQuote>
                     )
-                    : null                
+                    : null
             }
             {
                 _.map(content.text, (t, index) => (
