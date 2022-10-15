@@ -5,7 +5,10 @@ import { UIContext } from 'contexts/ui/ui.context';
 import { UI_ACTION_TYPES } from 'contexts/ui/ui.reducer';
 import { DIRECTION_TYPE, AXIS_TYPE, MAX_SCROLL_PROGRESS } from 'client/constants';
 
-const { UPDATE_SCROLL_PROGRESS } = UI_ACTION_TYPES;
+const { 
+    UPDATE_SCROLL_PROGRESS,
+    RESET
+} = UI_ACTION_TYPES;
 
 function useScrollProgress({ pathname, ref }) {
     const direction = useScrollDirection(AXIS_TYPE.Y);
@@ -20,7 +23,12 @@ function useScrollProgress({ pathname, ref }) {
     const getRefOffset = useCallback(
         (axis) => ref && ref.getBoundingClientRect()[axis],
         [ref]
-    );
+    ); 
+
+    const resetProgress = useCallback(() => {
+        dispatchAction({ type: RESET });
+        window.scrollTo(0, 0);
+    });
     
     useDocumentScroll({
         scrollHandler: () => {
@@ -54,7 +62,10 @@ function useScrollProgress({ pathname, ref }) {
         }
     });
 
-    return scrollProgress;
+    return {
+        scrollProgress,
+        resetProgress    
+    };
 }
 
 export default useScrollProgress;

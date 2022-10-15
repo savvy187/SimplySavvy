@@ -3,10 +3,13 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { useScrollProgress } from 'hooks';    
 import { MAX_SCROLL_PROGRESS } from 'client/constants';
+import { Links } from 'components';
+
+const { ClickAnchor } = Links;
 
 const ProgressBar = React.forwardRef(({ className, routeMatch }, ref) => {
     const { current: navRef } = ref;    
-    const scrollProgress = useScrollProgress({
+    const { scrollProgress, resetProgress } = useScrollProgress({
         pathname: routeMatch.path,
         ref: navRef
     });
@@ -20,7 +23,30 @@ const ProgressBar = React.forwardRef(({ className, routeMatch }, ref) => {
                         ? 'Article Read!'
                         : `Reading Progress: ${scrollProgress}%`
                 }
-            </span>
+            </span>       
+            |      
+            <ClickAnchor
+                onClick={resetProgress}
+                displayAs="NavAnchor"
+            >
+                Reset
+            </ClickAnchor>
+            <ClickAnchor
+                displayAs="NavAnchor"
+            >
+                Tweet
+            </ClickAnchor>
+            <ClickAnchor
+                displayAs="NavAnchor"
+            >
+                Share
+            </ClickAnchor>
+            <ClickAnchor
+                displayAs="NavAnchor"
+            >
+                Recommend
+            </ClickAnchor>
+            
         </div>
     );
 });

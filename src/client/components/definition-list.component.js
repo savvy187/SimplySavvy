@@ -43,6 +43,14 @@ export default styled(DefinitionList)`
         padding: 0.25em;        
         border-bottom: ${({ theme }) => theme.borders.definition_definition.default};
 
+        a {
+            &:hover,
+            &.active {
+                font-weight: bold;
+            }
+        }
+        
+
         &:last-child {
             border-bottom: none;
         }
