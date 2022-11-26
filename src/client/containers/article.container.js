@@ -13,7 +13,7 @@ import {
     Typography,
     Links
 } from 'components';
-import { ROUTES } from 'client/constants';
+import { ROUTES } from 'client-constants';
 
 const { Hgroup, H1 } = Typography;
 const { InlineAnchor, HashAnchor } = Links;

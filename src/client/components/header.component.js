@@ -4,7 +4,7 @@ import styled, { ThemeContext } from 'styled-components';
 import { withRouter, matchPath } from 'react-router-dom';
 import { useDocumentScroll, usePinToScroll, useMediaQuery, useDirectionalElement } from 'hooks';
 import { NavBar, FilterBar, ProgressBar } from 'components';
-import { DIRECTION_TYPE, ROUTES } from 'client/constants';
+import { DIRECTION_TYPE, ROUTES } from 'client-constants';
 
 const Header = ({ className, location }) => {
     const navRef = useRef(null);

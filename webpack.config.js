@@ -14,6 +14,7 @@ const PATHS = {
     DIST: path.resolve(__dirname, 'dist/client'),
     CLIENT: path.resolve(__dirname, 'src/client'),
     COMPONENTS: path.resolve(__dirname, 'src/client/components'),
+    CONSTANTS: path.resolve(__dirname, 'src/client/constants'),
     CONTAINERS: path.resolve(__dirname, 'src/client/containers'),
     HOOKS: path.resolve(__dirname, 'src/client/hooks'),
     CONTEXTS: path.resolve(__dirname, 'src/client/contexts'),
@@ -117,6 +118,7 @@ const webPackConfig = {
         alias: {
             client: PATHS.CLIENT,
             components: PATHS.COMPONENTS,
+            'client-constants': PATHS.CONSTANTS,
             containers: PATHS.CONTAINERS,
             hooks: PATHS.HOOKS,
             styles: PATHS.STYLES,

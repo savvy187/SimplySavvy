@@ -82,4 +82,6 @@ export const PullQuote = styled.blockquote`
     line-height: 1.5;
     color: ${({ theme }) => theme.colors.typography.pullQuote.default};
     border-left: ${({ theme }) => theme.borders.pullQuote.default};
+    float: ${({ anchor }) => anchor};
+    clear: ${({ anchor }) => anchor};
 `;

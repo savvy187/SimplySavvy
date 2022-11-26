@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { useScrollProgress } from 'hooks';    
-import { MAX_SCROLL_PROGRESS } from 'client/constants';
+import { MAX_SCROLL_PROGRESS } from 'client-constants';
 import { Links } from 'components';
 
 const { ClickAnchor } = Links;

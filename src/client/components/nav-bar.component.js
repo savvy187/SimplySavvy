@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { useLocation } from 'react-router-dom';
 import { Links } from 'components';
 import useQuery from 'hooks/query.hook';
-import { ARTICLE_TYPE } from 'client/constants';
+import { ARTICLE_TYPE } from 'client-constants';
 
 const { NavAnchor } = Links;
 

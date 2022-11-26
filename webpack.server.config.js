@@ -8,7 +8,8 @@ const isDevelopment = process.env.NODE_ENV === 'development';
 
 const PATHS = {
     ROOT: path.resolve(__dirname),
-    DIST: path.resolve(__dirname, 'dist/server'),
+    CLIENT_CONSTANTS: path.resolve(__dirname, 'src/client/constants'),
+    DIST: path.resolve(__dirname, 'dist/server'),    
     CLIENT_DIST: path.resolve(__dirname, 'dist/client'),
     ASSETS: path.resolve(__dirname, 'assets'),
     SERVER: path.resolve(__dirname, 'src/server'),
@@ -90,6 +91,7 @@ const config = {
     resolve: {
         modules: ['node_modules'],
         alias: {
+            'client-constants': PATHS.CLIENT_CONSTANTS,
             server: PATHS.SERVER
         }
     }

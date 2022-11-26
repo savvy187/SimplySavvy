@@ -5,7 +5,7 @@ import {
     useArticleSectionsNavigation,
     useScrollNavigation
 } from 'hooks';
-import { AXIS_TYPE } from 'client/constants';
+import { AXIS_TYPE } from 'client-constants';
 
 const ArticleSectionsNavigation = ({ className, location, routeMatch }) => {
     const sectionNavRef = useRef(null);

@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import faker from 'faker';
+import { CONTENT_TYPE, ANCHOR_TYPE } from 'client-constants';
 
 const categories = [
     'React',
@@ -11,23 +12,42 @@ const categories = [
     'Angular'
 ];
 
+const anchors = [
+    ANCHOR_TYPE.LEFT,
+    ANCHOR_TYPE.RIGHT
+];
+
+const generateAnchor = () => faker.random.arrayElement(anchors);
+
 const generateImage = (size='') => ({
-    type: 'image',
+    type: CONTENT_TYPE.IMAGE,
     src: `https://source.unsplash.com/random${!_.isEmpty(size) ? `/${size}` : ''}`,
-    alt: faker.lorem.words()
+    alt: faker.lorem.words(),
+    anchor: generateAnchor()
 });
 
-const generateText = () => _.times(_.random(5, 10), () => faker.lorem.paragraph());
-    
-const generatePullQuote = () => _.times(_.random(0, 1), () => faker.lorem.sentence());
-    
-
-const generateSectionContent = (index) => ({
-    id: index,
-    images: _.times(_.random(0, 5), () => generateImage()),
-    pullQuote: generatePullQuote(),
-    text: generateText()
+const generateText = () => ({
+    type: CONTENT_TYPE.TEXT,
+    text: _.times(_.random(5, 10), () => faker.lorem.paragraph())
 });
+    
+const generatePullQuote = () => ({
+    type: CONTENT_TYPE.PULL_QUOTE,
+    text: faker.lorem.sentence(),
+    anchor: generateAnchor()
+});
+
+const generateSectionContent = () => {
+    const contentTypes = [
+        generateImage,
+        generateText,
+        generatePullQuote
+    ];
+    
+    return _.times(_.random(3, 10), () => {
+        return faker.random.arrayElement(contentTypes)();
+    });    
+};
 
 const generateArticle = (index) => {
     return {

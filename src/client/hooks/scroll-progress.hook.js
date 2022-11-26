@@ -3,7 +3,7 @@ import _ from 'lodash';
 import { useScrollDirection, useDocumentScroll } from 'hooks';
 import { UIContext } from 'contexts/ui/ui.context';
 import { UI_ACTION_TYPES } from 'contexts/ui/ui.reducer';
-import { DIRECTION_TYPE, AXIS_TYPE, MAX_SCROLL_PROGRESS } from 'client/constants';
+import { DIRECTION_TYPE, AXIS_TYPE, MAX_SCROLL_PROGRESS } from 'client-constants';
 
 const { 
     UPDATE_SCROLL_PROGRESS,

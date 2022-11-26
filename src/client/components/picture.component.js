@@ -1,11 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import _ from 'lodash';
+import { ANCHOR_TYPE  } from 'client-constants';
 
-const Picture = ({ className, src, alt, sources }) => {        
+const Picture = ({ className, src, alt, sources=[] }) => {        
     return (
         <picture className={className}>
-            {sources.map((source) => (
+            {_.map(sources, (source) => (
                 <source 
                     key={source.srcset}
                     media={source.media} 
@@ -20,6 +22,10 @@ const Picture = ({ className, src, alt, sources }) => {
 
 Picture.propTypes = {
     className: PropTypes.string.isRequired,
+    anchor: PropTypes.oneOf([
+        ANCHOR_TYPE.LEFT,
+        ANCHOR_TYPE.RIGHT
+    ]),
     sources: PropTypes.arrayOf(PropTypes.shape({
         media: PropTypes.string,
         srcset: PropTypes.string.isRequired,        
@@ -34,5 +40,6 @@ Picture.defaultProps = {
 };
 
 export default styled(Picture)`
-    
+    float: ${({ anchor }) => anchor};
+    clear: ${({ anchor }) => anchor};
 `;

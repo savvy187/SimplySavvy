@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import usePersistentStore from 'hooks/persistent-store.hook';
 import UIReducer, { UI_INITIAL_STATE } from './ui.reducer';
-import { STORAGE_TYPE } from 'client/constants';
+import { STORAGE_TYPE } from 'client-constants';
 
 export const UIContext = React.createContext();
 

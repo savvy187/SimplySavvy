@@ -1,6 +1,6 @@
 import React, { useMemo, useEffect, useState } from 'react';
 import { Links } from 'components';
-import { AXIS_TYPE, DIRECTION_TYPE } from 'client/constants';
+import { AXIS_TYPE, DIRECTION_TYPE } from 'client-constants';
 
 const { ClickAnchor } = Links;
 
